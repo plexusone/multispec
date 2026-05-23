@@ -6,12 +6,12 @@ Multi-domain specification orchestration for humans and AI agents.
 
 MultiSpec bridges the gap between organizational intent (MRD, PRD, UXD) and executable specifications for AI coding agents. It provides:
 
-- **Domain-specific authoring** - Separate specs for PM, UX, Engineering
-- **GTM synthesis** - LLM-generated press releases, FAQs, narratives (Working Backwards)
-- **Technical synthesis** - LLM-generated TRD, IRD from source specs
-- **Structured evaluation** - Per-domain LLM judges with customizable rubrics
-- **Reconciliation** - Conflict detection and tradeoff resolution
-- **Target adapters** - Export to SpecKit, GSD, GasTown, GasCity, OpenSpec
+- ✍️ **Domain-specific authoring** - Separate specs for PM, UX, Engineering
+- 📣 **GTM synthesis** - LLM-generated press releases, FAQs, narratives (Working Backwards)
+- ⚙️ **Technical synthesis** - LLM-generated TRD, IRD from source specs
+- 📊 **Structured evaluation** - Per-domain LLM judges with customizable rubrics
+- 🔄 **Reconciliation** - Conflict detection and tradeoff resolution
+- 📦 **Target adapters** - Export to SpecKit, GSD, GasTown, GasCity, OpenSpec
 
 ## Installation
 
