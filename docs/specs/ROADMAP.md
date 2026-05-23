@@ -1,0 +1,741 @@
+# MultiSpec Roadmap
+
+Multi-domain specification orchestration for humans and AI agents.
+
+## Vision
+
+MultiSpec bridges the gap between organizational intent (MRD, PRD, UXD) and executable specifications for AI coding agents. It provides:
+
+- **Domain-specific authoring** - Separate specs for PM, UX, Engineering
+- **GTM synthesis** - LLM-generated press releases, FAQs, narratives (Working Backwards)
+- **Technical synthesis** - LLM-generated TRD, IRD from source specs
+- **Structured evaluation** - Per-domain LLM judges with customizable rubrics
+- **Reconciliation** - Conflict detection and tradeoff resolution
+- **Target adapters** - Export to SpecKit, GSD, GasTown, GasCity, OpenSpec
+- **Post-ship alignment** - Maintain current-truth after shipping
+
+### Document Lifecycle
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ HUMAN-AUTHORED (Source)                                                 │
+│   MRD.md → PRD.md → UXD.md                                              │
+└─────────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│ LLM-GENERATED (GTM) ← Working Backwards methodology                     │
+│   PRESS.md → FAQ.md → NARRATIVE.md                                      │
+└─────────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│ LLM-GENERATED (Technical)                                               │
+│   TRD.md → IRD.md                                                       │
+└─────────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│ RECONCILIATION                                                          │
+│   All approved specs → SPEC.md (execution spec)                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│ TARGET EXPORT                                                           │
+│   SPEC.md → SpecKit | GSD | GasTown | GasCity | OpenSpec                │
+└─────────────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────────────┐
+│ POST-SHIP ALIGNMENT                                                     │
+│   SPEC.md + shipped reality → CURRENT-TRUTH.md                          │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Directory Structure (Canonical)
+
+```
+docs/specs/
+├── CONSTITUTION.md                    # Repo-level governance (CAPS)
+├── ROADMAP.md                         # Cross-project priorities (CAPS)
+└── {project}/                         # kebab-case project name
+    ├── source/                        # Human-authored specs
+    │   ├── mrd.md
+    │   ├── prd.md
+    │   └── uxd.md
+    ├── gtm/                           # LLM-generated GTM docs
+    │   ├── press.md
+    │   ├── faq.md
+    │   └── narrative.md
+    ├── technical/                     # LLM-generated technical docs
+    │   ├── trd.md
+    │   └── ird.md
+    ├── eval/                          # All evaluations (centralized)
+    │   ├── mrd.eval.json
+    │   ├── prd.eval.json
+    │   ├── uxd.eval.json
+    │   ├── press.eval.json
+    │   ├── faq.eval.json
+    │   ├── narrative.eval.json
+    │   ├── trd.eval.json
+    │   ├── ird.eval.json
+    │   └── spec.eval.json
+    ├── .graphize/                     # Requirement graph (via graphize)
+    ├── spec.md                        # Reconciled execution spec
+    ├── current-truth.md               # Post-ship maintained state
+    ├── status.html                    # Project readiness report
+    ├── index.md                       # MkDocs project page (generated)
+    └── multispec.yaml                 # Project configuration
+```
+
+### Naming Conventions (Enforced)
+
+| Element | Convention | Example |
+|---------|------------|---------|
+| Project directory | `kebab-case` | `user-onboarding`, `user-onboarding` |
+| Spec files | `lowercase.md` | `mrd.md`, `prd.md`, `spec.md` |
+| Eval files | `{spec}.eval.json` | `mrd.eval.json`, `press.eval.json` |
+| Config file | `multispec.yaml` | Fixed name |
+| Repo-level docs | `CAPS.md` | `CONSTITUTION.md`, `ROADMAP.md` |
+
+**Design principles:**
+- Specs (markdown) for humans, evals (JSON) for machines
+- Centralized evals enable easy status aggregation
+- Fixed naming enables automation without configuration
+- CAPS for repo-level canonical docs (like README.md)
+- `docs/` directory integrates with MkDocs for documentation sites
+
+---
+
+## Phase 0: Project Foundation
+
+Core project setup and CLI scaffolding.
+
+- [x] RMI-001: Initialize Go module (`github.com/plexusone/multispec`)
+- [x] RMI-002: Create CLI skeleton with Cobra (`multispec` command)
+- [x] RMI-003: Define core types package (`pkg/types/`)
+- [x] RMI-004: Add configuration loading (`multispec.yaml`)
+- [ ] RMI-005: Set up CI (lint, test, build)
+- [x] RMI-006: Create project README
+
+- [x] RMI-007: Implement `multispec lint` command
+  - Validate directory structure matches canonical layout
+  - Validate file naming conventions (lowercase specs, kebab-case projects)
+  - Report errors for non-standard names
+  - Exit non-zero for CI integration
+
+- [x] RMI-008: Implement MCP server skeleton
+  - MCP tools: list_projects, get_project_status, get_spec, get_eval
+  - MCP tools: run_eval, synthesize, reconcile, approve, export
+  - Stdio transport support
+
+- [x] RMI-009: Connect MCP handlers to library code
+  - list_projects → scan docs/specs/ directory
+  - get_project_status → pkg/status.Generate()
+  - get_spec → read spec file content (stub)
+  - Other handlers remain stubs until Phase 2-4
+
+---
+
+## Phase 1: Directory Structure & Source Specs
+
+Establish conventions for spec organization and authoring.
+
+### Directory Structure
+
+- [x] RMI-010: Implement `multispec init` command
+  - Create `docs/specs/{project}/` structure
+  - Create `source/`, `gtm/`, `technical/`, `eval/` subdirectories
+  - Generate `multispec.yaml` project config
+
+- [ ] RMI-011: Support CONSTITUTION.md at `docs/specs/CONSTITUTION.md`
+  - Repo-level governance document
+  - Optional org-level at `~/.config/multispec/CONSTITUTION.md`
+
+### MkDocs Integration
+
+- [ ] RMI-016: Generate `{project}/index.md` for each project
+  - Spec overview with status badges
+  - Links to all specs (source, gtm, technical)
+  - Eval summary (pass/fail counts, open findings)
+  - Last updated timestamps
+
+- [ ] RMI-017: Generate `docs/specs/index.md` (specs landing page)
+  - List all projects with status
+  - Link to CONSTITUTION.md and ROADMAP.md
+  - Cross-project metrics
+
+- [ ] RMI-018: Generate MkDocs navigation structure
+  - Auto-update `mkdocs.yml` nav section
+  - Or generate `nav.yml` partial for include
+  - Support `mkdocs-awesome-pages-plugin` `.pages` files
+
+- [ ] RMI-019: Render eval JSON to markdown for MkDocs
+  - `multispec render-evals {project}`
+  - Generate `eval/index.md` with rendered findings
+  - Collapsible sections per spec
+  - Severity badges and status indicators
+
+### Project Status Report
+
+- [x] RMI-019a: Implement `multispec status` core logic
+  - `pkg/status/status.go` - Generate() function
+  - Check spec existence per type
+  - Check eval file existence
+  - Check approval status
+  - Calculate readiness gates
+
+- [x] RMI-019b: Implement status renderers
+  - `RenderText()` - Terminal output with colors/icons
+  - `RenderHTML()` - Browser/MkDocs report with traffic light
+  - `RenderMarkdown()` - For embedding in index.md
+  - JSON output already works via CLI
+
+- [x] RMI-019c: Define readiness gates
+  - All required source specs present (mrd, prd, uxd, trd)
+  - All evals passing (no critical/high findings)
+  - All required approvals obtained
+  - spec.md generated
+
+- [ ] RMI-019d: Integrate graphize metrics in status report
+  - Traceability coverage percentage
+  - Requirements without TRD coverage
+  - Conflict count
+  - Link to graph visualization
+
+- [x] RMI-019e: CI exit codes for readiness
+  - `multispec status --ci` exits non-zero if not ready
+  - CLI flag wired up, needs renderer to output before exit
+
+### Source Spec Templates
+
+- [x] RMI-012: Create MRD.md template (Market Requirements)
+  - Market problem, target audience, competitive landscape
+  - Business metrics, success criteria
+
+- [x] RMI-013: Create PRD.md template (Product Requirements)
+  - User stories, functional requirements
+  - Acceptance criteria, priorities
+
+- [x] RMI-014: Create UXD.md template (User Experience Design)
+  - User journeys, interaction flows
+  - Accessibility requirements
+
+- [x] RMI-014a: Create TRD.md template (Technical Requirements)
+  - Architecture overview, API contracts
+  - Data models, technical constraints
+
+- [x] RMI-014b: Create IRD.md template (Infrastructure Requirements)
+  - Infrastructure architecture, compute, storage
+  - Security, observability, DR planning
+
+- [x] RMI-014c: Create Press Release template (Working Backwards)
+  - Headline, customer problem, solution
+  - Customer quote, call to action
+
+- [x] RMI-014d: Create FAQ template
+  - Question coverage across categories
+  - Pricing, getting started, objection handling
+
+- [x] RMI-014e: Create Narrative templates (1-pager and 6-pager)
+  - Executive summary format (1-pager)
+  - AWS 6-pager format with appendices
+
+- [ ] RMI-015: Implement `multispec create {spec-type}` command
+  - Scaffold new spec from template
+  - Support: mrd, prd, uxd, trd, ird, press, faq, narrative-1p, narrative-6p
+
+---
+
+## Phase 2: Evaluation Engine
+
+Integrate with `structured-evaluation` for per-spec evaluation.
+
+### Rubric System
+
+- [x] RMI-020: Define rubric file format (Go structs, leveraging `structured-evaluation`)
+  - Categories, weights, scales (categorical with range anchors)
+  - Pass criteria, severity thresholds
+
+- [x] RMI-021: Create default rubrics
+  - `pkg/rubrics/mrd.go` - Market requirements evaluation
+  - `pkg/rubrics/prd.go` - Product requirements evaluation
+  - `pkg/rubrics/uxd.go` - UX design evaluation
+  - `pkg/rubrics/trd.go` - Technical requirements evaluation
+  - `pkg/rubrics/ird.go` - Infrastructure requirements evaluation
+  - `pkg/rubrics/press.go` - Press release evaluation
+  - `pkg/rubrics/faq.go` - FAQ evaluation
+  - `pkg/rubrics/narrative1p.go` - 1-pager narrative evaluation
+  - `pkg/rubrics/narrative6p.go` - 6-pager narrative evaluation
+
+- [ ] RMI-022: Support custom rubrics in project config
+  - Override default rubrics per project
+  - Rubric inheritance/extension
+
+### Evaluation Commands
+
+- [x] RMI-023a: Implement MCP `run_eval` tool
+  - Load spec and rubric
+  - Call LLM judge via omnillm-core
+  - Return evaluation results with findings
+
+- [x] RMI-023b: Implement MCP `eval_draft` tool
+  - Evaluate draft content before finalization
+  - Track eval history in draft metadata
+
+- [ ] RMI-023c: Implement `multispec eval {spec-type}` CLI command
+  - Load spec and rubric
+  - Call LLM judge
+  - Write `{spec}.eval.json` output
+
+- [ ] RMI-024: Implement `multispec eval --all` command
+  - Evaluate all source specs, GTM docs, and technical docs
+  - Generate all `*.eval.json` files
+  - Support filtering: `--source`, `--gtm`, `--technical`
+
+- [ ] RMI-025: Implement `multispec render {eval-file}` command
+  - Render JSON eval to Markdown for human review
+  - Use `structured-evaluation/render/markdown`
+
+- [x] RMI-026: Implement `multispec status` command
+  - Summary of open items across all evals
+  - Severity counts, blocking issues
+
+### AI Co-Authoring (Draft Workflow)
+
+- [x] RMI-026a: Implement draft package (`pkg/draft/`)
+  - Draft CRUD operations (Start, Get, Update, Discard, Finalize)
+  - Session management with status tracking
+  - Eval history persistence
+
+- [x] RMI-026b: Implement MCP draft tools
+  - `start_draft` - Initialize draft from template
+  - `get_draft` - Retrieve draft content and metadata
+  - `update_draft` - Save draft content with versioning
+  - `eval_draft` - Evaluate draft against rubric
+  - `finalize_draft` - Promote draft to final spec
+  - `discard_draft` - Delete draft
+  - `list_drafts` - List all drafts in project
+
+- [x] RMI-026c: Implement LLM evaluation integration
+  - `pkg/eval/eval.go` - Evaluation orchestration
+  - `pkg/eval/llm.go` - LLM provider integration via omnillm-core
+  - Support project-level LLM config in multispec.yaml
+
+- [x] RMI-026d: Create authoring skills
+  - `skills/author-mrd/SKILL.md`
+  - `skills/author-prd/SKILL.md`
+  - `skills/author-uxd/SKILL.md`
+  - `skills/author-trd/SKILL.md`
+  - `skills/author-ird/SKILL.md`
+  - `skills/author-press/SKILL.md`
+  - `skills/author-faq/SKILL.md`
+  - `skills/author-narrative-1p/SKILL.md`
+  - `skills/author-narrative-6p/SKILL.md`
+
+---
+
+## Phase 3: GTM & Technical Synthesis
+
+LLM-generated documents from source specs + constitution.
+
+### GTM Document Generation (Working Backwards)
+
+- [ ] RMI-027: Implement `multispec synthesize press` command
+  - Input: MRD + PRD
+  - Output: `gtm/PRESS.md` (press release format)
+  - Template: Hook → Problem → Solution → Quote → CTA → Benefits
+  - Generate PRESS_EVAL.json
+
+- [ ] RMI-028: Implement `multispec synthesize faq` command
+  - Input: PRESS.md
+  - Output: `gtm/FAQ.md`
+  - Structure: External FAQs + Internal FAQs
+  - Challenge claims in press release
+  - Generate FAQ_EVAL.json
+
+- [ ] RMI-029: Implement `multispec synthesize narrative` command
+  - Input: MRD + PRD + FAQ
+  - Output: `gtm/NARRATIVE.md`
+  - Structure: Customer → Tension → Future State → Promise → Principles → Non-Goals
+  - Generate NARRATIVE_EVAL.json
+
+### GTM Evaluation Rubrics
+
+- [x] RMI-029a: Create press release rubric (`pkg/rubrics/press.go`)
+  - Categories: headline-impact, customer-problem, solution-clarity, customer-validation, call-to-action, readability
+
+- [x] RMI-029b: Create FAQ rubric (`pkg/rubrics/faq.go`)
+  - Categories: question-coverage, answer-clarity, customer-language, pricing-transparency, getting-started, objection-handling
+
+- [x] RMI-029c: Create narrative rubrics
+  - `pkg/rubrics/narrative1p.go` - 1-pager evaluation
+  - `pkg/rubrics/narrative6p.go` - 6-pager evaluation (AWS format)
+
+- [ ] RMI-029d: Support `--eval` flag on synthesize commands
+  - `multispec synthesize press --eval` generates press.md + press.eval.json
+  - Auto-evaluate after generation
+
+### Technical Document Generation
+
+### TRD Generation
+
+- [ ] RMI-030: Implement `multispec synthesize trd` command
+  - Input: MRD + PRD + UXD + CONSTITUTION
+  - Output: `technical/TRD.md`
+  - Generate TRD_EVAL.json
+
+- [ ] RMI-031: Define TRD template structure
+  - Architecture overview
+  - API contracts
+  - Data models
+  - Technical constraints
+  - Traceability to source requirements
+
+### IRD Generation
+
+- [ ] RMI-032: Implement `multispec synthesize ird` command
+  - Input: TRD + CONSTITUTION
+  - Output: `technical/IRD.md`
+  - Generate IRD_EVAL.json
+
+- [ ] RMI-033: Define IRD template structure
+  - Infrastructure requirements
+  - Deployment architecture
+  - Scaling considerations
+  - Operational requirements
+
+### Approval Workflow
+
+- [ ] RMI-034: Implement `multispec approve {spec-type}` command
+  - Record approval in `multispec.yaml`
+  - Track approver, timestamp
+  - Gate for reconciliation
+
+- [ ] RMI-035: Support approval status in `multispec status`
+  - Show pending approvals
+  - Show approval history
+
+### Post-Ship Alignment
+
+- [ ] RMI-036: Implement `multispec align` command
+  - Input: SPEC.md + shipped reality (from engineering)
+  - Output: `CURRENT-TRUTH.md`
+  - Detect: ungrounded claims, missed opportunities, drift
+  - Update GTM docs with alignment notes
+
+- [ ] RMI-037: Define CURRENT-TRUTH.md structure
+  - Product summary (current state)
+  - Active capabilities table
+  - Known boundaries/limitations
+  - Source specs and evidence
+  - Recent alignment notes
+
+---
+
+## Phase 4: Reconciliation Engine
+
+Conflict detection and unified spec generation.
+
+### Conflict Detection
+
+- [ ] RMI-040: Implement conflict detection algorithm
+  - Cross-spec requirement conflicts
+  - Constraint violations
+  - Missing traceability
+
+- [ ] RMI-041: Define conflict representation
+  - Conflict type (requirement, constraint, tradeoff)
+  - Source specs involved
+  - Severity level
+  - Suggested resolution
+
+### SPEC.md Generation
+
+- [ ] RMI-042: Implement `multispec reconcile` command
+  - Input: All approved specs
+  - Output: `SPEC.md` (unified execution spec)
+  - Output: `SPEC_EVAL.json` (reconciliation evaluation)
+
+- [ ] RMI-043: Define SPEC.md structure
+  - Resolved requirements
+  - Consolidated constraints
+  - Task decomposition
+  - Dependency graph
+  - Decision log (tradeoffs made)
+
+- [ ] RMI-044: Support unresolved conflicts in SPEC_EVAL.json
+  - Conflicts requiring human decision
+  - Escalation workflow
+
+---
+
+## Phase 5: Target Adapters
+
+Export reconciled specs to downstream execution systems.
+
+### Adapter Framework
+
+- [ ] RMI-050: Define `Target` interface
+  - `Name()`, `Version()`, `Capabilities()`
+  - `Validate()`, `Export()`
+
+- [ ] RMI-051: Implement target registry
+  - Register adapters by name
+  - List available targets
+
+- [ ] RMI-052: Implement `multispec targets` command
+  - List available targets
+  - Show capabilities
+
+- [ ] RMI-053: Implement `multispec export {target}` command
+  - Route to appropriate adapter
+  - Support multiple targets: `multispec export speckit,gsd`
+
+### SpecKit Adapter (Priority 1)
+
+- [ ] RMI-060: Implement SpecKit adapter
+  - Generate `specs/{seq}-{name}/spec.md`
+  - Generate `specs/{seq}-{name}/plan.md`
+  - Generate `specs/{seq}-{name}/tasks.md`
+
+- [ ] RMI-061: Support SpecKit constitution sync
+  - Update `.specify/memory/constitution.md` from CONSTITUTION.md
+
+- [ ] RMI-062: Support SpecKit branch conventions
+  - Sequential (`001-feature`) or timestamp naming
+
+### GSD Adapter (Priority 2)
+
+- [ ] RMI-070: Implement GSD adapter
+  - Generate `PLAN.md` files with YAML frontmatter + XML tasks
+  - Generate initial `STATE.md`
+  - Generate `.planning/config.json`
+
+- [ ] RMI-071: Map requirements to `must_haves`
+  - `must_haves.truths` from acceptance criteria
+  - `must_haves.artifacts` from deliverables
+  - `must_haves.key_links` from dependencies
+
+- [ ] RMI-072: Support GSD phases
+  - Map spec phases to GSD phase structure
+  - Generate wave dependencies
+
+### GasTown Adapter (Priority 3)
+
+- [ ] RMI-080: Implement GasTown adapter
+  - Generate TOML formulas (convoy/workflow/expansion)
+  - Generate Bead definitions
+
+- [ ] RMI-081: Support formula types
+  - Convoy for parallel review
+  - Workflow for sequential execution
+  - Expansion for template-based generation
+
+- [ ] RMI-082: Map task dependencies to Bead DAG
+  - Blocked/ready relationships
+  - Convoy coordination
+
+### GasCity Adapter (Priority 3)
+
+- [ ] RMI-085: Implement GasCity adapter
+  - Generate `city.toml` agent configuration
+  - Generate agent definitions
+  - Generate orders
+
+### OpenSpec Adapter (Future)
+
+- [ ] RMI-090: Define OpenSpec export format
+  - Portable JSON/YAML structure
+  - Agent-agnostic representation
+
+- [ ] RMI-091: Implement OpenSpec adapter
+  - Standards-compliant export
+  - Interoperability focus
+
+---
+
+## Phase 6: Claude Code / Kiro CLI Integration
+
+Seamless integration with AI coding assistant workflows via multi-agent-spec and assistantkit.
+
+### Skill Definitions (multi-agent-spec)
+
+- [x] RMI-098: Add Skill schema to multi-agent-spec
+  - `sdk/go/skill.go` - Skill struct with builder methods
+  - `schema/skill/skill.schema.json` - JSON Schema
+  - Loader functions for skill directories
+  - Matches assistantkit canonical type
+
+- [ ] RMI-099: Define multispec skills in multi-agent-spec format
+  - `multispec-status` - Check project readiness
+  - `multispec-lint` - Validate project structure
+  - `multispec-eval` - Run evaluations
+  - `multispec-synthesize` - Generate specs
+  - `multispec-reconcile` - Generate unified spec
+  - `multispec-export` - Export to targets
+
+### Skill Generation (assistantkit)
+
+- [ ] RMI-100: Generate Claude Code skills via assistantkit
+  - `skills/multispec-status/SKILL.md`
+  - `skills/multispec-lint/SKILL.md`
+  - etc.
+
+- [ ] RMI-101: Generate Kiro CLI steering files via assistantkit
+  - `steering/multispec-status.md`
+  - `steering/multispec-lint.md`
+  - etc.
+
+### Automation
+
+- [ ] RMI-102: Implement `multispec watch` command
+  - File watcher for spec changes
+  - Auto-run eval on change
+  - Auto-run reconcile when all approved
+
+- [ ] RMI-103: Support git hooks
+  - Pre-commit: validate specs
+  - Post-commit: trigger eval
+
+---
+
+## Phase 7: Graphize Integration
+
+Requirement graph visualization via `github.com/plexusone/graphize`.
+
+### Spec Extractor
+
+- [ ] RMI-140: Create spec extractor for graphize
+  - New extractor in `graphize/pkg/extract/spec/`
+  - Parse markdown specs (mrd.md, prd.md, trd.md, etc.)
+  - Extract requirements, constraints, decisions as nodes
+  - Infer relationships as edges
+
+- [ ] RMI-141: Define spec node types
+  - `requirement` - Functional requirements from PRD
+  - `user_story` - User stories from PRD
+  - `constraint` - Constraints from CONSTITUTION, TRD
+  - `acceptance_criteria` - Testable criteria
+  - `decision` - Architectural decisions from TRD
+  - `tradeoff` - Explicit tradeoffs from reconciliation
+  - `capability` - Current capabilities from CURRENT-TRUTH
+
+- [ ] RMI-142: Define spec edge types
+  - `traces_to` - Requirement traceability (PRD → TRD)
+  - `derived_from` - Synthesis source (TRD → MRD + PRD)
+  - `conflicts_with` - Detected conflicts
+  - `satisfies` - Implementation satisfies requirement
+  - `depends_on` - Requirement dependencies
+  - `blocks` - Blocking relationships
+  - `supersedes` - Decision replacement
+
+### Graph Storage
+
+- [ ] RMI-143: Store spec graph in project directory
+  - `.graphize/` directory under `docs/specs/{project}/`
+  - Version controlled with project
+  - One file per node/edge (git-friendly)
+
+- [ ] RMI-144: Implement `multispec graph` commands
+  - `multispec graph extract` - Build graph from specs
+  - `multispec graph query` - Query relationships
+  - `multispec graph export` - Export to HTML/JSON/GraphML
+
+### Traceability Analysis
+
+- [ ] RMI-145: Implement traceability reports
+  - Requirements without TRD coverage
+  - TRD tasks without PRD traceability
+  - Orphaned constraints
+  - Missing acceptance criteria
+
+- [ ] RMI-146: Conflict detection via graph
+  - Query `conflicts_with` edges
+  - Highlight in reconciliation
+  - Surface in SPEC_EVAL
+
+### Visualization
+
+- [ ] RMI-147: Generate spec graph HTML visualization
+  - Interactive Cytoscape.js graph
+  - Color-coded by spec type (PRD=blue, TRD=green, CONSTITUTION=red)
+  - Filter by relationship type
+  - Search by requirement ID
+
+- [ ] RMI-148: MkDocs graph integration
+  - Embed graph visualization in project index.md
+  - Or link to standalone HTML export
+
+---
+
+## Phase 8: Advanced Features
+
+Future enhancements.
+
+### Multi-Project Support
+
+- [ ] RMI-110: Support cross-project dependencies
+  - Project references in SPEC.md
+  - Cross-project reconciliation
+
+- [ ] RMI-111: Implement `docs/specs/ROADMAP.md` generation
+  - Aggregate project statuses
+  - Prioritization tracking
+
+### Organizational Memory
+
+- [ ] RMI-120: Decision log persistence
+  - Track tradeoffs across projects
+  - Searchable decision history
+
+- [ ] RMI-121: Rationale graphs
+  - Link decisions to requirements
+  - Impact analysis
+
+### Analytics
+
+- [ ] RMI-130: Evaluation metrics dashboard
+  - Spec quality trends
+  - Common failure patterns
+
+- [ ] RMI-131: Reconciliation metrics
+  - Conflict frequency
+  - Resolution time
+
+---
+
+## Dependencies
+
+| Dependency | Purpose |
+|------------|---------|
+| `github.com/plexusone/structured-evaluation` | Rubric and evaluation types |
+| `github.com/plexusone/graphize` | Requirement graph extraction and visualization |
+| `github.com/spf13/cobra` | CLI framework |
+| `github.com/spf13/viper` | Configuration |
+| `github.com/fsnotify/fsnotify` | File watching |
+
+---
+
+## Target Compatibility Matrix
+
+| Feature | SpecKit | GSD | GasTown | GasCity | OpenSpec |
+|---------|---------|-----|---------|---------|----------|
+| Sequential tasks | Yes | Yes | Yes | Yes | Yes |
+| Parallel execution | No | Yes (waves) | Yes (convoy) | Yes | TBD |
+| Multi-agent | No | No | Yes | Yes | TBD |
+| Verification | Implicit | Yes | Yes | Yes | TBD |
+| Dependency graph | Yes | Yes | Yes (Beads) | Yes | TBD |
+
+---
+
+## Version Milestones
+
+| Version | Phase | Key Deliverables |
+|---------|-------|------------------|
+| v0.1.0 | 0-1 | CLI skeleton, directory structure, templates |
+| v0.2.0 | 2 | Evaluation engine, rubrics, status command |
+| v0.3.0 | 3 | GTM synthesis (press, faq, narrative), TRD/IRD synthesis |
+| v0.4.0 | 4 | Reconciliation engine, SPEC.md generation |
+| v0.5.0 | 5a | SpecKit adapter |
+| v0.6.0 | 5b | GSD adapter |
+| v0.7.0 | 5c | GasTown/GasCity adapters |
+| v0.8.0 | 6 | Claude Code skill |
+| v0.9.0 | 7 | Graphize integration, requirement graphs |
+| v1.0.0 | 8 | Production release with full feature set |
