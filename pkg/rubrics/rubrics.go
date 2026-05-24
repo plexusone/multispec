@@ -17,40 +17,48 @@ type RubricSet struct {
 	PassCriteria
 }
 
-// Category represents a scoring category with its rubric.
+// Category represents a scoring category with categorical criteria.
 type Category struct {
 	ID          string
 	Name        string
 	Description string
 	Weight      float64
-	Rubric      *evaluation.Rubric
+	Required    bool
+	Criteria    CategoricalCriteria
+}
+
+// CategoricalCriteria defines pass/partial/fail criteria for a category.
+type CategoricalCriteria struct {
+	Pass    string
+	Partial string
+	Fail    string
 }
 
 // PassCriteria defines what constitutes a passing evaluation.
 type PassCriteria struct {
-	MinScore    float64
-	MaxCritical int
-	MaxHigh     int
-	MaxMedium   int // -1 = unlimited
+	RequireAllPass bool // All categories must pass
+	MaxCritical    int
+	MaxHigh        int
+	MaxMedium      int // -1 = unlimited
 }
 
 // DefaultPassCriteria returns the default pass criteria.
 func DefaultPassCriteria() PassCriteria {
 	return PassCriteria{
-		MinScore:    7.0,
-		MaxCritical: 0,
-		MaxHigh:     0,
-		MaxMedium:   -1, // unlimited
+		RequireAllPass: false,
+		MaxCritical:    0,
+		MaxHigh:        0,
+		MaxMedium:      -1, // unlimited
 	}
 }
 
 // StrictPassCriteria returns stricter pass criteria.
 func StrictPassCriteria() PassCriteria {
 	return PassCriteria{
-		MinScore:    8.0,
-		MaxCritical: 0,
-		MaxHigh:     0,
-		MaxMedium:   3,
+		RequireAllPass: true,
+		MaxCritical:    0,
+		MaxHigh:        0,
+		MaxMedium:      3,
 	}
 }
 
@@ -114,12 +122,26 @@ func (rs *RubricSet) CategoryByID(id string) (*Category, bool) {
 	return nil, false
 }
 
-// newRubric creates a standard rubric with common anchors.
-func newRubric(name, description string) *evaluation.Rubric {
-	return evaluation.NewRubric(name, description).
-		AddRangeAnchor(9.0, 10.0, "Excellent", "Exceeds expectations in all aspects").
-		AddRangeAnchor(7.0, 8.9, "Good", "Meets expectations with minor improvements possible").
-		AddRangeAnchor(5.0, 6.9, "Adequate", "Meets minimum requirements but needs improvement").
-		AddRangeAnchor(3.0, 4.9, "Needs Work", "Below expectations, requires significant revision").
-		AddRangeAnchor(0.0, 2.9, "Poor", "Does not meet basic requirements")
+// ToEvaluationRubricSet converts to structured-evaluation RubricSet.
+func (rs *RubricSet) ToEvaluationRubricSet() *evaluation.RubricSet {
+	evalRS := evaluation.NewRubricSet(
+		string(rs.SpecType)+"-rubric",
+		rs.Name,
+		"1.0",
+	)
+	evalRS.Description = rs.Description
+
+	for _, cat := range rs.Categories {
+		evalCat := evaluation.NewCategory(cat.ID, cat.Name, cat.Description).
+			SetWeight(cat.Weight).
+			SetRequired(cat.Required).
+			WithPassPartialFail(
+				[]string{cat.Criteria.Pass},
+				[]string{cat.Criteria.Partial},
+				[]string{cat.Criteria.Fail},
+			)
+		evalRS.AddCategory(*evalCat)
+	}
+
+	return evalRS
 }
