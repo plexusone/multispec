@@ -31,3 +31,6 @@ site/
 # Temporary files
 *.tmp
 *.log
+
+# Chat transcripts
+IDEATION_CHAT*.md
