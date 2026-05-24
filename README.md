@@ -44,7 +44,7 @@ MultiSpec bridges the gap between organizational intent (MRD, PRD, UXD) and exec
 ## Installation
 
 ```bash
-go install github.com/plexusone/multispec/cmd/multispec@latest
+go install github.com/plexusone/multispec/cmd/multispec@v0.1.0
 ```
 
 ## Quick Start
@@ -116,26 +116,19 @@ POST-SHIP ALIGNMENT
 
 ## CLI Commands
 
-### Implemented
-
-| Command | Description |
-|---------|-------------|
-| `init <project>` | Initialize a new project with standard directory structure |
-| `lint [project]` | Validate directory structure and naming conventions |
-| `status` | Show project status and readiness gates |
-| `targets` | List available export targets |
-
-### Planned
-
-| Command | Description |
-|---------|-------------|
-| `eval [type]` | Evaluate specs using LLM judges |
-| `synthesize <type>` | Generate specs from source docs |
-| `reconcile` | Generate unified execution spec |
-| `approve <type>` | Approve a spec for reconciliation |
-| `export <target>` | Export to target execution system |
-| `graph <cmd>` | Manage requirement graphs |
-| `serve` | Start MCP server for AI integration |
+| Command | Description | Status |
+|---------|-------------|--------|
+| `init <project>` | Initialize a new project with standard directory structure | Implemented |
+| `lint [project]` | Validate directory structure and naming conventions | Implemented |
+| `status` | Show project status and readiness gates | Implemented |
+| `targets` | List available export targets | Implemented |
+| `eval [type]` | Evaluate specs using LLM judges | Implemented |
+| `synthesize <type>` | Generate specs from source docs | Stub |
+| `reconcile` | Generate unified execution spec | Stub |
+| `approve <type>` | Approve a spec for reconciliation | Stub |
+| `export <target>` | Export to target execution system | Stub |
+| `graph <cmd>` | Manage requirement graphs | Planned |
+| `serve` | Start MCP server for AI integration | Planned |
 
 ## Status Command
 
@@ -182,9 +175,14 @@ multispec-mcp
 |------|--------|-------------|
 | `list_projects` | Implemented | List all multispec projects |
 | `get_project_status` | Implemented | Get project readiness status |
+| `start_draft` | Implemented | Initialize a new draft |
+| `update_draft` | Implemented | Save draft content |
+| `eval_draft` | Implemented | Evaluate draft against rubric |
+| `finalize_draft` | Implemented | Promote draft to final spec |
+| `get_draft` | Implemented | Retrieve current draft |
+| `discard_draft` | Implemented | Delete a draft |
 | `get_spec` | Stub | Get specification content |
 | `get_eval` | Stub | Get evaluation results |
-| `run_eval` | Stub | Run evaluation on a spec |
 | `synthesize` | Stub | Generate a spec |
 | `reconcile` | Stub | Generate execution spec |
 | `approve` | Stub | Approve a specification |
@@ -223,19 +221,19 @@ make install
 
 ## Project Status
 
-See [ROADMAP.md](docs/specs/ROADMAP.md) for detailed implementation status.
+See [ROADMAP.md](docs/specs/ROADMAP.md) for detailed implementation status and [CHANGELOG.md](CHANGELOG.md) for release history.
 
-**Current Version:** v0.1.0-dev
+**Current Version:** v0.1.0
 
 | Phase | Status |
 |-------|--------|
-| Phase 0: Foundation | In Progress |
-| Phase 1: Directory Structure | In Progress |
-| Phase 2: Evaluation Engine | Not Started |
-| Phase 3: GTM & Technical Synthesis | Not Started |
-| Phase 4: Reconciliation Engine | Not Started |
-| Phase 5: Target Adapters | Not Started |
-| Phase 6: Claude Code Integration | In Progress |
+| Phase 0: Foundation | Complete |
+| Phase 1: Directory Structure | Complete |
+| Phase 2: Evaluation Engine | In Progress |
+| Phase 3: GTM & Technical Synthesis | Stub |
+| Phase 4: Reconciliation Engine | Stub |
+| Phase 5: Target Adapters | Partial (SpecKit) |
+| Phase 6: Claude Code Integration | Complete |
 | Phase 7: Graphize Integration | Not Started |
 | Phase 8: Advanced Features | Not Started |
 
