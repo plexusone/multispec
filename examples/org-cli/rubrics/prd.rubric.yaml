@@ -1,0 +1,64 @@
+# Acme Corp PRD Evaluation Rubric
+# Extends default PRD rubric with security requirements
+
+spec_type: prd
+name: "Acme PRD Rubric"
+description: "Product Requirements Document evaluation with Acme security requirements"
+version: "1.0"
+
+categories:
+  - id: problem-clarity
+    name: "Problem Clarity"
+    description: "Is the problem being solved clearly articulated?"
+    weight: 1.5
+    required: true
+    criteria:
+      pass: "Problem is specific, measurable, and tied to user needs"
+      partial: "Problem is stated but lacks specificity or user grounding"
+      fail: "Problem is unclear or missing"
+
+  - id: user-stories
+    name: "User Stories"
+    description: "Are user stories complete with acceptance criteria?"
+    weight: 2.0
+    required: true
+    criteria:
+      pass: "All user stories follow format with testable acceptance criteria"
+      partial: "Some user stories missing criteria or incomplete"
+      fail: "User stories missing or not in proper format"
+
+  - id: requirements-coverage
+    name: "Requirements Coverage"
+    description: "Are functional and non-functional requirements complete?"
+    weight: 2.0
+    required: true
+    criteria:
+      pass: "Comprehensive FR and NFR with priorities and dependencies"
+      partial: "Requirements present but missing priorities or dependencies"
+      fail: "Requirements incomplete or poorly organized"
+
+  - id: security-requirements
+    name: "Security Requirements"
+    description: "Are security requirements explicitly documented? (ACME POLICY)"
+    weight: 3.0
+    required: true
+    criteria:
+      pass: "Authentication, authorization, and data protection addressed"
+      partial: "Some security considerations but gaps exist"
+      fail: "Security requirements missing or inadequate"
+
+  - id: accessibility
+    name: "Accessibility"
+    description: "Are accessibility requirements addressed? (WCAG 2.1 AA)"
+    weight: 1.5
+    required: true
+    criteria:
+      pass: "WCAG 2.1 AA compliance explicitly addressed"
+      partial: "Some accessibility mentioned but not comprehensive"
+      fail: "Accessibility not addressed"
+
+pass_criteria:
+  require_all_pass: false
+  max_critical: 0
+  max_high: 0
+  max_medium: 2
