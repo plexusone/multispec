@@ -19,60 +19,60 @@ func NewNarrative1PRubricSet() *RubricSet {
 				Name:        "Opportunity Clarity",
 				Description: "How clearly the market opportunity or problem is articulated",
 				Weight:      0.25,
-				Rubric: newRubric("opportunity_clarity", "Opportunity statement quality").
-					AddRangeAnchor(9, 10, "Excellent", "Compelling opportunity with clear market timing and urgency").
-					AddRangeAnchor(7, 8.9, "Good", "Clear opportunity statement with reasonable justification").
-					AddRangeAnchor(5, 6.9, "Adequate", "Opportunity stated but lacks compelling urgency").
-					AddRangeAnchor(3, 4.9, "Needs Work", "Opportunity is vague or poorly justified").
-					AddRangeAnchor(0, 2.9, "Poor", "No clear opportunity articulated"),
+				Required:    true,
+				Criteria: CategoricalCriteria{
+					Pass:    "Compelling opportunity with clear market timing and urgency",
+					Partial: "Opportunity stated but lacks compelling urgency",
+					Fail:    "No clear opportunity articulated or poorly justified",
+				},
 			},
 			{
 				ID:          "solution_value",
 				Name:        "Solution Value Proposition",
 				Description: "Clarity of the solution and its value proposition",
 				Weight:      0.25,
-				Rubric: newRubric("solution_value", "Solution clarity").
-					AddRangeAnchor(9, 10, "Excellent", "Crystal clear value proposition with direct link to opportunity").
-					AddRangeAnchor(7, 8.9, "Good", "Clear solution with understood value").
-					AddRangeAnchor(5, 6.9, "Adequate", "Solution described but value unclear").
-					AddRangeAnchor(3, 4.9, "Needs Work", "Solution is vague or disconnected from problem").
-					AddRangeAnchor(0, 2.9, "Poor", "No clear solution articulated"),
+				Required:    true,
+				Criteria: CategoricalCriteria{
+					Pass:    "Crystal clear value proposition with direct link to opportunity",
+					Partial: "Solution described but value unclear",
+					Fail:    "No clear solution articulated or disconnected from problem",
+				},
 			},
 			{
 				ID:          "target_specificity",
 				Name:        "Target Customer Specificity",
 				Description: "How specifically the target customer is defined",
 				Weight:      0.15,
-				Rubric: newRubric("target_specificity", "Target customer definition").
-					AddRangeAnchor(9, 10, "Excellent", "Specific, well-defined customer segment with clear characteristics").
-					AddRangeAnchor(7, 8.9, "Good", "Customer segment identified with key attributes").
-					AddRangeAnchor(5, 6.9, "Adequate", "Customer mentioned but too broad").
-					AddRangeAnchor(3, 4.9, "Needs Work", "Customer definition is vague").
-					AddRangeAnchor(0, 2.9, "Poor", "No target customer defined"),
+				Required:    true,
+				Criteria: CategoricalCriteria{
+					Pass:    "Specific, well-defined customer segment with clear characteristics",
+					Partial: "Customer mentioned but too broad",
+					Fail:    "No target customer defined or definition is vague",
+				},
 			},
 			{
 				ID:          "benefits_concrete",
 				Name:        "Concrete Benefits",
 				Description: "Whether benefits are outcome-focused and concrete",
 				Weight:      0.20,
-				Rubric: newRubric("benefits_concrete", "Benefit quality").
-					AddRangeAnchor(9, 10, "Excellent", "Benefits are specific, measurable outcomes customers care about").
-					AddRangeAnchor(7, 8.9, "Good", "Clear benefits focused on outcomes").
-					AddRangeAnchor(5, 6.9, "Adequate", "Benefits listed but feature-focused").
-					AddRangeAnchor(3, 4.9, "Needs Work", "Benefits are vague or uncompelling").
-					AddRangeAnchor(0, 2.9, "Poor", "No clear benefits stated"),
+				Required:    true,
+				Criteria: CategoricalCriteria{
+					Pass:    "Benefits are specific, measurable outcomes customers care about",
+					Partial: "Benefits listed but feature-focused rather than outcome-focused",
+					Fail:    "No clear benefits stated or benefits are vague",
+				},
 			},
 			{
 				ID:          "ask_clarity",
 				Name:        "Clear Ask",
 				Description: "Whether the ask (resources, decisions needed) is clear",
 				Weight:      0.15,
-				Rubric: newRubric("ask_clarity", "Ask clarity").
-					AddRangeAnchor(9, 10, "Excellent", "Specific ask with clear next steps and timeline").
-					AddRangeAnchor(7, 8.9, "Good", "Clear ask with reasonable next steps").
-					AddRangeAnchor(5, 6.9, "Adequate", "Ask present but vague").
-					AddRangeAnchor(3, 4.9, "Needs Work", "Unclear what is being requested").
-					AddRangeAnchor(0, 2.9, "Poor", "No ask or call to action"),
+				Required:    true,
+				Criteria: CategoricalCriteria{
+					Pass:    "Specific ask with clear next steps and timeline",
+					Partial: "Ask present but vague on specifics",
+					Fail:    "No ask or call to action",
+				},
 			},
 		},
 	}
