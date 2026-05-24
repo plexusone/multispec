@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -20,7 +21,7 @@ func NewUXDRubricSet() *RubricSet {
 				Description: "Clarity of UX objectives and design principles",
 				Weight:      0.10,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Clear, measurable UX goals aligned with product strategy and guiding principles",
 					Partial: "Goals present but could be more specific",
 					Fail:    "Design goals missing",
@@ -56,7 +57,7 @@ func NewUXDRubricSet() *RubricSet {
 				Description: "Structure and organization of content",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Clear site map, navigation structure, and content hierarchy",
 					Partial: "Basic structure present",
 					Fail:    "Information architecture missing",
@@ -92,7 +93,7 @@ func NewUXDRubricSet() *RubricSet {
 				Description: "WCAG compliance and inclusive design considerations",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "WCAG compliance specified, comprehensive checklist, keyboard/screen reader considerations",
 					Partial: "Basic accessibility mentioned",
 					Fail:    "Accessibility not addressed",

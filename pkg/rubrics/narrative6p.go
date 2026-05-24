@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -68,7 +69,7 @@ func NewNarrative6PRubricSet() *RubricSet {
 				Description: "Quality of customer impact, business metrics, and ROI analysis",
 				Weight:      0.20,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Quantified customer and business impact with clear assumptions",
 					Partial: "Some metrics but lacking rigor or assumptions",
 					Fail:    "No business case or weak unsupported claims",

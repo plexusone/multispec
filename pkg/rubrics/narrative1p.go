@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -56,7 +57,7 @@ func NewNarrative1PRubricSet() *RubricSet {
 				Description: "Whether benefits are outcome-focused and concrete",
 				Weight:      0.20,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Benefits are specific, measurable outcomes customers care about",
 					Partial: "Benefits listed but feature-focused rather than outcome-focused",
 					Fail:    "No clear benefits stated or benefits are vague",

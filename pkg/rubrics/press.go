@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -80,7 +81,7 @@ func NewPressRubricSet() *RubricSet {
 				Description: "Whether the press release is written in plain, accessible language",
 				Weight:      0.10,
 				Required:    false,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Clear, jargon-free prose accessible to general audience",
 					Partial: "Somewhat technical but understandable",
 					Fail:    "Incomprehensible to target audience",

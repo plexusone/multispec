@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -32,7 +33,7 @@ func NewMRDRubricSet() *RubricSet {
 				Description: "Definition and sizing of target market segments",
 				Weight:      0.20,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Clear TAM/SAM/SOM with detailed segment profiles and sizing methodology",
 					Partial: "Basic market definition present but incomplete",
 					Fail:    "Market definition missing or completely inadequate",

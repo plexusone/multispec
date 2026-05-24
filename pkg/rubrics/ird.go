@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -44,7 +45,7 @@ func NewIRDRubricSet() *RubricSet {
 				Description: "Coverage of availability targets, failover, and disaster recovery",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Clear SLAs, multi-region strategy, and DR procedures",
 					Partial: "Basic availability documented",
 					Fail:    "No availability or DR planning",
@@ -56,7 +57,7 @@ func NewIRDRubricSet() *RubricSet {
 				Description: "Coverage of logging, metrics, tracing, and alerting",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Complete observability stack with dashboards and alert definitions",
 					Partial: "Basic observability present",
 					Fail:    "No observability planning",
@@ -80,7 +81,7 @@ func NewIRDRubricSet() *RubricSet {
 				Description: "Whether infrastructure can be operated and maintained",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Clear IaC approach, CI/CD infrastructure, and runbooks",
 					Partial: "Basic operational procedures",
 					Fail:    "Cannot be operated from this document",

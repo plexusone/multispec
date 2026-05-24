@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -32,7 +33,7 @@ func NewTRDRubricSet() *RubricSet {
 				Description: "Whether technical design traces back to PRD requirements",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Every PRD requirement has corresponding technical design",
 					Partial: "Some traceability but gaps exist",
 					Fail:    "No traceability to requirements",
@@ -44,7 +45,7 @@ func NewTRDRubricSet() *RubricSet {
 				Description: "Quality of API/interface definitions",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Complete API spec with request/response schemas and error handling",
 					Partial: "Basic API definition present",
 					Fail:    "No API design",
@@ -56,7 +57,7 @@ func NewTRDRubricSet() *RubricSet {
 				Description: "Quality of data models and storage design",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Complete data models with relationships, storage rationale, and migration plan",
 					Partial: "Basic data design present",
 					Fail:    "No data design",

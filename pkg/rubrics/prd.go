@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -32,7 +33,7 @@ func NewPRDRubricSet() *RubricSet {
 				Description: "Clarity of goals and explicit non-goals",
 				Weight:      0.15,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Goals are SMART, non-goals explicitly stated, scope is bounded",
 					Partial: "Goals present but scope could be clearer",
 					Fail:    "Goals and scope missing",
@@ -44,7 +45,7 @@ func NewPRDRubricSet() *RubricSet {
 				Description: "Quality and completeness of user stories",
 				Weight:      0.20,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "All stories follow standard format, are prioritized, with clear acceptance criteria",
 					Partial: "Stories exist but some lack acceptance criteria",
 					Fail:    "User stories missing or inadequate",
@@ -80,7 +81,7 @@ func NewPRDRubricSet() *RubricSet {
 				Description: "Definition of measurable success criteria",
 				Weight:      0.10,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "SMART metrics with baselines, targets, and measurement methods",
 					Partial: "Some metrics but lacking specificity",
 					Fail:    "Success metrics missing",
@@ -92,7 +93,7 @@ func NewPRDRubricSet() *RubricSet {
 				Description: "Identification of dependencies and open questions",
 				Weight:      0.05,
 				Required:    false,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Dependencies mapped with owners, status, and risk mitigation",
 					Partial: "Some dependencies noted",
 					Fail:    "Dependencies not addressed",

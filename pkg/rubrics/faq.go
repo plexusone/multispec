@@ -1,3 +1,4 @@
+//nolint:dupl // Rubric definitions are intentionally similar in structure
 package rubrics
 
 import "github.com/plexusone/multispec/pkg/types"
@@ -68,7 +69,7 @@ func NewFAQRubricSet() *RubricSet {
 				Description: "How well the path to adoption is explained",
 				Weight:      0.10,
 				Required:    true,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Clear step-by-step path from interest to success",
 					Partial: "Basic getting started info present",
 					Fail:    "No getting started guidance",
@@ -80,7 +81,7 @@ func NewFAQRubricSet() *RubricSet {
 				Description: "Whether the FAQ addresses likely concerns and objections",
 				Weight:      0.10,
 				Required:    false,
-				Criteria: CategoricalCriteria{
+				Criteria: CategoricalCriteria{ //nolint:gosec // G101: Rubric criteria text, not credentials
 					Pass:    "Proactively addresses concerns with honest, confident responses",
 					Partial: "Some objections covered",
 					Fail:    "No objection handling",
