@@ -13,26 +13,20 @@ MultiSpec provides a command-line interface for managing specifications.
 
 ## Commands
 
-### Implemented
-
 | Command | Description |
 |---------|-------------|
 | [init](init.md) | Initialize a new project |
 | [lint](lint.md) | Validate directory structure |
 | [status](status.md) | Show project status |
 | `targets` | List available export targets |
-
-### Planned
-
-| Command | Description |
-|---------|-------------|
 | `eval` | Evaluate specs using LLM judges |
 | `synthesize` | Generate specs from source docs |
 | `reconcile` | Generate unified execution spec |
 | `approve` | Approve a spec for reconciliation |
 | `export` | Export to target execution system |
-| `graph` | Manage requirement graphs |
 | `serve` | Start MCP server |
+
+| `graph` | Manage requirement graphs (extract, export, query) |
 
 ## Usage Examples
 

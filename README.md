@@ -44,7 +44,7 @@ MultiSpec bridges the gap between organizational intent (MRD, PRD, UXD) and exec
 ## Installation
 
 ```bash
-go install github.com/plexusone/multispec/cmd/multispec@v0.1.0
+go install github.com/plexusone/multispec/cmd/multispec@v0.2.0
 ```
 
 ## Quick Start
@@ -125,10 +125,10 @@ POST-SHIP ALIGNMENT
 | `eval [type]` | Evaluate specs using LLM judges | Implemented |
 | `synthesize <type>` | Generate specs from source docs | Implemented |
 | `reconcile` | Generate unified execution spec | Implemented |
-| `approve <type>` | Approve a spec for reconciliation | Planned |
+| `approve <type>` | Approve a spec for reconciliation | Implemented |
 | `export <target>` | Export to target execution system | Implemented (SpecKit) |
-| `graph <cmd>` | Manage requirement graphs | Planned |
-| `serve` | Start MCP server for AI integration | Planned |
+| `graph <cmd>` | Manage requirement graphs (extract, export, query) | Implemented |
+| `serve` | Start MCP server for AI integration | Implemented |
 
 ## Status Command
 
@@ -181,12 +181,13 @@ multispec-mcp
 | `finalize_draft` | Implemented | Promote draft to final spec |
 | `get_draft` | Implemented | Retrieve current draft |
 | `discard_draft` | Implemented | Delete a draft |
-| `get_spec` | Stub | Get specification content |
-| `get_eval` | Stub | Get evaluation results |
-| `synthesize` | Stub | Generate a spec |
-| `reconcile` | Stub | Generate execution spec |
-| `approve` | Stub | Approve a specification |
-| `export` | Stub | Export to target system |
+| `get_spec` | Implemented | Get specification content |
+| `get_eval` | Implemented | Get evaluation results |
+| `run_eval` | Implemented | Run evaluation against rubric |
+| `synthesize` | Implemented | Generate a spec |
+| `reconcile` | Implemented | Generate execution spec |
+| `approve` | Implemented | Approve a specification |
+| `export` | Implemented | Export to target system |
 
 ## Export Targets
 
@@ -223,7 +224,7 @@ make install
 
 See [ROADMAP.md](docs/specs/ROADMAP.md) for detailed implementation status and [CHANGELOG.md](CHANGELOG.md) for release history.
 
-**Current Version:** v0.1.0
+**Current Version:** v0.2.0
 
 | Phase | Status |
 |-------|--------|
@@ -234,7 +235,7 @@ See [ROADMAP.md](docs/specs/ROADMAP.md) for detailed implementation status and [
 | Phase 4: Reconciliation Engine | Complete |
 | Phase 5: Target Adapters | Partial (SpecKit) |
 | Phase 6: Claude Code Integration | Complete |
-| Phase 7: Graphize Integration | Not Started |
+| Phase 7: Graphize Integration | Complete |
 | Phase 8: Advanced Features | Not Started |
 
 ## License

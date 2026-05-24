@@ -39,7 +39,7 @@ POST-SHIP ALIGNMENT
 
 ```bash
 # Install
-go install github.com/plexusone/multispec/cmd/multispec@v0.1.0
+go install github.com/plexusone/multispec/cmd/multispec@v0.2.0
 
 # Initialize a new project
 multispec init user-onboarding
@@ -81,7 +81,7 @@ MultiSpec includes an MCP (Model Context Protocol) server for integration with A
 
 See the [ROADMAP](specs/ROADMAP.md) for detailed implementation status and [Release Notes](releases/v0.1.0.md) for the latest release.
 
-**Current Version:** v0.1.0
+**Current Version:** v0.2.0
 
 | Component | Status |
 |-----------|--------|
@@ -91,4 +91,4 @@ See the [ROADMAP](specs/ROADMAP.md) for detailed implementation status and [Rele
 | GTM & Technical Synthesis | Complete |
 | Reconciliation | Complete |
 | Export (SpecKit) | Complete |
-| Graphize Integration | Planned |
+| Graphize Integration | Complete |
