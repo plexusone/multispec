@@ -32,7 +32,7 @@ type Server struct {
 func NewServer() *Server {
 	impl := &mcp.Implementation{
 		Name:    "multispec",
-		Version: "0.1.0",
+		Version: "0.2.0",
 	}
 
 	server := mcp.NewServer(impl, nil)
