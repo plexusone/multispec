@@ -1,0 +1,41 @@
+name: enterprise
+description: "Comprehensive configuration for post-PMF enterprises. Full specs with security and compliance."
+
+spec_config:
+  # Source specs: all required
+  prd:
+    required: true
+    category: source
+  mrd:
+    required: true
+    category: source
+  uxd:
+    required: true
+    category: source
+
+  # GTM specs: required for launches
+  press:
+    required: true
+    category: gtm
+  faq:
+    required: true
+    category: gtm
+  narrative-1p:
+    required: false
+    category: gtm
+  narrative-6p:
+    required: false
+    category: gtm
+
+  # Technical specs: TRD required
+  trd:
+    required: true
+    category: technical
+  ird:
+    required: false
+    category: technical
+
+  # Output specs
+  spec:
+    required: true
+    category: output

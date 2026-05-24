@@ -1,0 +1,81 @@
+spec_type: prd
+name: "Growth PRD Rubric"
+description: "PRD evaluation for 1-N growth phase. Focus: metrics-driven development."
+version: "1.0"
+
+categories:
+  - id: growth-context
+    name: "Growth Context"
+    description: "Is the growth opportunity clearly defined?"
+    weight: 2.0
+    required: true
+    criteria:
+      pass: "Current metrics, targets, and opportunity size documented"
+      partial: "Some metrics present but gaps unclear"
+      fail: "No growth context or metrics"
+
+  - id: hypothesis
+    name: "Hypothesis"
+    description: "Is there a clear, testable hypothesis?"
+    weight: 2.0
+    required: true
+    criteria:
+      pass: "Clear hypothesis with specific metric, expected change, and rationale"
+      partial: "Hypothesis present but vague metrics or reasoning"
+      fail: "No hypothesis or not testable"
+
+  - id: funnel-mapping
+    name: "Funnel Mapping"
+    description: "Are features mapped to funnel stages?"
+    weight: 1.5
+    required: true
+    criteria:
+      pass: "Each user story tagged with funnel stage (AARRR)"
+      partial: "Some funnel awareness but incomplete mapping"
+      fail: "No funnel context"
+
+  - id: experiment-design
+    name: "Experiment Design"
+    description: "Is the experiment properly designed?"
+    weight: 1.5
+    required: false
+    criteria:
+      pass: "Control/variant, sample size, duration, and success criteria defined"
+      partial: "Some experiment details but missing sample size or duration"
+      fail: "No experiment design or not an A/B test"
+
+  - id: analytics
+    name: "Analytics Requirements"
+    description: "Are tracking and measurement planned?"
+    weight: 1.5
+    required: true
+    criteria:
+      pass: "Events to track, properties, and dashboard needs documented"
+      partial: "Some tracking mentioned but incomplete"
+      fail: "No analytics requirements"
+
+  - id: guardrails
+    name: "Guardrail Metrics"
+    description: "Are guardrail metrics defined to prevent regressions?"
+    weight: 1.5
+    required: true
+    criteria:
+      pass: "Guardrail metrics with thresholds and breach actions"
+      partial: "Guardrails mentioned but no thresholds"
+      fail: "No guardrail metrics"
+
+  - id: rollout-plan
+    name: "Rollout Plan"
+    description: "Is there a phased rollout plan?"
+    weight: 1.0
+    required: true
+    criteria:
+      pass: "Phased rollout with feature flags and ramp schedule"
+      partial: "Rollout mentioned but no phases or monitoring plan"
+      fail: "No rollout plan"
+
+pass_criteria:
+  require_all_pass: false
+  max_critical: 0
+  max_high: 1
+  max_medium: 2

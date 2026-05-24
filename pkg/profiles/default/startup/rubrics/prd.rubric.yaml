@@ -1,0 +1,51 @@
+spec_type: prd
+name: "Startup PRD Rubric"
+description: "Lightweight PRD evaluation for pre-PMF startups. Focus on shipping, not perfection."
+version: "1.0"
+
+categories:
+  - id: problem-clarity
+    name: "Problem Clarity"
+    description: "Is the problem being solved clearly stated?"
+    weight: 2.0
+    required: true
+    criteria:
+      pass: "Problem is clearly stated in 1-2 paragraphs with target user identified"
+      partial: "Problem is mentioned but vague or target user unclear"
+      fail: "No clear problem statement"
+
+  - id: solution-scope
+    name: "Solution & Scope"
+    description: "Is it clear what you're building and what you're not?"
+    weight: 2.0
+    required: true
+    criteria:
+      pass: "Clear solution with defined MVP scope and explicit out-of-scope items"
+      partial: "Solution described but scope boundaries unclear"
+      fail: "No clear solution or scope is unbounded"
+
+  - id: user-stories
+    name: "User Stories"
+    description: "Are there testable user stories?"
+    weight: 1.5
+    required: true
+    criteria:
+      pass: "At least one user story with clear acceptance criteria"
+      partial: "User stories present but missing acceptance criteria"
+      fail: "No user stories or acceptance criteria"
+
+  - id: success-metrics
+    name: "Success Metrics"
+    description: "How will you know if it's working?"
+    weight: 1.0
+    required: false
+    criteria:
+      pass: "At least one measurable success metric defined"
+      partial: "Vague notion of success without measurable metrics"
+      fail: "No success metrics"
+
+pass_criteria:
+  require_all_pass: false
+  max_critical: 0
+  max_high: 1
+  max_medium: 3
