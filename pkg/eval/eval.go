@@ -215,7 +215,8 @@ func parseEvalResponse(specType types.SpecType, rubricSet *rubrics.RubricSet, re
 
 // evaluatePassCriteria checks if the evaluation passes based on criteria.
 func evaluatePassCriteria(score float64, findings []Finding, criteria rubrics.PassCriteria) bool {
-	if score < criteria.MinScore {
+	// Score must be at least 7.0 (equivalent to "pass" threshold)
+	if score < 7.0 {
 		return false
 	}
 
@@ -246,12 +247,15 @@ func evaluatePassCriteria(score float64, findings []Finding, criteria rubrics.Pa
 }
 
 // ToEvaluationReport converts the result to a structured-evaluation report.
-func (r *Result) ToEvaluationReport() *evaluation.EvaluationReport {
+// The rubricSet parameter is required for finalization.
+func (r *Result) ToEvaluationReport(rubricSet *rubrics.RubricSet) *evaluation.EvaluationReport {
 	report := evaluation.NewEvaluationReport(string(r.SpecType), "")
 
-	// Add category scores
+	// Add category results, converting numeric scores to categorical
 	for _, cat := range r.Categories {
-		report.AddCategory(evaluation.NewCategoryScore(cat.ID, cat.Weight, cat.Score, cat.Explanation))
+		score := numericToCategorical(cat.Score)
+		cr := evaluation.NewCategoryResult(cat.ID, score, cat.Explanation)
+		report.AddCategoryResult(*cr)
 	}
 
 	// Add findings
@@ -280,8 +284,21 @@ func (r *Result) ToEvaluationReport() *evaluation.EvaluationReport {
 		})
 	}
 
-	// Finalize
-	report.Finalize("multispec eval")
+	// Finalize with rubric
+	evalRubric := rubricSet.ToEvaluationRubricSet()
+	report.Finalize(evalRubric, "multispec eval")
 
 	return report
+}
+
+// numericToCategorical converts a numeric score (0-10) to categorical (pass/partial/fail).
+func numericToCategorical(score float64) evaluation.ScoreValue {
+	switch {
+	case score >= 7.0:
+		return evaluation.ScorePass
+	case score >= 5.0:
+		return evaluation.ScorePartial
+	default:
+		return evaluation.ScoreFail
+	}
 }
