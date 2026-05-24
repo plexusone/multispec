@@ -82,3 +82,13 @@ MultiSpec includes an MCP (Model Context Protocol) server for integration with A
 See the [ROADMAP](specs/ROADMAP.md) for detailed implementation status and [Release Notes](releases/v0.1.0.md) for the latest release.
 
 **Current Version:** v0.1.0
+
+| Component | Status |
+|-----------|--------|
+| CLI (init, lint, status, eval, synthesize, reconcile) | Complete |
+| MCP Server (draft workflow, eval) | Complete |
+| Evaluation Engine | Complete |
+| GTM & Technical Synthesis | Complete |
+| Reconciliation | Complete |
+| Export (SpecKit) | Complete |
+| Graphize Integration | Planned |

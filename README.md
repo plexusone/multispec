@@ -123,10 +123,10 @@ POST-SHIP ALIGNMENT
 | `status` | Show project status and readiness gates | Implemented |
 | `targets` | List available export targets | Implemented |
 | `eval [type]` | Evaluate specs using LLM judges | Implemented |
-| `synthesize <type>` | Generate specs from source docs | Stub |
-| `reconcile` | Generate unified execution spec | Stub |
-| `approve <type>` | Approve a spec for reconciliation | Stub |
-| `export <target>` | Export to target execution system | Stub |
+| `synthesize <type>` | Generate specs from source docs | Implemented |
+| `reconcile` | Generate unified execution spec | Implemented |
+| `approve <type>` | Approve a spec for reconciliation | Planned |
+| `export <target>` | Export to target execution system | Implemented (SpecKit) |
 | `graph <cmd>` | Manage requirement graphs | Planned |
 | `serve` | Start MCP server for AI integration | Planned |
 
@@ -229,9 +229,9 @@ See [ROADMAP.md](docs/specs/ROADMAP.md) for detailed implementation status and [
 |-------|--------|
 | Phase 0: Foundation | Complete |
 | Phase 1: Directory Structure | Complete |
-| Phase 2: Evaluation Engine | In Progress |
-| Phase 3: GTM & Technical Synthesis | Stub |
-| Phase 4: Reconciliation Engine | Stub |
+| Phase 2: Evaluation Engine | Complete |
+| Phase 3: GTM & Technical Synthesis | Complete |
+| Phase 4: Reconciliation Engine | Complete |
 | Phase 5: Target Adapters | Partial (SpecKit) |
 | Phase 6: Claude Code Integration | Complete |
 | Phase 7: Graphize Integration | Not Started |
