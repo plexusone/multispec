@@ -54,12 +54,14 @@ nav:
       - init: cli/init.md
       - lint: cli/lint.md
       - status: cli/status.md
+      - graph: cli/graph.md
   - MCP Server:
       - Overview: mcp/index.md
       - Tools: mcp/tools.md
   - Specifications:
       - ROADMAP: specs/ROADMAP.md
   - Releases:
+      - v0.2.0: releases/v0.2.0.md
       - v0.1.0: releases/v0.1.0.md
   - Development:
       - Contributing: development/contributing.md
