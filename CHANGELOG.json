@@ -1,0 +1,60 @@
+{
+  "irVersion": "1.0",
+  "project": "multispec",
+  "repository": "https://github.com/plexusone/multispec",
+  "versioning": "semver",
+  "commitConvention": "conventional",
+  "maintainers": ["johncwang@gmail.com"],
+  "releases": [
+    {
+      "version": "v0.1.0",
+      "date": "2026-05-24",
+      "commit": "7e3b584",
+      "highlights": [
+        { "description": "Multi-domain specification orchestration for humans and AI agents" },
+        { "description": "MCP server integration for Claude Code and Kiro CLI" },
+        { "description": "AI-assisted authoring workflow with draft management and LLM evaluation" }
+      ],
+      "added": [
+        { "description": "Core type definitions for spec types, evaluation, and project configuration", "commit": "b2c2bcb" },
+        { "description": "Project configuration management with `multispec.yaml`", "commit": "dea8836" },
+        { "description": "Spec templates with `go:embed` for MRD, PRD, UXD, Press, FAQ, Narrative, TRD, IRD", "commit": "b4671af" },
+        { "description": "Evaluation rubrics for all spec types using categorical scoring (pass/partial/fail)", "commit": "984110f" },
+        { "description": "Draft authoring workflow with session management, versioning, and eval history", "commit": "594b4e5" },
+        { "description": "LLM evaluation integration with structured-evaluation rubrics", "commit": "8f77632" },
+        { "description": "Spec synthesis from source documents (GTM and technical)", "commit": "e526061" },
+        { "description": "Spec reconciliation for generating unified execution specs", "commit": "7b11c6d" },
+        { "description": "Export framework with SpecKit adapter (spec.md, plan.md, tasks.md)", "commit": "ddef147" },
+        { "description": "Project structure validation with `multispec lint`", "commit": "a710be8" },
+        { "description": "MCP server with tools: list_projects, get_project_status, start_draft, update_draft, eval_draft, finalize_draft, get_draft, discard_draft", "commit": "2412405" },
+        { "description": "CLI commands: init, lint, status, targets, eval", "commit": "9941480" },
+        { "description": "Authoring skills for Claude Code: author-mrd, author-prd, author-uxd", "commit": "bd82e87" }
+      ],
+      "changed": [
+        { "description": "Rubrics updated to use `CategoricalCriteria` type from structured-evaluation v0.4.0", "commit": "feeeaa6" },
+        { "description": "All rubrics converted to categorical scoring (pass/partial/fail)", "commit": "6b46caf" },
+        { "description": "Evaluation module updated for categorical scoring", "commit": "625413b" }
+      ],
+      "fixed": [
+        { "description": "Draft paths now use `filepath.Join` for Windows compatibility", "commit": "7154de4" },
+        { "description": "Test error handling for `os.MkdirAll` calls", "commit": "a13ff7b" },
+        { "description": "Unused parameter lint warning in speckit.go", "commit": "7e3b584" }
+      ],
+      "tests": [
+        { "description": "Rubric tests updated for categorical scoring", "commit": "f2f812b" }
+      ],
+      "documentation": [
+        { "description": "README with project overview, installation, and CLI documentation", "commit": "76e2a54" },
+        { "description": "MkDocs documentation site configuration", "commit": "76e2a54" },
+        { "description": "Roadmap with implementation phases", "commit": "76e2a54" }
+      ],
+      "build": [
+        { "description": "Go module initialization with build configuration", "commit": "88e232d" },
+        { "description": "GitHub Actions CI/CD workflows", "commit": "27306a6" }
+      ],
+      "dependencies": [
+        { "description": "Add structured-evaluation v0.5.0 for rubric and evaluation types", "commit": "30bbea0" }
+      ]
+    }
+  ]
+}
