@@ -67,17 +67,36 @@ The MCP server operates relative to the current working directory. It looks for:
 
 See [MCP Tools](tools.md) for the complete list of available tools.
 
-| Tool | Status | Description |
-|------|--------|-------------|
-| `list_projects` | Implemented | List all projects |
-| `get_project_status` | Implemented | Get project readiness |
-| `get_spec` | Stub | Get spec content |
-| `get_eval` | Stub | Get evaluation results |
-| `run_eval` | Stub | Run evaluation |
-| `synthesize` | Stub | Generate specs |
-| `reconcile` | Stub | Generate execution spec |
-| `approve` | Stub | Approve a spec |
-| `export` | Stub | Export to target |
+### Project Tools
+
+| Tool | Description |
+|------|-------------|
+| `list_projects` | List all projects |
+| `get_project_status` | Get project readiness |
+
+### Spec Tools
+
+| Tool | Description |
+|------|-------------|
+| `get_spec` | Get spec content |
+| `get_eval` | Get evaluation results |
+| `run_eval` | Run evaluation against rubric |
+| `synthesize` | Generate specs from sources |
+| `reconcile` | Generate unified execution spec |
+| `approve` | Approve a spec |
+| `export` | Export to target system |
+
+### Draft Authoring Tools
+
+| Tool | Description |
+|------|-------------|
+| `start_draft` | Initialize a new draft |
+| `get_draft` | Get current draft content |
+| `update_draft` | Save draft content |
+| `eval_draft` | Evaluate draft against rubric |
+| `finalize_draft` | Promote draft to final spec |
+| `discard_draft` | Delete a draft |
+| `list_drafts` | List all drafts in a project |
 
 ## Example Usage
 

@@ -1,8 +1,8 @@
 # MCP Tools
 
-The MultiSpec MCP server provides the following tools.
+The MultiSpec MCP server provides the following tools for project management, spec operations, and draft authoring.
 
-## Implemented Tools
+## Project Tools
 
 ### list_projects
 
@@ -57,9 +57,7 @@ Get the status and readiness of a specific project.
 }
 ```
 
-## Stub Tools
-
-The following tools are defined but not yet implemented:
+## Spec Tools
 
 ### get_spec
 
@@ -70,7 +68,18 @@ Get the content of a specification.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `project` | string | Yes | Project name |
-| `spec_type` | string | Yes | Spec type (mrd, prd, uxd, etc.) |
+| `spec_type` | string | Yes | Spec type (mrd, prd, uxd, trd, ird, press, faq, narrative-1p, narrative-6p) |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "path": "docs/specs/user-onboarding/source/prd.md",
+  "content": "# Product Requirements Document\n..."
+}
+```
 
 ### get_eval
 
@@ -83,9 +92,23 @@ Get evaluation results for a specification.
 | `project` | string | Yes | Project name |
 | `spec_type` | string | Yes | Spec type |
 
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "evaluation": {
+    "decision": "pass",
+    "score": 0.85,
+    "findings": [...]
+  }
+}
+```
+
 ### run_eval
 
-Run evaluation on a specification.
+Run evaluation on a specification using LLM judges.
 
 **Arguments:**
 
@@ -94,16 +117,40 @@ Run evaluation on a specification.
 | `project` | string | Yes | Project name |
 | `spec_type` | string | Yes | Spec type |
 
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "decision": "pass",
+  "findings_count": 3,
+  "message": "Evaluation completed successfully"
+}
+```
+
 ### synthesize
 
-Generate a spec from source documents.
+Generate a spec from source documents using LLM synthesis.
 
 **Arguments:**
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `project` | string | Yes | Project name |
-| `spec_type` | string | Yes | Spec type to generate |
+| `spec_type` | string | Yes | Spec type to generate (trd, ird, press, faq, narrative-1p, narrative-6p) |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "trd",
+  "path": "docs/specs/user-onboarding/technical/trd.md",
+  "sources": ["mrd", "prd", "uxd"],
+  "message": "Synthesis completed successfully"
+}
+```
 
 ### reconcile
 
@@ -115,9 +162,20 @@ Generate unified execution spec from approved specs.
 |------|------|----------|-------------|
 | `project` | string | Yes | Project name |
 
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "path": "docs/specs/user-onboarding/spec.md",
+  "sources": ["mrd", "prd", "uxd", "trd"],
+  "message": "Reconciliation completed successfully"
+}
+```
+
 ### approve
 
-Approve a specification.
+Approve a specification for reconciliation.
 
 **Arguments:**
 
@@ -126,6 +184,18 @@ Approve a specification.
 | `project` | string | Yes | Project name |
 | `spec_type` | string | Yes | Spec type |
 | `approver` | string | No | Approver identifier |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "approver": "pm@example.com",
+  "approved_at": "2024-01-15T10:30:00Z",
+  "message": "Spec approved successfully"
+}
+```
 
 ### export
 
@@ -137,6 +207,197 @@ Export specs to a target execution system.
 |------|------|----------|-------------|
 | `project` | string | Yes | Project name |
 | `target` | string | Yes | Target system (speckit, gsd, gastown, gascity) |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "target": "speckit",
+  "output_dir": "docs/specs/user-onboarding/.speckit",
+  "files": ["spec.md", "plan.md", "tasks.md"],
+  "message": "Export completed successfully"
+}
+```
+
+## Draft Authoring Tools
+
+These tools support the AI-assisted authoring workflow for creating and refining specs.
+
+### start_draft
+
+Initialize a new draft for a spec type.
+
+**Arguments:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project` | string | Yes | Project name |
+| `spec_type` | string | Yes | Spec type (mrd, prd, uxd) |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "template": "# Product Requirements Document\n...",
+  "draft_path": "docs/specs/user-onboarding/source/prd.draft.md",
+  "message": "Draft initialized"
+}
+```
+
+### get_draft
+
+Get the current draft content.
+
+**Arguments:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project` | string | Yes | Project name |
+| `spec_type` | string | Yes | Spec type |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "content": "# Product Requirements Document\n...",
+  "metadata": {
+    "version": 3,
+    "started_at": "2024-01-15T10:00:00Z",
+    "updated_at": "2024-01-15T10:30:00Z",
+    "eval_history": [...]
+  }
+}
+```
+
+### update_draft
+
+Save updated draft content.
+
+**Arguments:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project` | string | Yes | Project name |
+| `spec_type` | string | Yes | Spec type |
+| `content` | string | Yes | Draft content |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "version": 4,
+  "message": "Draft updated"
+}
+```
+
+### eval_draft
+
+Evaluate the current draft against the rubric.
+
+**Arguments:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project` | string | Yes | Project name |
+| `spec_type` | string | Yes | Spec type |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "decision": "partial",
+  "findings": [
+    {
+      "category": "Problem Clarity",
+      "rating": "pass",
+      "rationale": "Problem statement is clear and well-defined"
+    },
+    {
+      "category": "User Stories",
+      "rating": "partial",
+      "rationale": "Some user stories lack acceptance criteria"
+    }
+  ],
+  "suggestions": ["Add acceptance criteria to user stories in section 3"]
+}
+```
+
+### finalize_draft
+
+Promote draft to final spec.
+
+**Arguments:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project` | string | Yes | Project name |
+| `spec_type` | string | Yes | Spec type |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "path": "docs/specs/user-onboarding/source/prd.md",
+  "message": "Draft finalized"
+}
+```
+
+### discard_draft
+
+Delete a draft without saving.
+
+**Arguments:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project` | string | Yes | Project name |
+| `spec_type` | string | Yes | Spec type |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "spec_type": "prd",
+  "message": "Draft discarded"
+}
+```
+
+### list_drafts
+
+List all drafts in a project.
+
+**Arguments:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project` | string | Yes | Project name |
+
+**Returns:**
+
+```json
+{
+  "project": "user-onboarding",
+  "drafts": [
+    {
+      "spec_type": "prd",
+      "version": 3,
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
 
 ## Error Handling
 
