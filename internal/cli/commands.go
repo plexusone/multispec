@@ -15,6 +15,7 @@ import (
 	"github.com/plexusone/multispec/pkg/eval"
 	"github.com/plexusone/multispec/pkg/lint"
 	"github.com/plexusone/multispec/pkg/reconcile"
+	"github.com/plexusone/multispec/pkg/specgraph"
 	"github.com/plexusone/multispec/pkg/synth"
 	"github.com/plexusone/multispec/pkg/target"
 	"github.com/plexusone/multispec/pkg/types"
@@ -652,11 +653,171 @@ var graphCmd = &cobra.Command{
 Subcommands:
   extract   Build graph from specs
   query     Query graph relationships
-  export    Export to HTML/JSON/GraphML`,
-	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Println("graph: not yet implemented")
-		return nil
-	},
+  export    Export to HTML/JSON/GraphML
+
+Examples:
+  multispec graph extract                    # Extract graph from current project
+  multispec graph export --format html       # Export graph as HTML
+  multispec graph export --format graphml    # Export graph as GraphML
+  multispec graph query --type requirement   # List all requirements`,
+}
+
+var graphExtractCmd = &cobra.Command{
+	Use:   "extract",
+	Short: "Extract requirement graph from specs",
+	RunE:  runGraphExtract,
+}
+
+var graphExportCmd = &cobra.Command{
+	Use:   "export",
+	Short: "Export graph to HTML/JSON/GraphML",
+	RunE:  runGraphExport,
+}
+
+var graphQueryCmd = &cobra.Command{
+	Use:   "query",
+	Short: "Query graph nodes and relationships",
+	RunE:  runGraphQuery,
+}
+
+func runGraphExtract(cmd *cobra.Command, args []string) error {
+	// Find project root
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("getting working directory: %w", err)
+	}
+
+	projectPath, err := config.FindProjectRoot(cwd)
+	if err != nil {
+		return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+	}
+
+	// Extract graph
+	extractor := specgraph.NewSpecExtractor(projectPath)
+	g, err := extractor.Extract()
+	if err != nil {
+		return fmt.Errorf("extracting graph: %w", err)
+	}
+
+	// Save graph to .graphize directory
+	graphDir := filepath.Join(projectPath, ".graphize")
+	if err := os.MkdirAll(graphDir, 0755); err != nil {
+		return fmt.Errorf("creating .graphize directory: %w", err)
+	}
+
+	graphPath := filepath.Join(graphDir, "spec-graph.json")
+	if err := specgraph.SaveJSON(g, graphPath); err != nil {
+		return fmt.Errorf("saving graph: %w", err)
+	}
+
+	fmt.Printf("Extracted graph with %d nodes and %d edges\n", len(g.Nodes), len(g.Edges))
+	fmt.Printf("Saved to: %s\n", graphPath)
+
+	// Print summary by node type
+	typeCounts := make(map[string]int)
+	for _, node := range g.Nodes {
+		typeCounts[node.Type]++
+	}
+	fmt.Println("\nNode types:")
+	for nodeType, count := range typeCounts {
+		fmt.Printf("  %s: %d\n", nodeType, count)
+	}
+
+	return nil
+}
+
+func runGraphExport(cmd *cobra.Command, args []string) error {
+	format, _ := cmd.Flags().GetString("format")
+	output, _ := cmd.Flags().GetString("output")
+
+	// Find project root
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("getting working directory: %w", err)
+	}
+
+	projectPath, err := config.FindProjectRoot(cwd)
+	if err != nil {
+		return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+	}
+
+	// Load graph
+	graphPath := filepath.Join(projectPath, ".graphize", "spec-graph.json")
+	g, err := specgraph.LoadJSON(graphPath)
+	if err != nil {
+		// Try extracting first
+		fmt.Println("Graph not found, extracting...")
+		extractor := specgraph.NewSpecExtractor(projectPath)
+		g, err = extractor.Extract()
+		if err != nil {
+			return fmt.Errorf("extracting graph: %w", err)
+		}
+	}
+
+	// Determine output path
+	if output == "" {
+		output = filepath.Join(projectPath, ".graphize")
+	}
+
+	// Export using library
+	result, err := specgraph.Export(g, specgraph.ExportOptions{
+		Format:    specgraph.ExportFormat(format),
+		OutputDir: output,
+		Title:     "Spec Graph",
+	})
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Exported %s to: %s\n", result.Format, result.OutputPath)
+	return nil
+}
+
+func runGraphQuery(cmd *cobra.Command, args []string) error {
+	nodeType, _ := cmd.Flags().GetString("type")
+	specType, _ := cmd.Flags().GetString("spec")
+
+	// Find project root
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("getting working directory: %w", err)
+	}
+
+	projectPath, err := config.FindProjectRoot(cwd)
+	if err != nil {
+		return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+	}
+
+	// Load graph
+	graphPath := filepath.Join(projectPath, ".graphize", "spec-graph.json")
+	g, err := specgraph.LoadJSON(graphPath)
+	if err != nil {
+		return fmt.Errorf("loading graph (run 'multispec graph extract' first): %w", err)
+	}
+
+	// Query using library
+	result := specgraph.Query(g, specgraph.QueryFilter{
+		NodeType: nodeType,
+		SpecType: specType,
+	})
+
+	// Print results
+	fmt.Printf("Found %d nodes\n\n", result.Count)
+	for _, node := range result.Nodes {
+		fmt.Printf("[%s] %s\n", node.Type, node.Label)
+		fmt.Printf("  ID: %s\n", node.ID)
+		if node.Attrs["spec_type"] != "" {
+			fmt.Printf("  Spec: %s\n", node.Attrs["spec_type"])
+		}
+		if node.Attrs["full_text"] != "" && len(node.Attrs["full_text"]) > 100 {
+			fmt.Printf("  Text: %s...\n", node.Attrs["full_text"][:100])
+		} else if node.Attrs["full_text"] != "" {
+			fmt.Printf("  Text: %s\n", node.Attrs["full_text"])
+		}
+		fmt.Println()
+	}
+
+	return nil
 }
 
 var serveCmd = &cobra.Command{
@@ -717,4 +878,17 @@ func init() {
 	// serve flags
 	serveCmd.Flags().Int("port", 0, "HTTP port (0 for stdio transport)")
 	serveCmd.Flags().String("transport", "stdio", "Transport: stdio, http, sse")
+
+	// graph subcommands
+	graphCmd.AddCommand(graphExtractCmd)
+	graphCmd.AddCommand(graphExportCmd)
+	graphCmd.AddCommand(graphQueryCmd)
+
+	// graph export flags
+	graphExportCmd.Flags().String("format", "html", "Export format: html, graphml, json")
+	graphExportCmd.Flags().String("output", "", "Output directory (default: .graphize)")
+
+	// graph query flags
+	graphQueryCmd.Flags().String("type", "", "Filter by node type (requirement, user_story, constraint, decision)")
+	graphQueryCmd.Flags().String("spec", "", "Filter by spec type (mrd, prd, uxd, trd)")
 }
