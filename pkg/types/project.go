@@ -25,6 +25,10 @@ type Project struct {
 	// Targets configures export targets.
 	Targets TargetConfig `json:"targets,omitempty" yaml:"targets,omitempty"`
 
+	// SpecRequirements configures which specs are required and their settings.
+	// This appears as "spec_config:" in multispec.yaml.
+	SpecRequirements map[string]*SpecRequirement `json:"spec_config,omitempty" yaml:"spec_config,omitempty"`
+
 	// CreatedAt is when the project was initialized.
 	CreatedAt time.Time `json:"created_at" yaml:"created_at"`
 
@@ -109,4 +113,19 @@ type ReadinessStatus struct {
 	Ready   bool            `json:"ready" yaml:"ready"`
 	Gates   []ReadinessGate `json:"gates" yaml:"gates"`
 	Summary string          `json:"summary" yaml:"summary"`
+}
+
+// GetSpecConfig returns a SpecConfig wrapper for the project's spec requirements.
+// This provides helper methods like IsRequired(), GetCategory(), etc.
+func (p *Project) GetSpecConfig() *SpecConfig {
+	if p == nil {
+		return DefaultSpecConfig()
+	}
+	if p.SpecRequirements == nil {
+		return DefaultSpecConfig()
+	}
+	// Merge project requirements with defaults
+	config := DefaultSpecConfig()
+	config.Merge(&SpecConfig{Specs: p.SpecRequirements})
+	return config
 }
