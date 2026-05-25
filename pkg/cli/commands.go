@@ -14,6 +14,8 @@ import (
 
 	"github.com/plexusone/multispec/internal/mcp"
 	"github.com/plexusone/multispec/pkg/config"
+	ctxpkg "github.com/plexusone/multispec/pkg/context"
+	"github.com/plexusone/multispec/pkg/context/sources"
 	"github.com/plexusone/multispec/pkg/eval"
 	"github.com/plexusone/multispec/pkg/lint"
 	"github.com/plexusone/multispec/pkg/profiles"
@@ -591,13 +593,18 @@ GTM synthesis (Working Backwards):
   multispec synthesize narrative-6p # MRD + PRD + UXD → narrative-6p.md
 
 Technical synthesis:
-  multispec synthesize trd          # MRD + PRD + UXD + CONSTITUTION → trd.md
-  multispec synthesize ird          # TRD + CONSTITUTION → ird.md`,
+  multispec synthesize trd          # MRD + PRD + UXD + CONSTITUTION + CONTEXT → trd.md
+  multispec synthesize ird          # TRD + CONSTITUTION + CONTEXT → ird.md
+
+Context grounding:
+  For TRD and IRD, if context sources are configured, the synthesizer
+  will gather codebase context to ground technical decisions in reality.`,
 		Args: cobra.ExactArgs(1),
 		RunE: runSynthesize,
 	}
 
 	cmd.Flags().Bool("eval", false, "Run evaluation after synthesis")
+	cmd.Flags().Bool("no-context", false, "Skip context gathering for technical synthesis")
 
 	return cmd
 }
@@ -605,6 +612,7 @@ Technical synthesis:
 func runSynthesize(cmd *cobra.Command, args []string) error {
 	specTypeArg := args[0]
 	evalFlag, _ := cmd.Flags().GetBool("eval")
+	noContext, _ := cmd.Flags().GetBool("no-context")
 
 	// Parse spec type
 	specType := types.SpecType(specTypeArg)
@@ -660,6 +668,26 @@ func runSynthesize(cmd *cobra.Command, args []string) error {
 	constitutionPath := filepath.Join(projectPath, "..", "CONSTITUTION.md")
 	if content, err := os.ReadFile(constitutionPath); err == nil {
 		input.Constitution = string(content)
+	}
+
+	// Gather context for TRD/IRD synthesis (grounding)
+	if !noContext && (specType == types.SpecTypeTRD || specType == types.SpecTypeIRD) {
+		ctxCfg := getContextConfig(project, projectPath)
+		if ctxCfg.HasSources() {
+			fmt.Println("⋯ Gathering codebase context for grounding...")
+			agg, err := sources.BuildAggregator(project.Name, ctxCfg)
+			if err == nil && agg.SourceCount() > 0 {
+				ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+				ac, err := agg.Gather(ctx)
+				cancel()
+				if err == nil {
+					input.Context = ac.Summary
+					fmt.Printf("  Gathered context from %d sources\n", len(ac.Sources))
+				} else {
+					fmt.Printf("  Warning: context gathering failed: %v\n", err)
+				}
+			}
+		}
 	}
 
 	// Create LLM client
@@ -1413,4 +1441,379 @@ func profilesShowCmd(cfg *Config) *cobra.Command {
 			return nil
 		},
 	}
+}
+
+// contextCmd creates the context command with subcommands.
+func contextCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	cmd := &cobra.Command{
+		Use:   "context <subcommand>",
+		Short: "Gather and manage codebase context for grounding",
+		Long: `Gather context from git repositories, graphize graphs, and external sources.
+
+Context is used to ground spec synthesis in the reality of existing codebases,
+requirement traceability, and external tool state.
+
+Subcommands:
+  gather    Collect context from all configured sources
+  show      Display current context summary
+  save      Save context snapshot to file
+  load      Load context snapshot from file
+  sources   List configured context sources
+
+Examples:
+  multispec context gather                  # Gather context from all sources
+  multispec context show                    # Show context summary
+  multispec context save --output ctx.json  # Save snapshot
+  multispec context sources                 # List configured sources`,
+	}
+
+	cmd.AddCommand(contextGatherCmd(cfg))
+	cmd.AddCommand(contextShowCmd(cfg))
+	cmd.AddCommand(contextSaveCmd(cfg))
+	cmd.AddCommand(contextSourcesCmd(cfg))
+
+	return cmd
+}
+
+func contextGatherCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	cmd := &cobra.Command{
+		Use:   "gather",
+		Short: "Gather context from all configured sources",
+		RunE:  runContextGather,
+	}
+
+	cmd.Flags().Duration("timeout", 2*time.Minute, "Timeout for gathering context")
+	cmd.Flags().String("format", "text", "Output format: text, json")
+	cmd.Flags().Bool("refresh", false, "Refresh cache before gathering")
+
+	return cmd
+}
+
+func runContextGather(cmd *cobra.Command, args []string) error {
+	timeout, _ := cmd.Flags().GetDuration("timeout")
+	format, _ := cmd.Flags().GetString("format")
+	refresh, _ := cmd.Flags().GetBool("refresh")
+
+	// Find project root
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("getting working directory: %w", err)
+	}
+
+	projectPath, err := config.FindProjectRoot(cwd)
+	if err != nil {
+		return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+	}
+
+	// Load project config
+	project, err := config.Load(projectPath)
+	if err != nil {
+		return fmt.Errorf("loading project config: %w", err)
+	}
+
+	// Get context configuration from project
+	ctxCfg := getContextConfig(project, projectPath)
+
+	// Create aggregator
+	agg, err := sources.BuildAggregator(project.Name, ctxCfg)
+	if err != nil {
+		return fmt.Errorf("building aggregator: %w", err)
+	}
+
+	if agg.SourceCount() == 0 {
+		fmt.Println("No context sources configured.")
+		fmt.Println("\nAdd sources to multispec.yaml:")
+		fmt.Println("  context:")
+		fmt.Println("    repositories:")
+		fmt.Println("      - path: /path/to/repo")
+		fmt.Println("    files:")
+		fmt.Println("      - path: architecture.md")
+		return nil
+	}
+
+	fmt.Printf("Gathering context from %d sources...\n", agg.SourceCount())
+
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
+	var ac *ctxpkg.AggregatedContext
+	if refresh {
+		ac, err = agg.Refresh(ctx)
+	} else {
+		ac, err = agg.Gather(ctx)
+	}
+	if err != nil {
+		return fmt.Errorf("gathering context: %w", err)
+	}
+
+	switch format {
+	case "json":
+		data, err := ac.ToJSON()
+		if err != nil {
+			return fmt.Errorf("marshaling context: %w", err)
+		}
+		fmt.Println(string(data))
+	default:
+		fmt.Println(ac.Summary)
+	}
+
+	return nil
+}
+
+func contextShowCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	return &cobra.Command{
+		Use:   "show",
+		Short: "Show current context summary",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			// Find project root
+			cwd, err := os.Getwd()
+			if err != nil {
+				return fmt.Errorf("getting working directory: %w", err)
+			}
+
+			projectPath, err := config.FindProjectRoot(cwd)
+			if err != nil {
+				return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+			}
+
+			// Try to load existing snapshot
+			snapshotPath := filepath.Join(projectPath, ".context-snapshot.json")
+			ac, err := ctxpkg.LoadSnapshot(snapshotPath)
+			if err != nil {
+				fmt.Println("No context snapshot found. Run 'multispec context gather' first.")
+				return nil
+			}
+
+			fmt.Println(ac.Summary)
+			return nil
+		},
+	}
+}
+
+func contextSaveCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	cmd := &cobra.Command{
+		Use:   "save",
+		Short: "Save context snapshot to file",
+		RunE:  runContextSave,
+	}
+
+	cmd.Flags().StringP("output", "o", "", "Output file path (default: .context-snapshot.json)")
+
+	return cmd
+}
+
+func runContextSave(cmd *cobra.Command, args []string) error {
+	output, _ := cmd.Flags().GetString("output")
+
+	// Find project root
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("getting working directory: %w", err)
+	}
+
+	projectPath, err := config.FindProjectRoot(cwd)
+	if err != nil {
+		return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+	}
+
+	// Load project config
+	project, err := config.Load(projectPath)
+	if err != nil {
+		return fmt.Errorf("loading project config: %w", err)
+	}
+
+	// Get context configuration
+	ctxCfg := getContextConfig(project, projectPath)
+
+	// Create aggregator and gather
+	agg, err := sources.BuildAggregator(project.Name, ctxCfg)
+	if err != nil {
+		return fmt.Errorf("building aggregator: %w", err)
+	}
+
+	if agg.SourceCount() == 0 {
+		return fmt.Errorf("no context sources configured")
+	}
+
+	fmt.Printf("Gathering context from %d sources...\n", agg.SourceCount())
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+
+	ac, err := agg.Gather(ctx)
+	if err != nil {
+		return fmt.Errorf("gathering context: %w", err)
+	}
+
+	// Determine output path
+	if output == "" {
+		output = filepath.Join(projectPath, ".context-snapshot.json")
+	}
+
+	// Save snapshot
+	if err := ctxpkg.SaveSnapshot(ac, output); err != nil {
+		return fmt.Errorf("saving snapshot: %w", err)
+	}
+
+	fmt.Printf("Saved context snapshot to: %s\n", output)
+	return nil
+}
+
+func contextSourcesCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	return &cobra.Command{
+		Use:   "sources",
+		Short: "List configured context sources",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			// Find project root
+			cwd, err := os.Getwd()
+			if err != nil {
+				return fmt.Errorf("getting working directory: %w", err)
+			}
+
+			projectPath, err := config.FindProjectRoot(cwd)
+			if err != nil {
+				return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+			}
+
+			// Load project config
+			project, err := config.Load(projectPath)
+			if err != nil {
+				return fmt.Errorf("loading project config: %w", err)
+			}
+
+			// Get context configuration
+			ctxCfg := getContextConfig(project, projectPath)
+
+			fmt.Println("Configured context sources:")
+			fmt.Println()
+
+			if len(ctxCfg.Repositories) > 0 {
+				fmt.Println("Git Repositories:")
+				for _, repo := range ctxCfg.Repositories {
+					fmt.Printf("  - %s\n", repo.Path)
+					if repo.Graphize == "auto" || repo.Graphize == "true" {
+						fmt.Printf("    (graphize: %s)\n", repo.Graphize)
+					}
+				}
+				fmt.Println()
+			}
+
+			if len(ctxCfg.Graphize) > 0 {
+				fmt.Println("Graphize Graphs:")
+				for _, g := range ctxCfg.Graphize {
+					name := g.Name
+					if name == "" {
+						name = filepath.Base(g.Path)
+					}
+					fmt.Printf("  - %s (%s)\n", name, g.Path)
+				}
+				fmt.Println()
+			}
+
+			if len(ctxCfg.Files) > 0 {
+				fmt.Println("Local Files:")
+				for _, f := range ctxCfg.Files {
+					fileType := f.Type
+					if fileType == "" {
+						fileType = "document"
+					}
+					fmt.Printf("  - %s (%s)\n", f.Path, fileType)
+				}
+				fmt.Println()
+			}
+
+			if len(ctxCfg.MCPServers) > 0 {
+				fmt.Println("MCP Servers:")
+				for name := range ctxCfg.MCPServers {
+					fmt.Printf("  - %s (not yet implemented)\n", name)
+				}
+				fmt.Println()
+			}
+
+			if !ctxCfg.HasSources() {
+				fmt.Println("  (no sources configured)")
+				fmt.Println()
+				fmt.Println("Add sources to multispec.yaml:")
+				fmt.Println("  context:")
+				fmt.Println("    repositories:")
+				fmt.Println("      - path: /path/to/repo")
+			}
+
+			return nil
+		},
+	}
+}
+
+// getContextConfig extracts context configuration from project.
+func getContextConfig(project *types.Project, projectPath string) *ctxpkg.Config {
+	cfg := ctxpkg.DefaultConfig()
+	cfg.ProjectName = project.Name
+
+	// Check if project has context configuration
+	if project.Context != nil {
+		// Map project context config to ctxpkg.Config
+		if project.Context.Repositories != nil {
+			for _, repo := range project.Context.Repositories {
+				cfg.Repositories = append(cfg.Repositories, ctxpkg.RepositoryConfig{
+					Path:     repo.Path,
+					URL:      repo.URL,
+					Branch:   repo.Branch,
+					Include:  repo.Include,
+					Exclude:  repo.Exclude,
+					Analyze:  repo.Analyze,
+					Graphize: repo.Graphize,
+					MaxDepth: repo.MaxDepth,
+				})
+			}
+		}
+		if project.Context.Graphize != nil {
+			for _, g := range project.Context.Graphize {
+				cfg.Graphize = append(cfg.Graphize, ctxpkg.GraphizeConfig{
+					Path:         g.Path,
+					Name:         g.Name,
+					IncludeNodes: g.IncludeNodes,
+					IncludeEdges: g.IncludeEdges,
+				})
+			}
+		}
+		if project.Context.Files != nil {
+			for _, f := range project.Context.Files {
+				cfg.Files = append(cfg.Files, ctxpkg.FileConfig{
+					Path:    f.Path,
+					Type:    f.Type,
+					MaxSize: f.MaxSize,
+				})
+			}
+		}
+		if project.Context.MCPServers != nil {
+			cfg.MCPServers = make(map[string]ctxpkg.MCPServerConfig)
+			for name, srv := range project.Context.MCPServers {
+				cfg.MCPServers[name] = ctxpkg.MCPServerConfig{
+					Command: srv.Command,
+					Args:    srv.Args,
+					Env:     srv.Env,
+					Config:  srv.Config,
+					Timeout: srv.Timeout,
+				}
+			}
+		}
+		if project.Context.CacheTTL > 0 {
+			cfg.CacheTTL = project.Context.CacheTTL
+		}
+	}
+
+	// Auto-detect: if no repos configured, use current project path
+	if len(cfg.Repositories) == 0 {
+		// Check if project path has a .git directory
+		gitPath := filepath.Join(projectPath, "..", "..", "..", ".git")
+		if info, err := os.Stat(gitPath); err == nil && info.IsDir() {
+			repoPath := filepath.Join(projectPath, "..", "..", "..")
+			cfg.Repositories = append(cfg.Repositories, ctxpkg.RepositoryConfig{
+				Path:     repoPath,
+				Graphize: "auto",
+			})
+		}
+	}
+
+	return cfg
 }

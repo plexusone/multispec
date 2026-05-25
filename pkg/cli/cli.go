@@ -109,6 +109,7 @@ func AddCommandsTo(root *cobra.Command, cfg *Config) {
 		cmds.Graph,
 		cmds.Serve,
 		cmds.Profiles,
+		cmds.Context,
 	)
 }
 
@@ -126,6 +127,7 @@ type CommandSet struct {
 	Graph      *cobra.Command
 	Serve      *cobra.Command
 	Profiles   *cobra.Command
+	Context    *cobra.Command
 }
 
 // Commands returns all multispec commands.
@@ -148,5 +150,6 @@ func Commands(cfg *Config) *CommandSet {
 		Graph:      graphCmd(cfg),
 		Serve:      serveCmd(cfg),
 		Profiles:   profilesCmd(cfg),
+		Context:    contextCmd(cfg),
 	}
 }
