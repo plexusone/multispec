@@ -32,7 +32,8 @@ type SynthesisInput struct {
 	UXD          string // User Experience Design
 	TRD          string // Technical Requirements Document (for IRD synthesis)
 	Constitution string // Project/org constitution
-	Press        string // Press Release (for FAQ synthesis)
+	Press        string // Press Release (for FAQ and PRD synthesis)
+	FAQ          string // FAQ document (for PRD synthesis)
 	Context      string // Aggregated context summary (for grounding)
 }
 
@@ -120,33 +121,58 @@ func (s *Synthesizer) buildPrompt(targetType types.SpecType, input SynthesisInpu
 		}
 
 	case types.SpecTypePress:
-		sb.WriteString("Generate a Press Release following Amazon's Working Backwards methodology.\n\n")
+		sb.WriteString("Generate a Press Release following Amazon's Working Backwards methodology.\n")
+		sb.WriteString("This is the vision document that defines the customer experience.\n\n")
 		if input.MRD != "" {
 			sb.WriteString("## Market Requirements Document (MRD)\n\n")
 			sb.WriteString(input.MRD)
 			sb.WriteString("\n\n")
 			sources = append(sources, types.SpecTypeMRD)
 		}
+		// PRD is optional - only include if available for enrichment
 		if input.PRD != "" {
-			sb.WriteString("## Product Requirements Document (PRD)\n\n")
+			sb.WriteString("## Product Requirements Document (PRD) [Optional Context]\n\n")
 			sb.WriteString(input.PRD)
 			sb.WriteString("\n\n")
-			sources = append(sources, types.SpecTypePRD)
 		}
 
 	case types.SpecTypeFAQ:
-		sb.WriteString("Generate an FAQ document that anticipates customer questions about the product.\n\n")
+		sb.WriteString("Generate an FAQ document that anticipates customer and stakeholder questions.\n")
+		sb.WriteString("Challenge assumptions in the Press Release and surface potential gaps.\n\n")
+		if input.MRD != "" {
+			sb.WriteString("## Market Requirements Document (MRD)\n\n")
+			sb.WriteString(input.MRD)
+			sb.WriteString("\n\n")
+			sources = append(sources, types.SpecTypeMRD)
+		}
 		if input.Press != "" {
-			sb.WriteString("## Press Release\n\n")
+			sb.WriteString("## Press Release (Vision)\n\n")
 			sb.WriteString(input.Press)
 			sb.WriteString("\n\n")
 			sources = append(sources, types.SpecTypePress)
 		}
-		if input.PRD != "" {
-			sb.WriteString("## Product Requirements Document (PRD)\n\n")
-			sb.WriteString(input.PRD)
+
+	case types.SpecTypePRD:
+		sb.WriteString("Generate a Product Requirements Document (PRD) based on the Working Backwards artifacts.\n")
+		sb.WriteString("The Press Release defines the vision; the FAQ clarifies scope and concerns.\n")
+		sb.WriteString("Translate these into detailed, testable product requirements.\n\n")
+		if input.MRD != "" {
+			sb.WriteString("## Market Requirements Document (MRD)\n\n")
+			sb.WriteString(input.MRD)
 			sb.WriteString("\n\n")
-			sources = append(sources, types.SpecTypePRD)
+			sources = append(sources, types.SpecTypeMRD)
+		}
+		if input.Press != "" {
+			sb.WriteString("## Press Release (Vision)\n\n")
+			sb.WriteString(input.Press)
+			sb.WriteString("\n\n")
+			sources = append(sources, types.SpecTypePress)
+		}
+		if input.FAQ != "" {
+			sb.WriteString("## FAQ (Scope Clarification)\n\n")
+			sb.WriteString(input.FAQ)
+			sb.WriteString("\n\n")
+			sources = append(sources, types.SpecTypeFAQ)
 		}
 
 	case types.SpecTypeNarrative1P:
@@ -208,16 +234,24 @@ func (s *Synthesizer) buildPrompt(targetType types.SpecType, input SynthesisInpu
 }
 
 // RequiredSources returns the source spec types needed to synthesize a target type.
+// This implements the Working Backwards flow where:
+//
+//	MRD → Press → FAQ → PRD → (UXD) → TRD → IRD
 func RequiredSources(targetType types.SpecType) []types.SpecType {
 	switch targetType {
+	case types.SpecTypePress:
+		// Working Backwards: Press comes first, from MRD only
+		return []types.SpecType{types.SpecTypeMRD}
+	case types.SpecTypeFAQ:
+		// Working Backwards: FAQ clarifies scope using MRD + Press
+		return []types.SpecType{types.SpecTypeMRD, types.SpecTypePress}
+	case types.SpecTypePRD:
+		// Working Backwards: PRD derived from MRD + Press + FAQ
+		return []types.SpecType{types.SpecTypeMRD, types.SpecTypePress, types.SpecTypeFAQ}
 	case types.SpecTypeTRD:
 		return []types.SpecType{types.SpecTypeMRD, types.SpecTypePRD}
 	case types.SpecTypeIRD:
 		return []types.SpecType{types.SpecTypeTRD}
-	case types.SpecTypePress:
-		return []types.SpecType{types.SpecTypeMRD, types.SpecTypePRD}
-	case types.SpecTypeFAQ:
-		return []types.SpecType{types.SpecTypePress}
 	case types.SpecTypeNarrative1P:
 		return []types.SpecType{types.SpecTypeMRD, types.SpecTypePRD}
 	case types.SpecTypeNarrative6P:
@@ -230,7 +264,8 @@ func RequiredSources(targetType types.SpecType) []types.SpecType {
 // CanSynthesize returns whether a spec type can be synthesized.
 func CanSynthesize(specType types.SpecType) bool {
 	switch specType {
-	case types.SpecTypeTRD, types.SpecTypeIRD,
+	case types.SpecTypePRD, // PRD is synthesizable via Working Backwards flow
+		types.SpecTypeTRD, types.SpecTypeIRD,
 		types.SpecTypePress, types.SpecTypeFAQ,
 		types.SpecTypeNarrative1P, types.SpecTypeNarrative6P:
 		return true

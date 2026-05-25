@@ -190,18 +190,23 @@ func runInit(cmd *cobra.Command, args []string, cfg *Config) error {
 	fmt.Printf("\n✅ Created multispec project: %s\n\n", projectName)
 	fmt.Println("Directory structure:")
 	fmt.Printf("  %s/\n", projectName)
-	fmt.Println("  ├── source/        # Human-authored specs")
-	fmt.Println("  ├── gtm/           # LLM-generated GTM docs")
-	fmt.Println("  ├── technical/     # LLM-generated technical docs")
+	fmt.Println("  ├── source/        # Human-authored specs (mrd, prd, uxd)")
+	fmt.Println("  ├── gtm/           # Synthesized GTM docs (press, faq, narrative)")
+	fmt.Println("  ├── technical/     # Synthesized technical docs (trd, ird)")
 	fmt.Println("  ├── eval/          # Evaluation results")
 	fmt.Println("  └── multispec.yaml # Project configuration")
 	fmt.Println()
-	fmt.Println("Next steps:")
-	fmt.Println("  1. Create source specs: mrd.md, prd.md, uxd.md in source/")
-	fmt.Println("  2. Run evaluations: multispec eval --all")
-	fmt.Println("  3. Generate GTM docs: multispec synthesize press")
-	fmt.Println("  4. Generate technical docs: multispec synthesize trd")
-	fmt.Println("  5. Reconcile: multispec reconcile")
+	fmt.Println("Working Backwards workflow:")
+	fmt.Println("  1. Write MRD:           multispec create mrd")
+	fmt.Println("  2. Synthesize vision:   multispec synthesize press")
+	fmt.Println("  3. Challenge scope:     multispec synthesize faq")
+	fmt.Println("  4. Derive requirements: multispec synthesize prd")
+	fmt.Println("  5. Review narratives:   multispec synthesize narrative-1p")
+	fmt.Println("  6. Write UXD:           multispec create uxd")
+	fmt.Println("  7. Technical specs:     multispec synthesize trd && multispec synthesize ird")
+	fmt.Println("  8. Reconcile:           multispec reconcile")
+	fmt.Println()
+	fmt.Println("All synthesized docs are editable - refine them in git or with AI assistants.")
 
 	return nil
 }
@@ -686,18 +691,21 @@ func runEval(cmd *cobra.Command, args []string, cfg *Config) error {
 func synthesizeCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
 	cmd := &cobra.Command{
 		Use:   "synthesize <type>",
-		Short: "Generate specs from source documents",
-		Long: `Generate specification documents from source specs.
+		Short: "Generate specs using Working Backwards methodology",
+		Long: `Generate specification documents from source specs using LLM synthesis.
 
-GTM synthesis (Working Backwards):
-  multispec synthesize press        # MRD + PRD → press.md
-  multispec synthesize faq          # press.md → faq.md
-  multispec synthesize narrative-1p # MRD + PRD → narrative-1p.md
-  multispec synthesize narrative-6p # MRD + PRD + UXD → narrative-6p.md
+Working Backwards Flow:
+  multispec synthesize press        # MRD → press.md (vision document)
+  multispec synthesize faq          # MRD + Press → faq.md (scope clarification)
+  multispec synthesize prd          # MRD + Press + FAQ → prd.md (detailed requirements)
 
-Technical synthesis:
+Technical Synthesis:
   multispec synthesize trd          # MRD + PRD + UXD + CONSTITUTION + CONTEXT → trd.md
   multispec synthesize ird          # TRD + CONSTITUTION + CONTEXT → ird.md
+
+Narrative Documents:
+  multispec synthesize narrative-1p # MRD + PRD → narrative-1p.md
+  multispec synthesize narrative-6p # MRD + PRD + UXD → narrative-6p.md
 
 Context grounding:
   For TRD and IRD, if context sources are configured, the synthesizer
@@ -720,7 +728,7 @@ func runSynthesize(cmd *cobra.Command, args []string) error {
 	// Parse spec type
 	specType := types.SpecType(specTypeArg)
 	if !synth.CanSynthesize(specType) {
-		return fmt.Errorf("cannot synthesize %s (valid: trd, ird, press, faq, narrative-1p, narrative-6p)", specTypeArg)
+		return fmt.Errorf("cannot synthesize %s (valid: press, faq, prd, trd, ird, narrative-1p, narrative-6p)", specTypeArg)
 	}
 
 	// Find project root
@@ -765,6 +773,9 @@ func runSynthesize(cmd *cobra.Command, args []string) error {
 	}
 	if content, err := os.ReadFile(config.SpecPath(projectPath, types.SpecTypePress)); err == nil {
 		input.Press = string(content)
+	}
+	if content, err := os.ReadFile(config.SpecPath(projectPath, types.SpecTypeFAQ)); err == nil {
+		input.FAQ = string(content)
 	}
 
 	// Load constitution from repo-level or org-level
