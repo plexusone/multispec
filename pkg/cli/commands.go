@@ -1082,6 +1082,15 @@ func runExport(cmd *cobra.Command, args []string) error {
 		exportConfig.OutputDir = filepath.Join(projectPath, "export", targetName)
 	}
 
+	// Check for CONSTITUTION.md and pass to SpecKit if present
+	constitutionPath := filepath.Join(projectPath, "CONSTITUTION.md")
+	if _, err := os.Stat(constitutionPath); err == nil {
+		if exportConfig.Options == nil {
+			exportConfig.Options = make(map[string]any)
+		}
+		exportConfig.Options["constitution_path"] = constitutionPath
+	}
+
 	fmt.Printf("⋯ Exporting to %s...\n", targetName)
 
 	// Run export

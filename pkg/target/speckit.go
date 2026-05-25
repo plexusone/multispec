@@ -79,11 +79,14 @@ func (t *SpecKitTarget) Export(spec string, config ExportConfig) (*ExportResult,
 		return nil, fmt.Errorf("creating output directory: %w", err)
 	}
 
+	var files []string
+
 	// Write spec.md
 	specPath := filepath.Join(specDir, "spec.md")
 	if err := os.WriteFile(specPath, []byte(spec), 0600); err != nil {
 		return nil, fmt.Errorf("writing spec.md: %w", err)
 	}
+	files = append(files, specPath)
 
 	// Generate plan.md from spec
 	plan := t.generatePlan(spec, config.ProjectName)
@@ -91,6 +94,7 @@ func (t *SpecKitTarget) Export(spec string, config ExportConfig) (*ExportResult,
 	if err := os.WriteFile(planPath, []byte(plan), 0600); err != nil {
 		return nil, fmt.Errorf("writing plan.md: %w", err)
 	}
+	files = append(files, planPath)
 
 	// Generate tasks.md from spec
 	tasks := t.generateTasks(spec, config.ProjectName)
@@ -98,18 +102,49 @@ func (t *SpecKitTarget) Export(spec string, config ExportConfig) (*ExportResult,
 	if err := os.WriteFile(tasksPath, []byte(tasks), 0600); err != nil {
 		return nil, fmt.Errorf("writing tasks.md: %w", err)
 	}
+	files = append(files, tasksPath)
+
+	// Sync constitution if provided
+	if constitutionPath, ok := config.Options["constitution_path"].(string); ok && constitutionPath != "" {
+		if constitutionContent, err := os.ReadFile(constitutionPath); err == nil {
+			constitutionFiles, err := t.syncConstitution(outputDir, constitutionContent)
+			if err != nil {
+				// Non-fatal: log but continue
+				fmt.Printf("Warning: failed to sync constitution: %v\n", err)
+			} else {
+				files = append(files, constitutionFiles...)
+			}
+		}
+	}
 
 	return &ExportResult{
 		Target:    t.Name(),
 		OutputDir: specDir,
-		Files: []string{
-			specPath,
-			planPath,
-			tasksPath,
-		},
-		Success: true,
-		Message: fmt.Sprintf("Exported to %s", specDir),
+		Files:     files,
+		Success:   true,
+		Message:   fmt.Sprintf("Exported to %s", specDir),
 	}, nil
+}
+
+// syncConstitution syncs CONSTITUTION.md to SpecKit memory location.
+func (t *SpecKitTarget) syncConstitution(outputDir string, constitution []byte) ([]string, error) {
+	var files []string
+
+	// SpecKit stores constitution in .specify/memory/constitution.md
+	// Clean the path to satisfy gosec G703 (path traversal)
+	memoryDir := filepath.Clean(filepath.Join(filepath.Dir(outputDir), ".specify", "memory"))
+	if err := os.MkdirAll(memoryDir, 0755); err != nil {
+		return nil, fmt.Errorf("creating memory directory: %w", err)
+	}
+
+	constitutionPath := filepath.Clean(filepath.Join(memoryDir, "constitution.md"))
+	// #nosec G703 -- outputDir is from controlled export config, not arbitrary user input
+	if err := os.WriteFile(constitutionPath, constitution, 0600); err != nil {
+		return nil, fmt.Errorf("writing constitution.md: %w", err)
+	}
+	files = append(files, constitutionPath)
+
+	return files, nil
 }
 
 // generatePlan creates a plan.md from the spec.
