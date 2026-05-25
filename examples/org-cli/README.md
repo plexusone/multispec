@@ -15,11 +15,30 @@ This example demonstrates how organizations can build custom CLI tools that incl
 examples/org-cli/
 ├── main.go                     # CLI entry point with embedded loaders
 ├── templates/
-│   └── prd.md                  # Custom PRD template (compiled in)
+│   ├── prd.md                  # Custom PRD template
+│   ├── mrd.md                  # Custom MRD template
+│   ├── uxd.md                  # Custom UXD template
+│   ├── trd.md                  # Custom TRD template
+│   └── ird.md                  # Custom IRD template
 ├── rubrics/
-│   └── prd.rubric.yaml         # Custom PRD rubric (compiled in)
+│   ├── prd.rubric.yaml         # Custom PRD rubric
+│   ├── mrd.rubric.yaml         # Custom MRD rubric
+│   ├── uxd.rubric.yaml         # Custom UXD rubric
+│   ├── trd.rubric.yaml         # Custom TRD rubric
+│   └── ird.rubric.yaml         # Custom IRD rubric
 └── README.md
 ```
+
+## Required File Naming Conventions
+
+Templates and rubrics must follow specific naming conventions:
+
+| Resource | Pattern | Examples |
+|----------|---------|----------|
+| Templates | `{spec-type}.md` | `prd.md`, `mrd.md`, `custom-spec.md` |
+| Rubrics | `{spec-type}.rubric.yaml` | `prd.rubric.yaml`, `mrd.rubric.yaml` |
+
+The spec-type in the filename must match the `spec_type` field in rubrics and the spec type used in multispec commands.
 
 ## Building
 
