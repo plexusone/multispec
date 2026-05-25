@@ -32,7 +32,9 @@ Multi-domain specification orchestration for humans and AI agents.
 
 ## Overview
 
-MultiSpec bridges the gap between organizational intent and executable specifications for AI coding agents. It implements **Amazon's Working Backwards methodology** to ensure every requirement traces back to a specific customer outcome.
+MultiSpec bridges the gap between organizational intent and executable specifications for AI coding agents. It implements **[Amazon's Working Backwards methodology][working-backwards]** to ensure every requirement traces back to a specific customer outcome.
+
+[working-backwards]: https://www.amazon.com/Working-Backwards-Insights-Stories-Secrets/dp/1250267595/ "Working Backwards by Colin Bryar and Bill Carr (St. Martin's Press, 2021)"
 
 **Key Capabilities:**
 

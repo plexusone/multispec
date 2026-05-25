@@ -200,8 +200,23 @@ Different organizational stages need different levels of ceremony:
 multispec init my-feature --profile growth
 ```
 
-## Further Reading
+## References
 
-- [Amazon's Working Backwards Process](https://www.amazon.jobs/en/landing_pages/working-backwards)
+The Working Backwards methodology was developed at Amazon and is documented in:
+
+- **Bryar, Colin and Bill Carr.** *[Working Backwards: Insights, Stories, and Secrets from Inside Amazon](https://www.amazon.com/Working-Backwards-Insights-Stories-Secrets/dp/1250267595/)*. St. Martin's Press, 2021.
+
+  The definitive guide by two former Amazon executives (Bryar was Jeff Bezos's "shadow" for two years; Carr launched Amazon Music and Prime Video). Covers the PR/FAQ process, single-threaded leadership, and other Amazon mechanisms.
+
+- **AWS Blog.** *[Working Backwards to Drive Customer Experience and SMB Innovation Forward](https://aws.amazon.com/blogs/smb/working-backwards-to-drive-customer-experience-and-smb-innovation-forward/)*
+
+  Practical application of Working Backwards for small and medium businesses.
+
+- **Amazon Jobs.** *[Working Backwards](https://www.amazon.jobs/en/landing_pages/working-backwards)*
+
+  Amazon's official overview of the methodology.
+
+## Related Documentation
+
 - [Synthesize Command](../cli/synthesize.md)
 - [Reconcile Command](../cli/reconcile.md)
