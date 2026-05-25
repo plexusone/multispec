@@ -10,24 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://plexusone.github.io/multispec/specs/context-sources/source/mrd/">
+        <link rel="canonical" href="https://plexusone.github.io/multispec/cli/context/">
       
       
+        <link rel="prev" href="../graph/">
       
       
-      <link rel="icon" href="../../../../assets/images/favicon.png">
+        <link rel="next" href="../docs/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>Context Sources MRD - MultiSpec</title>
+        <title>context - MultiSpec</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +52,7 @@
     
       <link rel="stylesheet" href="https://plexusone.dev/css/plexusone-mkdocs.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#context-sources-mrd" class="md-skip">
+        <a href="#context" class="md-skip">
           Skip to content
         </a>
       
@@ -95,7 +99,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="MultiSpec" class="md-header__button md-logo" aria-label="MultiSpec" data-md-component="logo">
+    <a href="../.." title="MultiSpec" class="md-header__button md-logo" aria-label="MultiSpec" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -115,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Context Sources MRD
+              context
             
           </span>
         </div>
@@ -232,7 +236,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="MultiSpec" class="md-nav__button md-logo" aria-label="MultiSpec" data-md-component="logo">
+    <a href="../.." title="MultiSpec" class="md-nav__button md-logo" aria-label="MultiSpec" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -262,7 +266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -329,7 +333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/installation/" class="md-nav__link">
+      <a href="../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -352,7 +356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
         
   
   
@@ -375,7 +379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/concepts/" class="md-nav__link">
+      <a href="../../getting-started/concepts/" class="md-nav__link">
         
   
   
@@ -402,8 +406,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -414,13 +420,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -436,7 +440,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             CLI Reference
@@ -450,7 +454,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -473,7 +477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/init/" class="md-nav__link">
+      <a href="../init/" class="md-nav__link">
         
   
   
@@ -496,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/create/" class="md-nav__link">
+      <a href="../create/" class="md-nav__link">
         
   
   
@@ -519,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/lint/" class="md-nav__link">
+      <a href="../lint/" class="md-nav__link">
         
   
   
@@ -542,7 +546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/eval/" class="md-nav__link">
+      <a href="../eval/" class="md-nav__link">
         
   
   
@@ -565,7 +569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/synthesize/" class="md-nav__link">
+      <a href="../synthesize/" class="md-nav__link">
         
   
   
@@ -588,7 +592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/reconcile/" class="md-nav__link">
+      <a href="../reconcile/" class="md-nav__link">
         
   
   
@@ -611,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/approve/" class="md-nav__link">
+      <a href="../approve/" class="md-nav__link">
         
   
   
@@ -634,7 +638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/export/" class="md-nav__link">
+      <a href="../export/" class="md-nav__link">
         
   
   
@@ -657,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/targets/" class="md-nav__link">
+      <a href="../targets/" class="md-nav__link">
         
   
   
@@ -680,7 +684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/status/" class="md-nav__link">
+      <a href="../status/" class="md-nav__link">
         
   
   
@@ -703,7 +707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/profiles/" class="md-nav__link">
+      <a href="../profiles/" class="md-nav__link">
         
   
   
@@ -726,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/graph/" class="md-nav__link">
+      <a href="../graph/" class="md-nav__link">
         
   
   
@@ -746,10 +750,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../../cli/context/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    context
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -760,6 +786,134 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subcommands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subcommands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-gather" class="md-nav__link">
+    <span class="md-ellipsis">
+      context gather
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      context show
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-save" class="md-nav__link">
+    <span class="md-ellipsis">
+      context save
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      context sources
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repository-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repository Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auto-Detection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapshots
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -772,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/docs/" class="md-nav__link">
+      <a href="../docs/" class="md-nav__link">
         
   
   
@@ -795,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/serve/" class="md-nav__link">
+      <a href="../serve/" class="md-nav__link">
         
   
   
@@ -870,7 +1024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../guides/" class="md-nav__link">
+      <a href="../../guides/" class="md-nav__link">
         
   
   
@@ -893,7 +1047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../guides/configuration/" class="md-nav__link">
+      <a href="../../guides/configuration/" class="md-nav__link">
         
   
   
@@ -916,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../guides/custom-profiles/" class="md-nav__link">
+      <a href="../../guides/custom-profiles/" class="md-nav__link">
         
   
   
@@ -991,7 +1145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../mcp/" class="md-nav__link">
+      <a href="../../mcp/" class="md-nav__link">
         
   
   
@@ -1014,7 +1168,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../mcp/tools/" class="md-nav__link">
+      <a href="../../mcp/tools/" class="md-nav__link">
         
   
   
@@ -1089,7 +1243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ROADMAP/" class="md-nav__link">
+      <a href="../../specs/ROADMAP/" class="md-nav__link">
         
   
   
@@ -1164,7 +1318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.4.0/" class="md-nav__link">
+      <a href="../../releases/v0.4.0/" class="md-nav__link">
         
   
   
@@ -1187,7 +1341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.3.0/" class="md-nav__link">
+      <a href="../../releases/v0.3.0/" class="md-nav__link">
         
   
   
@@ -1210,7 +1364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.2.0/" class="md-nav__link">
+      <a href="../../releases/v0.2.0/" class="md-nav__link">
         
   
   
@@ -1233,7 +1387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.1.0/" class="md-nav__link">
+      <a href="../../releases/v0.1.0/" class="md-nav__link">
         
   
   
@@ -1308,7 +1462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/contributing/" class="md-nav__link">
+      <a href="../../development/contributing/" class="md-nav__link">
         
   
   
@@ -1358,186 +1512,108 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#market-problem" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Market Problem
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Market Problem">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-spec-reality-gap" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Spec-Reality Gap
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#market-segments" class="md-nav__link">
-    <span class="md-ellipsis">
-      Market Segments
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#competitive-landscape" class="md-nav__link">
-    <span class="md-ellipsis">
-      Competitive Landscape
+      Usage
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#target-audience" class="md-nav__link">
+  <a href="#description" class="md-nav__link">
     <span class="md-ellipsis">
-      Target Audience
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Target Audience">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#primary-engineering-leaders" class="md-nav__link">
-    <span class="md-ellipsis">
-      Primary: Engineering Leaders
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#secondary-product-managers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Secondary: Product Managers
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tertiary-platformdevops" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tertiary: Platform/DevOps
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#business-goals" class="md-nav__link">
-    <span class="md-ellipsis">
-      Business Goals
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Business Goals">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#g1-increase-adoption-in-brownfield-contexts" class="md-nav__link">
-    <span class="md-ellipsis">
-      G1: Increase Adoption in Brownfield Contexts
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#g2-differentiate-from-ai-doc-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      G2: Differentiate from AI Doc Tools
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#g3-create-platform-lock-in-via-integrations" class="md-nav__link">
-    <span class="md-ellipsis">
-      G3: Create Platform Lock-in via Integrations
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#success-criteria" class="md-nav__link">
-    <span class="md-ellipsis">
-      Success Criteria
+      Description
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#market-positioning" class="md-nav__link">
+  <a href="#subcommands" class="md-nav__link">
     <span class="md-ellipsis">
-      Market Positioning
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Market Positioning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tagline-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tagline Options
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#messaging" class="md-nav__link">
-    <span class="md-ellipsis">
-      Messaging
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#risks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Risks
+      Subcommands
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#timeline" class="md-nav__link">
+  <a href="#context-gather" class="md-nav__link">
     <span class="md-ellipsis">
-      Timeline
+      context gather
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      context show
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-save" class="md-nav__link">
+    <span class="md-ellipsis">
+      context save
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      context sources
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repository-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repository Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auto-Detection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapshots
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
     </span>
   </a>
   
@@ -1562,215 +1638,207 @@
   
 
 
-<h1 id="context-sources-mrd">Context Sources MRD<a class="headerlink" href="#context-sources-mrd" title="Permanent link">&para;</a></h1>
-<h2 id="market-problem">Market Problem<a class="headerlink" href="#market-problem" title="Permanent link">&para;</a></h2>
-<h3 id="the-spec-reality-gap">The Spec-Reality Gap<a class="headerlink" href="#the-spec-reality-gap" title="Permanent link">&para;</a></h3>
-<p>Organizations face a fundamental disconnect between documentation and implementation:</p>
-<ol>
-<li><strong>Brownfield Blindness</strong>: Most spec tools assume greenfield development, ignoring existing codebases</li>
-<li><strong>Context Silos</strong>: Relevant information scattered across Jira, Confluence, Google Docs, code repos</li>
-<li><strong>Manual Alignment</strong>: Keeping specs updated with shipped code requires constant manual effort</li>
-<li><strong>AI Hallucination</strong>: LLM-based tools generate specs that don't reflect actual system state</li>
-</ol>
-<p><strong>Impact</strong>: Engineering teams spend 20-30% of time reconciling specs with reality, or abandon specs entirely.</p>
-<h3 id="market-segments">Market Segments<a class="headerlink" href="#market-segments" title="Permanent link">&para;</a></h3>
+<h1 id="context">context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h1>
+<p>Gather and manage codebase context for grounding spec synthesis.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>multispec<span class="w"> </span>context<span class="w"> </span>&lt;subcommand&gt;<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+</code></pre></div>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p>The <code>context</code> command manages codebase context that grounds technical spec synthesis in reality. Context is gathered from git repositories, graphize requirement graphs, local files, and MCP servers.</p>
+<h2 id="subcommands">Subcommands<a class="headerlink" href="#subcommands" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Segment</th>
-<th>Pain Point</th>
-<th>Opportunity</th>
+<th>Subcommand</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Enterprise</td>
-<td>Legacy systems with outdated docs</td>
-<td>Auto-generate TRDs from existing code</td>
+<td><code>gather</code></td>
+<td>Collect context from all configured sources</td>
 </tr>
 <tr>
-<td>Scale-ups</td>
-<td>Fast iteration outpaces documentation</td>
-<td>Real-time spec-code alignment</td>
+<td><code>show</code></td>
+<td>Display current context summary</td>
 </tr>
 <tr>
-<td>Platform teams</td>
-<td>Multi-repo complexity</td>
-<td>Cross-repo context aggregation</td>
+<td><code>save</code></td>
+<td>Save context snapshot to file</td>
 </tr>
 <tr>
-<td>Agencies</td>
-<td>Client handoffs with poor docs</td>
-<td>Generate specs from inherited codebases</td>
+<td><code>sources</code></td>
+<td>List configured context sources</td>
 </tr>
 </tbody>
 </table>
-<h2 id="competitive-landscape">Competitive Landscape<a class="headerlink" href="#competitive-landscape" title="Permanent link">&para;</a></h2>
+<h2 id="context-gather">context gather<a class="headerlink" href="#context-gather" title="Permanent link">&para;</a></h2>
+<p>Gather context from all configured sources.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>multispec<span class="w"> </span>context<span class="w"> </span>gather<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+</code></pre></div>
+<p><strong>Flags:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Competitor</th>
-<th>Approach</th>
-<th>Limitation</th>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Traditional spec tools</td>
-<td>Manual authoring</td>
-<td>No code awareness</td>
+<td><code>--timeout</code></td>
+<td>duration</td>
+<td><code>2m</code></td>
+<td>Timeout for gathering</td>
 </tr>
 <tr>
-<td>AI doc generators</td>
-<td>Generate from prompts</td>
-<td>Hallucinate without context</td>
+<td><code>--format</code></td>
+<td>string</td>
+<td><code>text</code></td>
+<td>Output format: <code>text</code>, <code>json</code></td>
 </tr>
 <tr>
-<td>Code documentation</td>
-<td>Extract from code only</td>
-<td>No business context</td>
-</tr>
-<tr>
-<td>ADR tools</td>
-<td>Decisions only</td>
-<td>No traceability to code</td>
+<td><code>--refresh</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Refresh cache before gathering</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Multispec Differentiation</strong>: Unified context aggregation + structured synthesis + reality grounding.</p>
-<h2 id="target-audience">Target Audience<a class="headerlink" href="#target-audience" title="Permanent link">&para;</a></h2>
-<h3 id="primary-engineering-leaders">Primary: Engineering Leaders<a class="headerlink" href="#primary-engineering-leaders" title="Permanent link">&para;</a></h3>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Gather context</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>multispec<span class="w"> </span>context<span class="w"> </span>gather
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Output as JSON</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>multispec<span class="w"> </span>context<span class="w"> </span>gather<span class="w"> </span>--format<span class="w"> </span>json
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Force refresh cached data</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>multispec<span class="w"> </span>context<span class="w"> </span>gather<span class="w"> </span>--refresh
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Custom timeout</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>multispec<span class="w"> </span>context<span class="w"> </span>gather<span class="w"> </span>--timeout<span class="w"> </span>5m
+</code></pre></div>
+<h2 id="context-show">context show<a class="headerlink" href="#context-show" title="Permanent link">&para;</a></h2>
+<p>Display the current context summary from the last gather or saved snapshot.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>multispec<span class="w"> </span>context<span class="w"> </span>show
+</code></pre></div>
+<p>If no snapshot exists, prompts to run <code>gather</code> first.</p>
+<h2 id="context-save">context save<a class="headerlink" href="#context-save" title="Permanent link">&para;</a></h2>
+<p>Save gathered context to a snapshot file for CI reproducibility.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>multispec<span class="w"> </span>context<span class="w"> </span>save<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+</code></pre></div>
+<p><strong>Flags:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-o</code>, <code>--output</code></td>
+<td>string</td>
+<td><code>.context-snapshot.json</code></td>
+<td>Output file path</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Save to default location</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>multispec<span class="w"> </span>context<span class="w"> </span>save
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Save to custom path</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>multispec<span class="w"> </span>context<span class="w"> </span>save<span class="w"> </span>-o<span class="w"> </span>artifacts/context.json
+</code></pre></div>
+<h2 id="context-sources">context sources<a class="headerlink" href="#context-sources" title="Permanent link">&para;</a></h2>
+<p>List all configured context sources.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>multispec<span class="w"> </span>context<span class="w"> </span>sources
+</code></pre></div>
+<p><strong>Output:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Configured context sources:
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Git Repositories:
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  - /path/to/repo
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    (graphize: auto)
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>Graphize Graphs:
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  - spec-graph (/path/to/.graphize)
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>Local Files:
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  - architecture.md (architecture)
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>  - docs/adr/*.md (adr)
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>MCP Servers:
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>  - jira (not yet implemented)
+</code></pre></div>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Configure context sources in <code>multispec.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">context</span><span class="p">:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="c1"># Git repositories to analyze</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">repositories</span><span class="p">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;.&quot;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">      </span><span class="nt">include_structure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">      </span><span class="nt">include_deps</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">      </span><span class="nt">include_apis</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">      </span><span class="nt">graphize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://github.com/org/repo&quot;</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">      </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">      </span><span class="nt">shallow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">  </span><span class="c1"># Graphize requirement graphs</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">  </span><span class="nt">graphize</span><span class="p">:</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;.graphize&quot;</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;spec-graph&quot;</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">      </span><span class="nt">include_nodes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">      </span><span class="nt">include_edges</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">  </span><span class="c1"># Local documentation files</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">  </span><span class="nt">files</span><span class="p">:</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;docs/architecture.md&quot;</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">architecture</span>
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;docs/adr/*.md&quot;</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adr</span>
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;api/openapi.yaml&quot;</span>
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api_spec</span>
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a><span class="w">  </span><span class="c1"># MCP servers for external tools</span>
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a><span class="w">  </span><span class="nt">mcp_servers</span><span class="p">:</span>
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a><span class="w">    </span><span class="nt">jira</span><span class="p">:</span>
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;npx&quot;</span>
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a><span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;-y&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;@anthropic/mcp-jira&quot;</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a><span class="w">      </span><span class="nt">tools</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get_issue&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;search_issues&quot;</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>
+<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a><span class="w">  </span><span class="c1"># Cache settings</span>
+<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a><span class="w">  </span><span class="nt">cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30m</span>
+</code></pre></div>
+<h2 id="repository-analysis">Repository Analysis<a class="headerlink" href="#repository-analysis" title="Permanent link">&para;</a></h2>
+<p>When analyzing git repositories, the context includes:</p>
 <ul>
-<li>VP Engineering, Principal Engineers, Staff Engineers</li>
-<li>Pain: Technical specs drift from implementation</li>
-<li>Need: Auto-generated TRDs that reflect actual architecture</li>
+<li><strong>Structure</strong> - Directory tree and file organization</li>
+<li><strong>Dependencies</strong> - Package dependencies (go.mod, package.json, etc.)</li>
+<li><strong>APIs</strong> - OpenAPI specs, GraphQL schemas, protobuf definitions</li>
+<li><strong>README</strong> - Repository documentation</li>
 </ul>
-<h3 id="secondary-product-managers">Secondary: Product Managers<a class="headerlink" href="#secondary-product-managers" title="Permanent link">&para;</a></h3>
+<h2 id="auto-detection">Auto-Detection<a class="headerlink" href="#auto-detection" title="Permanent link">&para;</a></h2>
+<p>If no repositories are configured, multispec auto-detects the repository at the project root.</p>
+<h2 id="snapshots">Snapshots<a class="headerlink" href="#snapshots" title="Permanent link">&para;</a></h2>
+<p>Context snapshots enable reproducible synthesis in CI:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># In CI pipeline</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>multispec<span class="w"> </span>context<span class="w"> </span>save<span class="w"> </span>-o<span class="w"> </span>context-snapshot.json
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Later, use saved context</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>multispec<span class="w"> </span>synthesize<span class="w"> </span>trd<span class="w"> </span>--context-file<span class="w"> </span>context-snapshot.json
+</code></pre></div>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Senior PMs, Technical PMs</li>
-<li>Pain: Can't verify if specs match shipped product</li>
-<li>Need: Automated alignment reports</li>
+<li><a href="../../context-sources/">Context Sources Guide</a> - Comprehensive configuration guide</li>
+<li><a href="../synthesize/">synthesize</a> - Uses context for TRD/IRD synthesis</li>
 </ul>
-<h3 id="tertiary-platformdevops">Tertiary: Platform/DevOps<a class="headerlink" href="#tertiary-platformdevops" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Platform Engineers, DevOps Leads</li>
-<li>Pain: Documentation gaps in CI/CD pipelines</li>
-<li>Need: Automated spec generation in pipelines</li>
-</ul>
-<h2 id="business-goals">Business Goals<a class="headerlink" href="#business-goals" title="Permanent link">&para;</a></h2>
-<h3 id="g1-increase-adoption-in-brownfield-contexts">G1: Increase Adoption in Brownfield Contexts<a class="headerlink" href="#g1-increase-adoption-in-brownfield-contexts" title="Permanent link">&para;</a></h3>
-<p>Current multispec adoption limited to greenfield projects. Context sources enables brownfield use cases, expanding TAM 5x.</p>
-<h3 id="g2-differentiate-from-ai-doc-tools">G2: Differentiate from AI Doc Tools<a class="headerlink" href="#g2-differentiate-from-ai-doc-tools" title="Permanent link">&para;</a></h3>
-<p>Pure AI tools hallucinate. Context-grounded synthesis produces accurate, verifiable specs.</p>
-<h3 id="g3-create-platform-lock-in-via-integrations">G3: Create Platform Lock-in via Integrations<a class="headerlink" href="#g3-create-platform-lock-in-via-integrations" title="Permanent link">&para;</a></h3>
-<p>MCP server integrations (Jira, Confluence, etc.) create switching costs and ecosystem value.</p>
-<h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Current</th>
-<th>Target</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Brownfield project adoption</td>
-<td>~10%</td>
-<td>50%+</td>
-</tr>
-<tr>
-<td>Spec accuracy (user reported)</td>
-<td>N/A</td>
-<td>90%+ match reality</td>
-</tr>
-<tr>
-<td>Integration connections</td>
-<td>0</td>
-<td>5+ MCP servers</td>
-</tr>
-<tr>
-<td>Context gather usage</td>
-<td>0</td>
-<td>40% of synthesize calls</td>
-</tr>
-</tbody>
-</table>
-<h2 id="market-positioning">Market Positioning<a class="headerlink" href="#market-positioning" title="Permanent link">&para;</a></h2>
-<h3 id="tagline-options">Tagline Options<a class="headerlink" href="#tagline-options" title="Permanent link">&para;</a></h3>
-<ul>
-<li>"Grounding" - Specs grounded in reality</li>
-<li>"Reality-Aware Specs" - Documentation that knows your code</li>
-<li>"Context-First Synthesis" - From codebase to spec, automatically</li>
-</ul>
-<h3 id="messaging">Messaging<a class="headerlink" href="#messaging" title="Permanent link">&para;</a></h3>
-<p><strong>For Engineering Leaders:</strong></p>
-<blockquote>
-<p>"Generate technical specs that actually reflect your architecture. Multispec analyzes your codebase, requirement graphs, and project tools to synthesize TRDs grounded in reality—not hallucinations."</p>
-</blockquote>
-<p><strong>For Product Managers:</strong></p>
-<blockquote>
-<p>"Finally know if your specs match what shipped. Multispec's Grounding feature compares your PRD against the actual codebase and flags drift automatically."</p>
-</blockquote>
-<h2 id="risks">Risks<a class="headerlink" href="#risks" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Risk</th>
-<th>Mitigation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MCP server ecosystem immature</td>
-<td>Start with well-supported servers (Jira, Confluence)</td>
-</tr>
-<tr>
-<td>Context gathering too slow</td>
-<td>Incremental updates, caching, snapshots</td>
-</tr>
-<tr>
-<td>Privacy concerns with code analysis</td>
-<td>Local-only analysis, no data leaves machine</td>
-</tr>
-<tr>
-<td>Complexity overwhelms users</td>
-<td>Progressive disclosure, sensible defaults</td>
-</tr>
-</tbody>
-</table>
-<h2 id="timeline">Timeline<a class="headerlink" href="#timeline" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>Date</th>
-<th>Deliverable</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Alpha</td>
-<td>Week 2</td>
-<td>Git + Graphize context</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>Week 4</td>
-<td>MCP client, synthesis integration</td>
-</tr>
-<tr>
-<td>RC</td>
-<td>Week 5</td>
-<td>Snapshots, caching, docs</td>
-</tr>
-<tr>
-<td>GA</td>
-<td>Week 6</td>
-<td>v0.4.0 release</td>
-</tr>
-</tbody>
-</table>
 
 
 
@@ -1841,10 +1909,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>

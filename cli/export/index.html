@@ -10,24 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://plexusone.github.io/multispec/specs/context-sources/source/mrd/">
+        <link rel="canonical" href="https://plexusone.github.io/multispec/cli/export/">
       
       
+        <link rel="prev" href="../approve/">
       
       
-      <link rel="icon" href="../../../../assets/images/favicon.png">
+        <link rel="next" href="../targets/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
-        <title>Context Sources MRD - MultiSpec</title>
+        <title>export - MultiSpec</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +52,7 @@
     
       <link rel="stylesheet" href="https://plexusone.dev/css/plexusone-mkdocs.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#context-sources-mrd" class="md-skip">
+        <a href="#export" class="md-skip">
           Skip to content
         </a>
       
@@ -95,7 +99,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="MultiSpec" class="md-header__button md-logo" aria-label="MultiSpec" data-md-component="logo">
+    <a href="../.." title="MultiSpec" class="md-header__button md-logo" aria-label="MultiSpec" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -115,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Context Sources MRD
+              export
             
           </span>
         </div>
@@ -232,7 +236,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="MultiSpec" class="md-nav__button md-logo" aria-label="MultiSpec" data-md-component="logo">
+    <a href="../.." title="MultiSpec" class="md-nav__button md-logo" aria-label="MultiSpec" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -262,7 +266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -329,7 +333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/installation/" class="md-nav__link">
+      <a href="../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -352,7 +356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/quickstart/" class="md-nav__link">
+      <a href="../../getting-started/quickstart/" class="md-nav__link">
         
   
   
@@ -375,7 +379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../getting-started/concepts/" class="md-nav__link">
+      <a href="../../getting-started/concepts/" class="md-nav__link">
         
   
   
@@ -402,8 +406,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -414,13 +420,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -436,7 +440,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             CLI Reference
@@ -450,7 +454,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -473,7 +477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/init/" class="md-nav__link">
+      <a href="../init/" class="md-nav__link">
         
   
   
@@ -496,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/create/" class="md-nav__link">
+      <a href="../create/" class="md-nav__link">
         
   
   
@@ -519,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/lint/" class="md-nav__link">
+      <a href="../lint/" class="md-nav__link">
         
   
   
@@ -542,7 +546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/eval/" class="md-nav__link">
+      <a href="../eval/" class="md-nav__link">
         
   
   
@@ -565,7 +569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/synthesize/" class="md-nav__link">
+      <a href="../synthesize/" class="md-nav__link">
         
   
   
@@ -588,7 +592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/reconcile/" class="md-nav__link">
+      <a href="../reconcile/" class="md-nav__link">
         
   
   
@@ -611,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/approve/" class="md-nav__link">
+      <a href="../approve/" class="md-nav__link">
         
   
   
@@ -631,10 +635,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../../cli/export/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    export
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -645,6 +671,167 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Targets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Available Targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speckit" class="md-nav__link">
+    <span class="md-ellipsis">
+      speckit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      gsd
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gastown" class="md-nav__link">
+    <span class="md-ellipsis">
+      gastown
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gascity" class="md-nav__link">
+    <span class="md-ellipsis">
+      gascity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constitution-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constitution Sync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -657,7 +844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/targets/" class="md-nav__link">
+      <a href="../targets/" class="md-nav__link">
         
   
   
@@ -680,7 +867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/status/" class="md-nav__link">
+      <a href="../status/" class="md-nav__link">
         
   
   
@@ -703,7 +890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/profiles/" class="md-nav__link">
+      <a href="../profiles/" class="md-nav__link">
         
   
   
@@ -726,7 +913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/graph/" class="md-nav__link">
+      <a href="../graph/" class="md-nav__link">
         
   
   
@@ -749,7 +936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/context/" class="md-nav__link">
+      <a href="../context/" class="md-nav__link">
         
   
   
@@ -772,7 +959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/docs/" class="md-nav__link">
+      <a href="../docs/" class="md-nav__link">
         
   
   
@@ -795,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../cli/serve/" class="md-nav__link">
+      <a href="../serve/" class="md-nav__link">
         
   
   
@@ -870,7 +1057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../guides/" class="md-nav__link">
+      <a href="../../guides/" class="md-nav__link">
         
   
   
@@ -893,7 +1080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../guides/configuration/" class="md-nav__link">
+      <a href="../../guides/configuration/" class="md-nav__link">
         
   
   
@@ -916,7 +1103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../guides/custom-profiles/" class="md-nav__link">
+      <a href="../../guides/custom-profiles/" class="md-nav__link">
         
   
   
@@ -991,7 +1178,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../mcp/" class="md-nav__link">
+      <a href="../../mcp/" class="md-nav__link">
         
   
   
@@ -1014,7 +1201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../mcp/tools/" class="md-nav__link">
+      <a href="../../mcp/tools/" class="md-nav__link">
         
   
   
@@ -1089,7 +1276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ROADMAP/" class="md-nav__link">
+      <a href="../../specs/ROADMAP/" class="md-nav__link">
         
   
   
@@ -1164,7 +1351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.4.0/" class="md-nav__link">
+      <a href="../../releases/v0.4.0/" class="md-nav__link">
         
   
   
@@ -1187,7 +1374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.3.0/" class="md-nav__link">
+      <a href="../../releases/v0.3.0/" class="md-nav__link">
         
   
   
@@ -1210,7 +1397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.2.0/" class="md-nav__link">
+      <a href="../../releases/v0.2.0/" class="md-nav__link">
         
   
   
@@ -1233,7 +1420,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/v0.1.0/" class="md-nav__link">
+      <a href="../../releases/v0.1.0/" class="md-nav__link">
         
   
   
@@ -1308,7 +1495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/contributing/" class="md-nav__link">
+      <a href="../../development/contributing/" class="md-nav__link">
         
   
   
@@ -1358,28 +1545,91 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#market-problem" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     <span class="md-ellipsis">
-      Market Problem
+      Usage
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Market Problem">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arguments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Targets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Available Targets">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-spec-reality-gap" class="md-nav__link">
+  <a href="#speckit" class="md-nav__link">
     <span class="md-ellipsis">
-      The Spec-Reality Gap
+      speckit
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#market-segments" class="md-nav__link">
+  <a href="#gsd" class="md-nav__link">
     <span class="md-ellipsis">
-      Market Segments
+      gsd
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gastown" class="md-nav__link">
+    <span class="md-ellipsis">
+      gastown
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gascity" class="md-nav__link">
+    <span class="md-ellipsis">
+      gascity
     </span>
   </a>
   
@@ -1391,153 +1641,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#competitive-landscape" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Competitive Landscape
+      Examples
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#target-audience" class="md-nav__link">
+  <a href="#output" class="md-nav__link">
     <span class="md-ellipsis">
-      Target Audience
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Target Audience">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#primary-engineering-leaders" class="md-nav__link">
-    <span class="md-ellipsis">
-      Primary: Engineering Leaders
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#secondary-product-managers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Secondary: Product Managers
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tertiary-platformdevops" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tertiary: Platform/DevOps
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#business-goals" class="md-nav__link">
-    <span class="md-ellipsis">
-      Business Goals
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Business Goals">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#g1-increase-adoption-in-brownfield-contexts" class="md-nav__link">
-    <span class="md-ellipsis">
-      G1: Increase Adoption in Brownfield Contexts
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#g2-differentiate-from-ai-doc-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      G2: Differentiate from AI Doc Tools
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#g3-create-platform-lock-in-via-integrations" class="md-nav__link">
-    <span class="md-ellipsis">
-      G3: Create Platform Lock-in via Integrations
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#success-criteria" class="md-nav__link">
-    <span class="md-ellipsis">
-      Success Criteria
+      Output
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#market-positioning" class="md-nav__link">
+  <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Market Positioning
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Market Positioning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tagline-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Tagline Options
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#messaging" class="md-nav__link">
-    <span class="md-ellipsis">
-      Messaging
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#risks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Risks
+      Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#timeline" class="md-nav__link">
+  <a href="#constitution-sync" class="md-nav__link">
     <span class="md-ellipsis">
-      Timeline
+      Constitution Sync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
     </span>
   </a>
   
@@ -1562,215 +1704,156 @@
   
 
 
-<h1 id="context-sources-mrd">Context Sources MRD<a class="headerlink" href="#context-sources-mrd" title="Permanent link">&para;</a></h1>
-<h2 id="market-problem">Market Problem<a class="headerlink" href="#market-problem" title="Permanent link">&para;</a></h2>
-<h3 id="the-spec-reality-gap">The Spec-Reality Gap<a class="headerlink" href="#the-spec-reality-gap" title="Permanent link">&para;</a></h3>
-<p>Organizations face a fundamental disconnect between documentation and implementation:</p>
-<ol>
-<li><strong>Brownfield Blindness</strong>: Most spec tools assume greenfield development, ignoring existing codebases</li>
-<li><strong>Context Silos</strong>: Relevant information scattered across Jira, Confluence, Google Docs, code repos</li>
-<li><strong>Manual Alignment</strong>: Keeping specs updated with shipped code requires constant manual effort</li>
-<li><strong>AI Hallucination</strong>: LLM-based tools generate specs that don't reflect actual system state</li>
-</ol>
-<p><strong>Impact</strong>: Engineering teams spend 20-30% of time reconciling specs with reality, or abandon specs entirely.</p>
-<h3 id="market-segments">Market Segments<a class="headerlink" href="#market-segments" title="Permanent link">&para;</a></h3>
+<h1 id="export">export<a class="headerlink" href="#export" title="Permanent link">&para;</a></h1>
+<p>Export the reconciled spec to target execution systems.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>multispec<span class="w"> </span><span class="nb">export</span><span class="w"> </span>&lt;target&gt;<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
+</code></pre></div>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p>The <code>export</code> command transforms the unified <code>spec.md</code> into formats compatible with AI coding agent execution systems. Each target produces different output files optimized for specific workflows.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Before exporting, you must have a reconciled <code>spec.md</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>multispec<span class="w"> </span>reconcile
+</code></pre></div>
+<h2 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Segment</th>
-<th>Pain Point</th>
-<th>Opportunity</th>
+<th>Argument</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Enterprise</td>
-<td>Legacy systems with outdated docs</td>
-<td>Auto-generate TRDs from existing code</td>
-</tr>
-<tr>
-<td>Scale-ups</td>
-<td>Fast iteration outpaces documentation</td>
-<td>Real-time spec-code alignment</td>
-</tr>
-<tr>
-<td>Platform teams</td>
-<td>Multi-repo complexity</td>
-<td>Cross-repo context aggregation</td>
-</tr>
-<tr>
-<td>Agencies</td>
-<td>Client handoffs with poor docs</td>
-<td>Generate specs from inherited codebases</td>
+<td><code>target</code></td>
+<td>Target system: <code>speckit</code>, <code>gsd</code>, <code>gastown</code>, <code>gascity</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="competitive-landscape">Competitive Landscape<a class="headerlink" href="#competitive-landscape" title="Permanent link">&para;</a></h2>
+<h2 id="flags">Flags<a class="headerlink" href="#flags" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Competitor</th>
-<th>Approach</th>
-<th>Limitation</th>
+<th>Flag</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Traditional spec tools</td>
-<td>Manual authoring</td>
-<td>No code awareness</td>
+<td><code>--dry-run</code></td>
+<td>bool</td>
+<td><code>false</code></td>
+<td>Show what would be exported without writing</td>
 </tr>
 <tr>
-<td>AI doc generators</td>
-<td>Generate from prompts</td>
-<td>Hallucinate without context</td>
-</tr>
-<tr>
-<td>Code documentation</td>
-<td>Extract from code only</td>
-<td>No business context</td>
-</tr>
-<tr>
-<td>ADR tools</td>
-<td>Decisions only</td>
-<td>No traceability to code</td>
+<td><code>--output</code></td>
+<td>string</td>
+<td><code>""</code></td>
+<td>Output directory (default: <code>export/&lt;target&gt;</code>)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Multispec Differentiation</strong>: Unified context aggregation + structured synthesis + reality grounding.</p>
-<h2 id="target-audience">Target Audience<a class="headerlink" href="#target-audience" title="Permanent link">&para;</a></h2>
-<h3 id="primary-engineering-leaders">Primary: Engineering Leaders<a class="headerlink" href="#primary-engineering-leaders" title="Permanent link">&para;</a></h3>
+<h2 id="available-targets">Available Targets<a class="headerlink" href="#available-targets" title="Permanent link">&para;</a></h2>
+<h3 id="speckit">speckit<a class="headerlink" href="#speckit" title="Permanent link">&para;</a></h3>
+<p>GitHub Spec-Kit format for spec-driven development.</p>
+<p><strong>Output files:</strong></p>
 <ul>
-<li>VP Engineering, Principal Engineers, Staff Engineers</li>
-<li>Pain: Technical specs drift from implementation</li>
-<li>Need: Auto-generated TRDs that reflect actual architecture</li>
+<li><code>spec.md</code> - Unified specification</li>
+<li><code>plan.md</code> - Implementation plan with phases</li>
+<li><code>tasks.md</code> - Task breakdown</li>
 </ul>
-<h3 id="secondary-product-managers">Secondary: Product Managers<a class="headerlink" href="#secondary-product-managers" title="Permanent link">&para;</a></h3>
+<p><strong>Features:</strong></p>
 <ul>
-<li>Senior PMs, Technical PMs</li>
-<li>Pain: Can't verify if specs match shipped product</li>
-<li>Need: Automated alignment reports</li>
+<li>Sequential task execution</li>
+<li>Constitution sync to <code>.specify/memory/</code></li>
+<li>Branch numbering support</li>
 </ul>
-<h3 id="tertiary-platformdevops">Tertiary: Platform/DevOps<a class="headerlink" href="#tertiary-platformdevops" title="Permanent link">&para;</a></h3>
+<h3 id="gsd">gsd<a class="headerlink" href="#gsd" title="Permanent link">&para;</a></h3>
+<p>Get Shit Done methodology format.</p>
+<p><strong>Output files:</strong></p>
 <ul>
-<li>Platform Engineers, DevOps Leads</li>
-<li>Pain: Documentation gaps in CI/CD pipelines</li>
-<li>Need: Automated spec generation in pipelines</li>
+<li><code>PLAN.md</code> - Plan with YAML frontmatter (must_haves, truths, artifacts)</li>
+<li><code>STATE.md</code> - Progress tracking</li>
+<li><code>config.json</code> - GSD configuration</li>
 </ul>
-<h2 id="business-goals">Business Goals<a class="headerlink" href="#business-goals" title="Permanent link">&para;</a></h2>
-<h3 id="g1-increase-adoption-in-brownfield-contexts">G1: Increase Adoption in Brownfield Contexts<a class="headerlink" href="#g1-increase-adoption-in-brownfield-contexts" title="Permanent link">&para;</a></h3>
-<p>Current multispec adoption limited to greenfield projects. Context sources enables brownfield use cases, expanding TAM 5x.</p>
-<h3 id="g2-differentiate-from-ai-doc-tools">G2: Differentiate from AI Doc Tools<a class="headerlink" href="#g2-differentiate-from-ai-doc-tools" title="Permanent link">&para;</a></h3>
-<p>Pure AI tools hallucinate. Context-grounded synthesis produces accurate, verifiable specs.</p>
-<h3 id="g3-create-platform-lock-in-via-integrations">G3: Create Platform Lock-in via Integrations<a class="headerlink" href="#g3-create-platform-lock-in-via-integrations" title="Permanent link">&para;</a></h3>
-<p>MCP server integrations (Jira, Confluence, etc.) create switching costs and ecosystem value.</p>
-<h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Current</th>
-<th>Target</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Brownfield project adoption</td>
-<td>~10%</td>
-<td>50%+</td>
-</tr>
-<tr>
-<td>Spec accuracy (user reported)</td>
-<td>N/A</td>
-<td>90%+ match reality</td>
-</tr>
-<tr>
-<td>Integration connections</td>
-<td>0</td>
-<td>5+ MCP servers</td>
-</tr>
-<tr>
-<td>Context gather usage</td>
-<td>0</td>
-<td>40% of synthesize calls</td>
-</tr>
-</tbody>
-</table>
-<h2 id="market-positioning">Market Positioning<a class="headerlink" href="#market-positioning" title="Permanent link">&para;</a></h2>
-<h3 id="tagline-options">Tagline Options<a class="headerlink" href="#tagline-options" title="Permanent link">&para;</a></h3>
+<p><strong>Features:</strong></p>
 <ul>
-<li>"Grounding" - Specs grounded in reality</li>
-<li>"Reality-Aware Specs" - Documentation that knows your code</li>
-<li>"Context-First Synthesis" - From codebase to spec, automatically</li>
+<li>Wave-based parallel execution</li>
+<li>Artifact verification</li>
+<li>Progress state tracking</li>
 </ul>
-<h3 id="messaging">Messaging<a class="headerlink" href="#messaging" title="Permanent link">&para;</a></h3>
-<p><strong>For Engineering Leaders:</strong></p>
-<blockquote>
-<p>"Generate technical specs that actually reflect your architecture. Multispec analyzes your codebase, requirement graphs, and project tools to synthesize TRDs grounded in reality—not hallucinations."</p>
-</blockquote>
-<p><strong>For Product Managers:</strong></p>
-<blockquote>
-<p>"Finally know if your specs match what shipped. Multispec's Grounding feature compares your PRD against the actual codebase and flags drift automatically."</p>
-</blockquote>
-<h2 id="risks">Risks<a class="headerlink" href="#risks" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Risk</th>
-<th>Mitigation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MCP server ecosystem immature</td>
-<td>Start with well-supported servers (Jira, Confluence)</td>
-</tr>
-<tr>
-<td>Context gathering too slow</td>
-<td>Incremental updates, caching, snapshots</td>
-</tr>
-<tr>
-<td>Privacy concerns with code analysis</td>
-<td>Local-only analysis, no data leaves machine</td>
-</tr>
-<tr>
-<td>Complexity overwhelms users</td>
-<td>Progressive disclosure, sensible defaults</td>
-</tr>
-</tbody>
-</table>
-<h2 id="timeline">Timeline<a class="headerlink" href="#timeline" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>Date</th>
-<th>Deliverable</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Alpha</td>
-<td>Week 2</td>
-<td>Git + Graphize context</td>
-</tr>
-<tr>
-<td>Beta</td>
-<td>Week 4</td>
-<td>MCP client, synthesis integration</td>
-</tr>
-<tr>
-<td>RC</td>
-<td>Week 5</td>
-<td>Snapshots, caching, docs</td>
-</tr>
-<tr>
-<td>GA</td>
-<td>Week 6</td>
-<td>v0.4.0 release</td>
-</tr>
-</tbody>
-</table>
+<h3 id="gastown">gastown<a class="headerlink" href="#gastown" title="Permanent link">&para;</a></h3>
+<p>GasTown multi-agent formula format.</p>
+<p><strong>Output files:</strong></p>
+<ul>
+<li><code>formula.toml</code> - Formula definition (convoy/workflow/expansion)</li>
+<li><code>beads/*.toml</code> - Individual task beads</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>DAG-based execution</li>
+<li>Bead dependencies</li>
+<li>Priority ordering</li>
+</ul>
+<h3 id="gascity">gascity<a class="headerlink" href="#gascity" title="Permanent link">&para;</a></h3>
+<p>GasCity multi-agent orchestration format.</p>
+<p><strong>Output files:</strong></p>
+<ul>
+<li><code>city.toml</code> - City configuration with agents and orders</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Agent role definitions</li>
+<li>Order (task) dependencies</li>
+<li>Orchestration modes (orchestrated, autonomous, hybrid)</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Export to SpecKit</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>multispec<span class="w"> </span><span class="nb">export</span><span class="w"> </span>speckit
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Export to GSD with custom output directory</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>multispec<span class="w"> </span><span class="nb">export</span><span class="w"> </span>gsd<span class="w"> </span>--output<span class="w"> </span>./my-gsd-export
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Dry run to see what would be created</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>multispec<span class="w"> </span><span class="nb">export</span><span class="w"> </span>gastown<span class="w"> </span>--dry-run
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Export to GasCity</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>multispec<span class="w"> </span><span class="nb">export</span><span class="w"> </span>gascity
+</code></pre></div>
+<h2 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>⋯ Exporting to speckit...
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>✓ Exported to SpecKit format
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  Output: docs/specs/my-project/export/speckit
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  Files:
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    - spec.md
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    - plan.md
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    - tasks.md
+</code></pre></div>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Target-specific configuration in <code>multispec.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">targets</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">speckit</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">speckit</span><span class="p">:</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">export/speckit</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">branch_numbering</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sequential</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">gsd</span><span class="p">:</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">model_profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">balanced</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nt">gastown</span><span class="p">:</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nt">formula_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">convoy</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nt">rig</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-rig</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span><span class="nt">gascity</span><span class="p">:</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nt">city_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">export/gascity</span>
+</code></pre></div>
+<h2 id="constitution-sync">Constitution Sync<a class="headerlink" href="#constitution-sync" title="Permanent link">&para;</a></h2>
+<p>For SpecKit exports, if <code>CONSTITUTION.md</code> exists, it's synced to <code>.specify/memory/constitution.md</code> for agent memory integration.</p>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../reconcile/">reconcile</a> - Generate spec.md before export</li>
+<li><a href="../targets/">targets</a> - List available targets</li>
+</ul>
 
 
 
@@ -1841,10 +1924,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
       
     
   </body>
