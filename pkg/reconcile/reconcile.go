@@ -12,7 +12,8 @@ import (
 
 // Reconciler generates unified specs from approved source specs.
 type Reconciler struct {
-	client LLMClient
+	client   LLMClient
+	detector *ConflictDetector
 }
 
 // LLMClient defines the interface for LLM operations.
@@ -22,7 +23,10 @@ type LLMClient interface {
 
 // NewReconciler creates a new reconciler with the given LLM client.
 func NewReconciler(client LLMClient) *Reconciler {
-	return &Reconciler{client: client}
+	return &Reconciler{
+		client:   client,
+		detector: NewConflictDetector(),
+	}
 }
 
 // ReconcileInput contains all approved specs for reconciliation.
@@ -59,8 +63,11 @@ type ReconcileResult struct {
 
 // Reconcile generates a unified spec.md from approved specs.
 func (r *Reconciler) Reconcile(ctx context.Context, input ReconcileInput) (*ReconcileResult, error) {
-	// Build prompt
-	prompt, sources := r.buildPrompt(input)
+	// Detect potential conflicts before reconciliation
+	detectedConflicts := r.detector.DetectConflicts(input)
+
+	// Build prompt including detected conflicts
+	prompt, sources := r.buildPrompt(input, detectedConflicts)
 
 	// Call LLM
 	content, err := r.client.Complete(ctx, prompt)
@@ -68,15 +75,73 @@ func (r *Reconciler) Reconcile(ctx context.Context, input ReconcileInput) (*Reco
 		return nil, fmt.Errorf("LLM reconciliation failed: %w", err)
 	}
 
+	// Parse resolved conflicts from output
+	resolvedConflicts := ParseConflictsFromOutput(content)
+
+	// Merge detected conflicts with resolutions from output
+	finalConflicts := mergeConflicts(detectedConflicts, resolvedConflicts)
+
+	// Build decision log from conflicts
+	decisionLog := buildDecisionLog(finalConflicts)
+
 	return &ReconcileResult{
 		Content:     content,
 		Sources:     sources,
+		Conflicts:   finalConflicts,
 		GeneratedAt: time.Now(),
+		DecisionLog: decisionLog,
 	}, nil
 }
 
+// mergeConflicts combines detected conflicts with their resolutions.
+func mergeConflicts(detected []DetectedConflict, resolved []Conflict) []Conflict {
+	var merged []Conflict
+
+	// Add detected conflicts
+	for _, d := range detected {
+		c := d.Conflict
+		// Try to find a matching resolution
+		for _, r := range resolved {
+			if strings.Contains(strings.ToLower(r.Description), strings.ToLower(c.Description)[:min(20, len(c.Description))]) {
+				c.Resolution = r.Resolution
+				break
+			}
+		}
+		merged = append(merged, c)
+	}
+
+	// Add any resolved conflicts not in detected list
+	for _, r := range resolved {
+		found := false
+		for _, m := range merged {
+			if m.ID == r.ID {
+				found = true
+				break
+			}
+		}
+		if !found {
+			merged = append(merged, r)
+		}
+	}
+
+	return merged
+}
+
+// buildDecisionLog creates a summary of decisions made.
+func buildDecisionLog(conflicts []Conflict) []string {
+	var log []string
+	for _, c := range conflicts {
+		entry := c.Description
+		if c.Resolution != "" {
+			entry += " → " + c.Resolution
+		}
+		log = append(log, entry)
+	}
+	return log
+}
+
 // buildPrompt constructs the reconciliation prompt.
-func (r *Reconciler) buildPrompt(input ReconcileInput) (string, []types.SpecType) {
+func (r *Reconciler) buildPrompt(input ReconcileInput, conflicts []DetectedConflict) (string, []types.SpecType) {
 	var sb strings.Builder
 	var sources []types.SpecType
 
@@ -87,6 +152,17 @@ func (r *Reconciler) buildPrompt(input ReconcileInput) (string, []types.SpecType
 	sb.WriteString("2. Resolves any conflicts between specs\n")
 	sb.WriteString("3. Creates a clear task breakdown for implementation\n")
 	sb.WriteString("4. Maintains traceability to source requirements\n\n")
+
+	// Include detected conflicts if any
+	if len(conflicts) > 0 {
+		sb.WriteString("## Detected Conflicts (Require Resolution)\n\n")
+		sb.WriteString("The following potential conflicts were detected during analysis. Address each in the Decision Log section:\n\n")
+		for _, c := range conflicts {
+			sb.WriteString(fmt.Sprintf("- **%s** [%s, %s]: %s\n", c.ID, c.Severity, c.Type, c.Description))
+			sb.WriteString(fmt.Sprintf("  Sources: %v\n", c.Sources))
+		}
+		sb.WriteString("\n")
+	}
 
 	sb.WriteString("## Input Specifications\n\n")
 
