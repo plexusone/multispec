@@ -117,17 +117,11 @@ func (s *Source) Fetch(c context.Context) (*ctx.ContextData, error) {
 				errors = append(errors, fmt.Sprintf("structure: %v", err))
 			}
 		case "dependencies":
-			if err := s.analyzeDependencies(code); err != nil {
-				errors = append(errors, fmt.Sprintf("dependencies: %v", err))
-			}
+			s.analyzeDependencies(code)
 		case "api_schemas":
-			if err := s.analyzeAPIs(code); err != nil {
-				errors = append(errors, fmt.Sprintf("api_schemas: %v", err))
-			}
+			s.analyzeAPIs(code)
 		case "readme":
-			if err := s.extractREADME(code); err != nil {
-				errors = append(errors, fmt.Sprintf("readme: %v", err))
-			}
+			s.extractREADME(code)
 		}
 	}
 

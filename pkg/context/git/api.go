@@ -12,7 +12,8 @@ import (
 )
 
 // analyzeAPIs detects and parses API schema files.
-func (s *Source) analyzeAPIs(code *ctx.CodeContext) error {
+// This is a best-effort operation; failures are silently ignored.
+func (s *Source) analyzeAPIs(code *ctx.CodeContext) {
 	// Find API schema files
 	patterns := []struct {
 		glob   string
@@ -40,7 +41,7 @@ func (s *Source) analyzeAPIs(code *ctx.CodeContext) error {
 		}
 
 		// Try deeper matching
-		filepath.Walk(s.config.Path, func(path string, info os.FileInfo, err error) error {
+		_ = filepath.Walk(s.config.Path, func(path string, info os.FileInfo, err error) error {
 			if err != nil || info.IsDir() {
 				return nil
 			}
@@ -75,8 +76,6 @@ func (s *Source) analyzeAPIs(code *ctx.CodeContext) error {
 			}
 		}
 	}
-
-	return nil
 }
 
 // parseOpenAPI extracts info from OpenAPI/Swagger specs.
@@ -246,7 +245,8 @@ func (s *Source) parseProto(path, relPath string) *ctx.APISchema {
 }
 
 // extractREADME reads the README file.
-func (s *Source) extractREADME(code *ctx.CodeContext) error {
+// This is a best-effort operation; failures are silently ignored.
+func (s *Source) extractREADME(code *ctx.CodeContext) {
 	readmeNames := []string{"README.md", "README", "README.txt", "readme.md"}
 
 	for _, name := range readmeNames {
@@ -265,8 +265,6 @@ func (s *Source) extractREADME(code *ctx.CodeContext) error {
 		}
 
 		code.README = content
-		return nil
+		return
 	}
-
-	return nil
 }

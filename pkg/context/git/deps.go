@@ -12,7 +12,8 @@ import (
 )
 
 // analyzeDependencies extracts dependencies from package manager files.
-func (s *Source) analyzeDependencies(code *ctx.CodeContext) error {
+// This is a best-effort operation; failures are silently ignored.
+func (s *Source) analyzeDependencies(code *ctx.CodeContext) {
 	// Go modules
 	if deps, err := s.parseGoMod(); err == nil {
 		code.Dependencies = append(code.Dependencies, deps...)
@@ -32,8 +33,6 @@ func (s *Source) analyzeDependencies(code *ctx.CodeContext) error {
 	if deps, err := s.parseCargoToml(); err == nil {
 		code.Dependencies = append(code.Dependencies, deps...)
 	}
-
-	return nil
 }
 
 // parseGoMod extracts dependencies from go.mod.

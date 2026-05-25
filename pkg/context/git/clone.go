@@ -34,9 +34,9 @@ func cloneRepo(opts cloneOptions) (string, error) {
 	// Check if already cloned
 	if info, err := os.Stat(filepath.Join(repoDir, ".git")); err == nil && info.IsDir() {
 		// Update existing clone
-		if err := updateRepo(repoDir, opts.Branch); err != nil {
+		if err := updateRepo(repoDir); err != nil {
 			// If update fails, remove and re-clone
-			os.RemoveAll(repoDir)
+			_ = os.RemoveAll(repoDir)
 		} else {
 			return repoDir, nil
 		}
@@ -84,7 +84,7 @@ func cloneRepo(opts cloneOptions) (string, error) {
 }
 
 // updateRepo pulls the latest changes.
-func updateRepo(repoDir, branch string) error {
+func updateRepo(repoDir string) error {
 	cmd := exec.Command("git", "-C", repoDir, "pull", "--ff-only")
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
