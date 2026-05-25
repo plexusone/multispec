@@ -49,6 +49,9 @@ nav:
       - Installation: getting-started/installation.md
       - Quick Start: getting-started/quickstart.md
       - Concepts: getting-started/concepts.md
+  - Concepts:
+      - Overview: concepts/index.md
+      - Working Backwards: concepts/working-backwards.md
   - CLI Reference:
       - Overview: cli/index.md
       - init: cli/init.md

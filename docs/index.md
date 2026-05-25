@@ -13,27 +13,40 @@ MultiSpec bridges the gap between organizational intent (MRD, PRD, UXD) and exec
 - **Reconciliation** - Conflict detection and tradeoff resolution
 - **Target adapters** - Export to SpecKit, GSD, GasTown, GasCity, OpenSpec
 
-## Document Lifecycle
+## Working Backwards Flow
+
+MultiSpec implements Amazon's Working Backwards methodology:
 
 ```
-HUMAN-AUTHORED (Source)
-  mrd.md → prd.md → uxd.md
-           ↓
-LLM-GENERATED (GTM) ← Working Backwards
-  press.md → faq.md → narrative.md
-           ↓
-LLM-GENERATED (Technical)
-  trd.md → ird.md
-           ↓
-RECONCILIATION
-  All approved specs → spec.md
-           ↓
-TARGET EXPORT
-  spec.md → SpecKit | GSD | GasTown | GasCity | OpenSpec
-           ↓
-POST-SHIP ALIGNMENT
-  spec.md + reality → current-truth.md
+1. MARKET PROBLEM (human-authored)
+   mrd.md
+       ↓
+2. WORKING BACKWARDS (synthesized, editable)
+   press.md  →  faq.md  →  prd.md
+   (vision)     (scope)    (requirements)
+       ↓
+3. STAKEHOLDER REVIEW (synthesized, editable)
+   narrative-1p.md / narrative-6p.md
+       ↓
+4. USER EXPERIENCE (human-authored)
+   uxd.md
+       ↓
+5. TECHNICAL SPECS (synthesized, editable)
+   trd.md  →  ird.md
+       ↓
+6. RECONCILIATION
+   All approved specs → spec.md
+       ↓
+7. AI EXECUTION
+   spec.md → SpecKit | GSD | GasTown | GasCity
+       ↓
+8. POST-SHIP ALIGNMENT
+   spec.md + reality → current-truth.md
 ```
+
+All synthesized documents are committed to git and can be reviewed, edited, and refined by humans or collaboratively with AI assistants.
+
+See the [Working Backwards Guide](concepts/working-backwards.md) for the full methodology.
 
 ## Quick Start
 

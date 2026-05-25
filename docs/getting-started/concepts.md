@@ -18,9 +18,17 @@ Generated using the Working Backwards methodology:
 
 | Spec | Name | Input | Purpose |
 |------|------|-------|---------|
-| PRESS | Press Release | MRD + PRD | Customer announcement format |
-| FAQ | FAQ Document | PRESS | Challenges claims, surfaces gaps |
-| NARRATIVE | Narrative | MRD + PRD + FAQ | Internal vision document |
+| PRESS | Press Release | MRD | Vision document defining customer experience |
+| FAQ | FAQ Document | MRD + PRESS | Challenges claims, surfaces gaps |
+| NARRATIVE | Narrative (1P/6P) | MRD + PRD | Stakeholder alignment documents |
+
+### Product Specs (Human or Synthesized)
+
+| Spec | Name | Input | Purpose |
+|------|------|-------|---------|
+| PRD | Product Requirements | MRD + PRESS + FAQ | Detailed requirements derived from vision |
+
+PRD can be human-authored or synthesized from the Working Backwards chain. When synthesized, it derives testable requirements from the validated vision.
 
 ### Technical Specs (LLM-Generated)
 
@@ -28,6 +36,8 @@ Generated using the Working Backwards methodology:
 |------|------|-------|---------|
 | TRD | Technical Requirements | MRD + PRD + UXD + CONSTITUTION | Architecture, APIs, data models |
 | IRD | Infrastructure Requirements | TRD + CONSTITUTION | Deployment, scaling, operations |
+
+All synthesized documents are committed to git and can be edited by humans or refined collaboratively with AI assistants.
 
 ## Directory Structure
 

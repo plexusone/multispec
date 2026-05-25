@@ -32,14 +32,18 @@ Multi-domain specification orchestration for humans and AI agents.
 
 ## Overview
 
-MultiSpec bridges the gap between organizational intent (MRD, PRD, UXD) and executable specifications for AI coding agents. It provides:
+MultiSpec bridges the gap between organizational intent and executable specifications for AI coding agents. It implements **Amazon's Working Backwards methodology** to ensure every requirement traces back to a specific customer outcome.
 
+**Key Capabilities:**
+
+- 📣 **Working Backwards flow** - Start with vision (Press Release), derive requirements (PRD)
 - ✍️ **Domain-specific authoring** - Separate specs for PM, UX, Engineering
-- 📣 **GTM synthesis** - LLM-generated press releases, FAQs, narratives (Working Backwards)
-- ⚙️ **Technical synthesis** - LLM-generated TRD, IRD from source specs
+- ⚙️ **LLM synthesis** - Generate Press, FAQ, PRD, TRD, IRD from source specs
 - 📊 **Structured evaluation** - Per-domain LLM judges with customizable rubrics
 - 🔄 **Reconciliation** - Conflict detection and tradeoff resolution
 - 📦 **Target adapters** - Export to SpecKit, GSD, GasTown, GasCity, OpenSpec
+
+All synthesized documents are committed to git and can be reviewed, edited, and refined by humans or collaboratively with AI assistants.
 
 ## Installation
 
@@ -92,27 +96,40 @@ docs/specs/
     └── multispec.yaml                 # Configuration
 ```
 
-## Document Lifecycle
+## Working Backwards Flow
+
+MultiSpec implements Amazon's Working Backwards methodology. Instead of starting with requirements and hoping they lead to a good customer experience, you start with the vision and work backwards:
 
 ```
-HUMAN-AUTHORED (Source)
-  mrd.md → prd.md → uxd.md
-           ↓
-LLM-GENERATED (GTM) ← Working Backwards
-  press.md → faq.md → narrative.md
-           ↓
-LLM-GENERATED (Technical)
-  trd.md → ird.md
-           ↓
-RECONCILIATION
-  All approved specs → spec.md
-           ↓
-TARGET EXPORT
-  spec.md → SpecKit | GSD | GasTown | GasCity | OpenSpec
-           ↓
-POST-SHIP ALIGNMENT
-  spec.md + reality → current-truth.md
+1. MARKET PROBLEM (human-authored)
+   mrd.md
+       ↓
+2. WORKING BACKWARDS (synthesized, editable)
+   press.md  →  faq.md  →  prd.md
+   (vision)     (scope)    (requirements)
+       ↓
+3. STAKEHOLDER REVIEW (synthesized, editable)
+   narrative-1p.md / narrative-6p.md
+       ↓
+4. USER EXPERIENCE (human-authored)
+   uxd.md
+       ↓
+5. TECHNICAL SPECS (synthesized, editable)
+   trd.md  →  ird.md
+       ↓
+6. RECONCILIATION
+   All approved specs → spec.md
+       ↓
+7. AI EXECUTION
+   spec.md → SpecKit | GSD | GasTown | GasCity
+       ↓
+8. POST-SHIP ALIGNMENT
+   spec.md + reality → current-truth.md
 ```
+
+**Why this order?** The Press Release defines the customer experience before any requirements are written. The FAQ challenges that vision and surfaces gaps. Only then is the PRD derived—grounded in a validated vision rather than abstract feature lists.
+
+See [Working Backwards](https://plexusone.dev/multispec/concepts/working-backwards/) for the full methodology.
 
 ## CLI Commands
 

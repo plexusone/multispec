@@ -10,25 +10,56 @@ multispec synthesize <type> [flags]
 
 ## Description
 
-The `synthesize` command generates specification documents from existing source specs using an LLM. It supports two synthesis paths:
+The `synthesize` command generates specification documents from existing source specs using an LLM. It implements Amazon's Working Backwards methodology where the Press Release defines the vision, and requirements flow from that vision.
 
-**GTM Synthesis (Working Backwards)**
+## Working Backwards Flow
 
-- `press` - Press Release from MRD + PRD
-- `faq` - FAQ from Press Release
-- `narrative-1p` - 1-Page Narrative from MRD + PRD
-- `narrative-6p` - 6-Page Narrative from MRD + PRD + UXD
+MultiSpec implements Amazon's Working Backwards methodology:
+
+1. **MRD** - Define the market problem (human-authored)
+2. **Press** - Write the press release announcing the solution
+3. **FAQ** - Anticipate customer and stakeholder questions
+4. **PRD** - Derive detailed requirements from the vision
+
+```
+MRD (human-authored)
+    ↓
+Press (synthesized from MRD)
+    ↓
+FAQ (synthesized from MRD + Press)
+    ↓
+PRD (synthesized from MRD + Press + FAQ)
+    ↓
+UXD (human-authored)
+    ↓
+TRD (synthesized from MRD + PRD + UXD + context)
+    ↓
+IRD (synthesized from TRD + context)
+```
+
+## Synthesis Types
+
+**Working Backwards Flow**
+
+- `press` - Press Release from MRD (vision document)
+- `faq` - FAQ from MRD + Press (scope clarification)
+- `prd` - PRD from MRD + Press + FAQ (detailed requirements)
 
 **Technical Synthesis**
 
 - `trd` - Technical Requirements from MRD + PRD + UXD + CONSTITUTION + CONTEXT
 - `ird` - Infrastructure Requirements from TRD + CONSTITUTION + CONTEXT
 
+**Narrative Documents**
+
+- `narrative-1p` - 1-Page Narrative from MRD + PRD
+- `narrative-6p` - 6-Page Narrative from MRD + PRD + UXD
+
 ## Arguments
 
 | Argument | Description |
 |----------|-------------|
-| `type` | Spec type to synthesize: `trd`, `ird`, `press`, `faq`, `narrative-1p`, `narrative-6p` |
+| `type` | Spec type to synthesize: `press`, `faq`, `prd`, `trd`, `ird`, `narrative-1p`, `narrative-6p` |
 
 ## Flags
 
@@ -37,31 +68,33 @@ The `synthesize` command generates specification documents from existing source 
 | `--eval` | bool | `false` | Run evaluation after synthesis |
 | `--no-context` | bool | `false` | Skip context gathering for technical synthesis |
 
-## Required Sources
+## Synthesis Dependencies
 
-| Target | Required Sources |
-|--------|------------------|
-| `press` | MRD, PRD |
-| `faq` | Press Release |
-| `narrative-1p` | MRD, PRD |
-| `narrative-6p` | MRD, PRD, UXD |
-| `trd` | MRD, PRD, UXD |
-| `ird` | TRD |
+| Target | Required Sources | Description |
+|--------|------------------|-------------|
+| `press` | MRD | Vision document from market requirements |
+| `faq` | MRD, Press | Scope clarification from vision |
+| `prd` | MRD, Press, FAQ | Detailed requirements from Working Backwards artifacts |
+| `trd` | MRD, PRD | Technical requirements (UXD optional) |
+| `ird` | TRD | Infrastructure requirements |
+| `narrative-1p` | MRD, PRD | 1-page executive narrative |
+| `narrative-6p` | MRD, PRD | 6-page detailed narrative (UXD optional) |
 
 ## Examples
 
 ```bash
-# Generate Press Release
-multispec synthesize press
+# Working Backwards flow
+multispec synthesize press        # Generate Press Release from MRD
+multispec synthesize faq          # Generate FAQ from MRD + Press
+multispec synthesize prd          # Generate PRD from MRD + Press + FAQ
 
-# Generate TRD with evaluation
-multispec synthesize trd --eval
+# Technical synthesis
+multispec synthesize trd --eval   # Generate TRD with evaluation
+multispec synthesize ird --no-context  # Generate IRD without context gathering
 
-# Generate IRD without context gathering
-multispec synthesize ird --no-context
-
-# Generate FAQ document
-multispec synthesize faq
+# Narrative documents
+multispec synthesize narrative-1p
+multispec synthesize narrative-6p
 ```
 
 ## Context Grounding
@@ -82,9 +115,18 @@ This grounds technical decisions in the reality of existing code. Use `--no-cont
 ## Output
 
 ```
+⋯ Synthesizing press from [mrd]...
+✓ Generated docs/specs/my-project/gtm/press.md
+
+⋯ Synthesizing faq from [mrd press]...
+✓ Generated docs/specs/my-project/gtm/faq.md
+
+⋯ Synthesizing prd from [mrd press faq]...
+✓ Generated docs/specs/my-project/source/prd.md
+
 ⋯ Gathering codebase context for grounding...
   Gathered context from 2 sources
-⋯ Synthesizing trd from [mrd prd uxd]...
+⋯ Synthesizing trd from [mrd prd]...
 ✓ Generated docs/specs/my-project/technical/trd.md
 
 ⋯ Evaluating trd...
