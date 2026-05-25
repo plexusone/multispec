@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/plexusone/multispec/pkg/types"
 	"gopkg.in/yaml.v3"
+
+	"github.com/plexusone/multispec/pkg/types"
 )
 
 // RubricYAML represents a rubric definition in YAML format.
@@ -134,7 +135,7 @@ func WriteRubricYAML(path string, rs *RubricSet) error {
 		return fmt.Errorf("marshaling rubric: %w", err)
 	}
 
-	if err := os.WriteFile(path, data, 0644); err != nil {
+	if err := os.WriteFile(path, data, 0600); err != nil {
 		return fmt.Errorf("writing file: %w", err)
 	}
 

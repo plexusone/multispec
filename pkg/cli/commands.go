@@ -1659,7 +1659,7 @@ Examples:
 					}
 					filename := string(specType) + ".md"
 					path := filepath.Join(templatesDir, filename)
-					if err := os.WriteFile(path, []byte(tmpl.Content), 0644); err != nil {
+					if err := os.WriteFile(path, []byte(tmpl.Content), 0600); err != nil {
 						return fmt.Errorf("writing template %s: %w", filename, err)
 					}
 					fmt.Printf("Created %s\n", path)
