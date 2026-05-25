@@ -695,3 +695,54 @@ func Export(g *graph.Graph, opts ExportOptions) (*ExportResult, error) {
 
 	return result, nil
 }
+
+// Metrics contains computed statistics from a spec graph.
+type Metrics struct {
+	TotalRequirements int
+	TotalUserStories  int
+	TotalConstraints  int
+	TotalDecisions    int
+	TraceCoverage     float64 // Percentage of requirements traced to TRD
+	ConflictCount     int
+}
+
+// ComputeMetrics computes metrics from a graph.
+func ComputeMetrics(g *graph.Graph) *Metrics {
+	m := &Metrics{}
+
+	// Count nodes by type
+	reqsTraced := 0
+	for _, node := range g.Nodes {
+		switch node.Type {
+		case NodeTypeRequirement:
+			m.TotalRequirements++
+		case NodeTypeUserStory:
+			m.TotalUserStories++
+		case NodeTypeConstraint:
+			m.TotalConstraints++
+		case NodeTypeDecision:
+			m.TotalDecisions++
+		}
+	}
+
+	// Count traced requirements (requirements with traces_to edges)
+	for _, edge := range g.Edges {
+		if edge.Type == EdgeTypeTracesTo {
+			// Check if from node is a requirement
+			fromNode := g.GetNode(edge.From)
+			if fromNode != nil && fromNode.Type == NodeTypeRequirement {
+				reqsTraced++
+			}
+		}
+		if edge.Type == EdgeTypeConflictsWith {
+			m.ConflictCount++
+		}
+	}
+
+	// Calculate trace coverage
+	if m.TotalRequirements > 0 {
+		m.TraceCoverage = float64(reqsTraced) / float64(m.TotalRequirements)
+	}
+
+	return m
+}
