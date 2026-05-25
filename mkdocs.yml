@@ -52,12 +52,23 @@ nav:
   - CLI Reference:
       - Overview: cli/index.md
       - init: cli/init.md
+      - create: cli/create.md
       - lint: cli/lint.md
+      - eval: cli/eval.md
+      - synthesize: cli/synthesize.md
+      - reconcile: cli/reconcile.md
+      - approve: cli/approve.md
+      - export: cli/export.md
+      - targets: cli/targets.md
       - status: cli/status.md
       - profiles: cli/profiles.md
       - graph: cli/graph.md
+      - context: cli/context.md
+      - docs: cli/docs.md
+      - serve: cli/serve.md
   - Guides:
       - Overview: guides/index.md
+      - Configuration: guides/configuration.md
       - Custom Profiles: guides/custom-profiles.md
   - MCP Server:
       - Overview: mcp/index.md

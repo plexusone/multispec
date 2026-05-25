@@ -116,23 +116,42 @@ POST-SHIP ALIGNMENT
 
 ## CLI Commands
 
-| Command | Description | Status |
-|---------|-------------|--------|
-| `init <project>` | Initialize a new project with standard directory structure | Implemented |
-| `lint [project]` | Validate directory structure and naming conventions | Implemented |
-| `status` | Show project status and readiness gates | Implemented |
-| `create <type>` | Scaffold a new spec from template | Implemented |
-| `targets` | List available export targets | Implemented |
-| `eval [type]` | Evaluate specs using LLM judges | Implemented |
-| `synthesize <type>` | Generate specs from source docs | Implemented |
-| `reconcile` | Generate unified execution spec with conflict detection | Implemented |
-| `approve <type>` | Approve a spec for reconciliation | Implemented |
-| `export <target>` | Export to target execution system | Implemented |
-| `graph <cmd>` | Manage requirement graphs (extract, export, query) | Implemented |
-| `profiles <cmd>` | Manage configuration profiles (list, show, export) | Implemented |
-| `docs <cmd>` | Generate MkDocs documentation (generate, project) | Implemented |
-| `context <cmd>` | Manage context sources (gather, show, save, sources) | Implemented |
-| `serve` | Start MCP server for AI integration | Implemented |
+Full documentation: [CLI Reference](https://plexusone.dev/multispec/cli/)
+
+### Project Setup
+
+| Command | Description |
+|---------|-------------|
+| `init <project>` | Initialize a new project |
+| `create <type>` | Scaffold a new spec from template |
+| `lint [project]` | Validate directory structure |
+| `status` | Show project status and readiness |
+| `profiles <cmd>` | Manage configuration profiles |
+
+### Spec Workflow
+
+| Command | Description |
+|---------|-------------|
+| `eval [type]` | Evaluate specs using LLM judges |
+| `synthesize <type>` | Generate GTM/technical specs from sources |
+| `reconcile` | Generate unified execution spec |
+| `approve <type>` | Approve a spec for reconciliation |
+
+### Export & Integration
+
+| Command | Description |
+|---------|-------------|
+| `export <target>` | Export to target execution system |
+| `targets` | List available export targets |
+| `serve` | Start MCP server for AI integration |
+| `docs <cmd>` | Generate MkDocs documentation |
+
+### Context & Traceability
+
+| Command | Description |
+|---------|-------------|
+| `context <cmd>` | Gather codebase context |
+| `graph <cmd>` | Manage requirement graphs |
 
 ## Status Command
 
