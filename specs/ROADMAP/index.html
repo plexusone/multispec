@@ -3664,56 +3664,31 @@
 </tr>
 <tr>
 <td>v0.4.0</td>
-<td>11</td>
-<td>Context Sources / Grounding (git repos, graphize, MCP servers)</td>
+<td>4, 5, 11</td>
+<td>Reconciliation with conflicts, target adapters (GSD, GasTown, GasCity), Context Sources</td>
 </tr>
 <tr>
 <td>v0.5.0</td>
-<td>4</td>
-<td>Reconciliation engine, spec.md generation</td>
-</tr>
-<tr>
-<td>v0.6.0</td>
-<td>5a</td>
-<td>SpecKit adapter</td>
-</tr>
-<tr>
-<td>v0.7.0</td>
-<td>5b</td>
-<td>GSD adapter</td>
-</tr>
-<tr>
-<td>v0.8.0</td>
-<td>5c</td>
-<td>GasTown/GasCity adapters</td>
-</tr>
-<tr>
-<td>v0.9.0</td>
-<td>6</td>
-<td>Claude Code skills, Kiro integration</td>
-</tr>
-<tr>
-<td>v0.10.0</td>
 <td>10a</td>
 <td>Testing, profile CLI enhancements, MCP resources</td>
 </tr>
 <tr>
-<td>v0.11.0</td>
+<td>v0.6.0</td>
 <td>10b</td>
 <td>Export targets (Linear, Jira, Notion, Confluence)</td>
 </tr>
 <tr>
-<td>v0.12.0</td>
+<td>v0.7.0</td>
 <td>10c</td>
 <td>Spec versioning, cross-project analysis</td>
 </tr>
 <tr>
-<td>v0.13.0</td>
+<td>v0.8.0</td>
 <td>10d</td>
 <td>Real-time collaboration</td>
 </tr>
 <tr>
-<td>v0.14.0</td>
+<td>v0.9.0</td>
 <td>10e</td>
 <td>CI/CD integration (GitHub Actions, pre-commit)</td>
 </tr>
@@ -3801,10 +3776,10 @@
 <p>Custom spec types</p>
 </li>
 <li>
-<p>[ ] RMI-241: Add organization integration docs (<code>docs/organization/</code>)</p>
+<p>[x] RMI-241: Add custom profiles documentation (<code>docs/guides/</code>)</p>
 </li>
-<li>Integration guide</li>
-<li>Configuration reference</li>
+<li>Custom profiles guide (<code>docs/guides/custom-profiles.md</code>)</li>
+<li>CLI profiles reference (<code>docs/cli/profiles.md</code>)</li>
 <li>Template and rubric customization</li>
 </ul>
 <h3 id="configuration-profiles">Configuration Profiles<a class="headerlink" href="#configuration-profiles" title="Permanent link">&para;</a></h3>
@@ -3832,8 +3807,10 @@
 </li>
 <li><code>profiles list</code> - List available profiles</li>
 <li><code>profiles show &lt;name&gt;</code> - Show profile details</li>
+<li><code>profiles export &lt;name&gt; &lt;dir&gt;</code> - Export profile for customization</li>
+<li><code>--profile</code> flag on init command</li>
 <li>
-<p><code>--profile</code> flag on init command</p>
+<p><code>--profile-dir</code> flag for custom profile directories</p>
 </li>
 <li>
 <p>[x] RMI-253: Update example CLIs to use profiles</p>
