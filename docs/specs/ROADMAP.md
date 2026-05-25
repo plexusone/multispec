@@ -111,7 +111,10 @@ Core project setup and CLI scaffolding.
 - [x] RMI-002: Create CLI skeleton with Cobra (`multispec` command)
 - [x] RMI-003: Define core types package (`pkg/types/`)
 - [x] RMI-004: Add configuration loading (`multispec.yaml`)
-- [ ] RMI-005: Set up CI (lint, test, build)
+- [x] RMI-005: Set up CI (lint, test, build)
+  - `.github/workflows/go-ci.yaml` - build and test
+  - `.github/workflows/go-lint.yaml` - golangci-lint
+  - `.github/workflows/go-sast-codeql.yaml` - security analysis
 - [x] RMI-006: Create project README
 
 - [x] RMI-007: Implement `multispec lint` command
@@ -144,9 +147,11 @@ Establish conventions for spec organization and authoring.
   - Create `source/`, `gtm/`, `technical/`, `eval/` subdirectories
   - Generate `multispec.yaml` project config
 
-- [ ] RMI-011: Support CONSTITUTION.md at `docs/specs/CONSTITUTION.md`
+- [x] RMI-011: Support CONSTITUTION.md at `docs/specs/CONSTITUTION.md`
   - Repo-level governance document
   - Optional org-level at `~/.config/multispec/CONSTITUTION.md`
+  - `pkg/config/config.go` - FindConstitution, LoadConstitution functions
+  - Used in synth, reconcile, and export commands
 
 ### MkDocs Integration
 
