@@ -18,6 +18,7 @@ import (
 	"github.com/plexusone/multispec/pkg/context/sources"
 	"github.com/plexusone/multispec/pkg/eval"
 	"github.com/plexusone/multispec/pkg/lint"
+	"github.com/plexusone/multispec/pkg/mkdocs"
 	"github.com/plexusone/multispec/pkg/profiles"
 	"github.com/plexusone/multispec/pkg/reconcile"
 	"github.com/plexusone/multispec/pkg/specgraph"
@@ -1966,4 +1967,205 @@ func getContextConfig(project *types.Project, projectPath string) *ctxpkg.Config
 	}
 
 	return cfg
+}
+
+// docsCmd creates the docs command for MkDocs generation.
+func docsCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	cmd := &cobra.Command{
+		Use:   "docs <subcommand>",
+		Short: "Generate MkDocs-compatible documentation",
+		Long: `Generate markdown files for MkDocs integration.
+
+Subcommands:
+  generate    Generate all index.md files for projects and specs landing page
+  project     Generate index.md for a specific project
+
+Examples:
+  multispec docs generate             # Generate all docs
+  multispec docs project my-project   # Generate docs for specific project`,
+	}
+
+	cmd.AddCommand(docsGenerateCmd(cfg))
+	cmd.AddCommand(docsProjectCmd(cfg))
+
+	return cmd
+}
+
+func docsGenerateCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	cmd := &cobra.Command{
+		Use:   "generate",
+		Short: "Generate all MkDocs index files",
+		Long: `Generate index.md files for all projects and the specs landing page.
+
+Creates:
+  - docs/specs/index.md (specs landing page)
+  - docs/specs/{project}/index.md (for each project)`,
+		RunE: runDocsGenerate,
+	}
+
+	cmd.Flags().Bool("with-graph", false, "Include graph metrics in reports")
+
+	return cmd
+}
+
+func runDocsGenerate(cmd *cobra.Command, args []string) error {
+	withGraph, _ := cmd.Flags().GetBool("with-graph")
+
+	// Find specs directory
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("getting working directory: %w", err)
+	}
+
+	specsDir, err := config.FindSpecsDir(cwd)
+	if err != nil {
+		return fmt.Errorf("not in a multispec workspace (no docs/specs found)")
+	}
+
+	fmt.Println("⋯ Generating MkDocs files...")
+
+	// Generate landing page
+	if err := mkdocs.WriteSpecsLanding(specsDir, mkdocs.SpecsLandingOptions{}); err != nil {
+		return fmt.Errorf("generating specs landing: %w", err)
+	}
+	fmt.Printf("  ✓ Generated %s/index.md\n", filepath.Base(specsDir))
+
+	// Generate project indexes
+	entries, err := os.ReadDir(specsDir)
+	if err != nil {
+		return fmt.Errorf("reading specs directory: %w", err)
+	}
+
+	for _, entry := range entries {
+		if !entry.IsDir() || strings.HasPrefix(entry.Name(), ".") {
+			continue
+		}
+
+		projectPath := filepath.Join(specsDir, entry.Name())
+		configPath := filepath.Join(projectPath, config.ConfigFileName)
+		if _, err := os.Stat(configPath); os.IsNotExist(err) {
+			continue
+		}
+
+		// Load project and generate report
+		project, err := config.Load(projectPath)
+		if err != nil {
+			fmt.Printf("  ⚠ Skipping %s: %v\n", entry.Name(), err)
+			continue
+		}
+
+		report, err := status.Generate(project)
+		if err != nil {
+			fmt.Printf("  ⚠ Skipping %s: %v\n", entry.Name(), err)
+			continue
+		}
+
+		// Add graph metrics if requested
+		if withGraph {
+			extractor := specgraph.NewSpecExtractor(projectPath)
+			graph, err := extractor.Extract()
+			if err == nil {
+				metrics := specgraph.ComputeMetrics(graph)
+				report.GraphMetrics = &status.GraphMetrics{
+					TotalRequirements: metrics.TotalRequirements,
+					TotalUserStories:  metrics.TotalUserStories,
+					TotalConstraints:  metrics.TotalConstraints,
+					TotalDecisions:    metrics.TotalDecisions,
+					TraceCoverage:     metrics.TraceCoverage,
+					ConflictCount:     metrics.ConflictCount,
+				}
+			}
+		}
+
+		opts := mkdocs.ProjectIndexOptions{
+			IncludeGraphLink: withGraph,
+			GraphPath:        "graph/graph.html",
+		}
+
+		if err := mkdocs.WriteProjectIndex(projectPath, report, opts); err != nil {
+			fmt.Printf("  ⚠ Error writing %s/index.md: %v\n", entry.Name(), err)
+			continue
+		}
+		fmt.Printf("  ✓ Generated %s/index.md\n", entry.Name())
+	}
+
+	fmt.Println("\n✓ MkDocs documentation generated")
+	return nil
+}
+
+func docsProjectCmd(cfg *Config) *cobra.Command { //nolint:unparam // cfg reserved for future use
+	cmd := &cobra.Command{
+		Use:   "project [project-name]",
+		Short: "Generate index.md for a specific project",
+		Args:  cobra.MaximumNArgs(1),
+		RunE:  runDocsProject,
+	}
+
+	cmd.Flags().Bool("with-graph", false, "Include graph metrics in report")
+
+	return cmd
+}
+
+func runDocsProject(cmd *cobra.Command, args []string) error {
+	withGraph, _ := cmd.Flags().GetBool("with-graph")
+
+	// Find project path
+	cwd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("getting working directory: %w", err)
+	}
+
+	var projectPath string
+	if len(args) > 0 {
+		specsDir, err := config.FindSpecsDir(cwd)
+		if err != nil {
+			return fmt.Errorf("not in a multispec workspace (no docs/specs found)")
+		}
+		projectPath = filepath.Join(specsDir, args[0])
+	} else {
+		projectPath, err = config.FindProjectRoot(cwd)
+		if err != nil {
+			return fmt.Errorf("not in a multispec project (no multispec.yaml found)")
+		}
+	}
+
+	// Load project and generate report
+	project, err := config.Load(projectPath)
+	if err != nil {
+		return fmt.Errorf("loading project config: %w", err)
+	}
+
+	report, err := status.Generate(project)
+	if err != nil {
+		return fmt.Errorf("generating status report: %w", err)
+	}
+
+	// Add graph metrics if requested
+	if withGraph {
+		extractor := specgraph.NewSpecExtractor(projectPath)
+		graph, err := extractor.Extract()
+		if err == nil {
+			metrics := specgraph.ComputeMetrics(graph)
+			report.GraphMetrics = &status.GraphMetrics{
+				TotalRequirements: metrics.TotalRequirements,
+				TotalUserStories:  metrics.TotalUserStories,
+				TotalConstraints:  metrics.TotalConstraints,
+				TotalDecisions:    metrics.TotalDecisions,
+				TraceCoverage:     metrics.TraceCoverage,
+				ConflictCount:     metrics.ConflictCount,
+			}
+		}
+	}
+
+	opts := mkdocs.ProjectIndexOptions{
+		IncludeGraphLink: withGraph,
+		GraphPath:        "graph/graph.html",
+	}
+
+	if err := mkdocs.WriteProjectIndex(projectPath, report, opts); err != nil {
+		return fmt.Errorf("writing index.md: %w", err)
+	}
+
+	fmt.Printf("✓ Generated %s/index.md\n", project.Name)
+	return nil
 }

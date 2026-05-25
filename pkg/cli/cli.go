@@ -108,6 +108,7 @@ func AddCommandsTo(root *cobra.Command, cfg *Config) {
 		cmds.Export,
 		cmds.Targets,
 		cmds.Graph,
+		cmds.Docs,
 		cmds.Serve,
 		cmds.Profiles,
 		cmds.Context,
@@ -127,6 +128,7 @@ type CommandSet struct {
 	Export     *cobra.Command
 	Targets    *cobra.Command
 	Graph      *cobra.Command
+	Docs       *cobra.Command
 	Serve      *cobra.Command
 	Profiles   *cobra.Command
 	Context    *cobra.Command
@@ -151,6 +153,7 @@ func Commands(cfg *Config) *CommandSet {
 		Export:     exportCmd(cfg),
 		Targets:    targetsCmd(cfg),
 		Graph:      graphCmd(cfg),
+		Docs:       docsCmd(cfg),
 		Serve:      serveCmd(cfg),
 		Profiles:   profilesCmd(cfg),
 		Context:    contextCmd(cfg),
