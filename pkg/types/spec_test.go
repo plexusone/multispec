@@ -159,8 +159,8 @@ func TestSpecTypeIsValid(t *testing.T) {
 
 func TestAllSpecTypes(t *testing.T) {
 	all := AllSpecTypes()
-	if len(all) != 11 {
-		t.Errorf("AllSpecTypes() returned %d types, want 11", len(all))
+	if len(all) != 12 {
+		t.Errorf("AllSpecTypes() returned %d types, want 12", len(all))
 	}
 
 	// Verify order: source, gtm, technical, output
@@ -183,15 +183,15 @@ func TestAllSpecTypes(t *testing.T) {
 		}
 	}
 
-	// Next 2 should be technical
-	for i := 7; i < 9; i++ {
+	// Next 3 should be technical
+	for i := 7; i < 10; i++ {
 		if categories[i] != CategoryTechnical {
 			t.Errorf("AllSpecTypes()[%d] category = %v, want technical", i, categories[i])
 		}
 	}
 
 	// Last 2 should be output
-	for i := 9; i < 11; i++ {
+	for i := 10; i < 12; i++ {
 		if categories[i] != CategoryOutput {
 			t.Errorf("AllSpecTypes()[%d] category = %v, want output", i, categories[i])
 		}
@@ -228,11 +228,11 @@ func TestGTMSpecTypes(t *testing.T) {
 
 func TestTechnicalSpecTypes(t *testing.T) {
 	tech := TechnicalSpecTypes()
-	if len(tech) != 2 {
-		t.Errorf("TechnicalSpecTypes() returned %d types, want 2", len(tech))
+	if len(tech) != 3 {
+		t.Errorf("TechnicalSpecTypes() returned %d types, want 3", len(tech))
 	}
 
-	expected := []SpecType{SpecTypeTRD, SpecTypeIRD}
+	expected := []SpecType{SpecTypeTRD, SpecTypeTPD, SpecTypeIRD}
 	for i, st := range tech {
 		if st != expected[i] {
 			t.Errorf("TechnicalSpecTypes()[%d] = %v, want %v", i, st, expected[i])

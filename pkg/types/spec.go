@@ -20,6 +20,7 @@ const (
 
 	// Technical specs (LLM-generated)
 	SpecTypeTRD SpecType = "trd" // Technical Requirements Document
+	SpecTypeTPD SpecType = "tpd" // Test Plan Document
 	SpecTypeIRD SpecType = "ird" // Infrastructure Requirements Document
 
 	// Output specs
@@ -44,7 +45,7 @@ func (s SpecType) Category() SpecCategory {
 		return CategorySource
 	case SpecTypePress, SpecTypeFAQ, SpecTypeNarrative1P, SpecTypeNarrative6P:
 		return CategoryGTM
-	case SpecTypeTRD, SpecTypeIRD:
+	case SpecTypeTRD, SpecTypeTPD, SpecTypeIRD:
 		return CategoryTechnical
 	case SpecTypeSpec, SpecTypeCurrentTruth:
 		return CategoryOutput
@@ -129,6 +130,7 @@ func AllSpecTypes() []SpecType {
 		SpecTypeNarrative6P,
 		// Technical
 		SpecTypeTRD,
+		SpecTypeTPD,
 		SpecTypeIRD,
 		// Output
 		SpecTypeSpec,
@@ -148,5 +150,5 @@ func GTMSpecTypes() []SpecType {
 
 // TechnicalSpecTypes returns technical spec types.
 func TechnicalSpecTypes() []SpecType {
-	return []SpecType{SpecTypeTRD, SpecTypeIRD}
+	return []SpecType{SpecTypeTRD, SpecTypeTPD, SpecTypeIRD}
 }

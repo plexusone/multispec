@@ -210,6 +210,31 @@ func (s *Synthesizer) buildPrompt(targetType types.SpecType, input SynthesisInpu
 			sb.WriteString("\n\n")
 			sources = append(sources, types.SpecTypeUXD)
 		}
+
+	case types.SpecTypeTPD:
+		sb.WriteString("Generate a Test Plan Document (TPD) based on the following source specs.\n")
+		sb.WriteString("Derive test cases from PRD acceptance criteria, technical tests from TRD, and user journey tests from UXD.\n\n")
+		if input.PRD != "" {
+			sb.WriteString("## Product Requirements Document (PRD)\n\n")
+			sb.WriteString("Use acceptance criteria to derive functional test cases:\n\n")
+			sb.WriteString(input.PRD)
+			sb.WriteString("\n\n")
+			sources = append(sources, types.SpecTypePRD)
+		}
+		if input.TRD != "" {
+			sb.WriteString("## Technical Requirements Document (TRD)\n\n")
+			sb.WriteString("Use API design, data models, and NFRs to derive technical test cases:\n\n")
+			sb.WriteString(input.TRD)
+			sb.WriteString("\n\n")
+			sources = append(sources, types.SpecTypeTRD)
+		}
+		if input.UXD != "" {
+			sb.WriteString("## User Experience Design (UXD)\n\n")
+			sb.WriteString("Use user journeys to derive E2E and UAT test scenarios:\n\n")
+			sb.WriteString(input.UXD)
+			sb.WriteString("\n\n")
+			sources = append(sources, types.SpecTypeUXD)
+		}
 	}
 
 	if input.Constitution != "" {
@@ -250,6 +275,8 @@ func RequiredSources(targetType types.SpecType) []types.SpecType {
 		return []types.SpecType{types.SpecTypeMRD, types.SpecTypePress, types.SpecTypeFAQ}
 	case types.SpecTypeTRD:
 		return []types.SpecType{types.SpecTypeMRD, types.SpecTypePRD}
+	case types.SpecTypeTPD:
+		return []types.SpecType{types.SpecTypePRD, types.SpecTypeTRD, types.SpecTypeUXD}
 	case types.SpecTypeIRD:
 		return []types.SpecType{types.SpecTypeTRD}
 	case types.SpecTypeNarrative1P:
@@ -265,7 +292,7 @@ func RequiredSources(targetType types.SpecType) []types.SpecType {
 func CanSynthesize(specType types.SpecType) bool {
 	switch specType {
 	case types.SpecTypePRD, // PRD is synthesizable via Working Backwards flow
-		types.SpecTypeTRD, types.SpecTypeIRD,
+		types.SpecTypeTRD, types.SpecTypeTPD, types.SpecTypeIRD,
 		types.SpecTypePress, types.SpecTypeFAQ,
 		types.SpecTypeNarrative1P, types.SpecTypeNarrative6P:
 		return true

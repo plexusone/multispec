@@ -701,6 +701,7 @@ Working Backwards Flow:
 
 Technical Synthesis:
   visionspec synthesize trd          # MRD + PRD + UXD + CONSTITUTION + CONTEXT → trd.md
+  visionspec synthesize tpd          # PRD + TRD + UXD → tpd.md (test plan)
   visionspec synthesize ird          # TRD + CONSTITUTION + CONTEXT → ird.md
 
 Narrative Documents:
@@ -708,7 +709,7 @@ Narrative Documents:
   visionspec synthesize narrative-6p # MRD + PRD + UXD → narrative-6p.md
 
 Context grounding:
-  For TRD and IRD, if context sources are configured, the synthesizer
+  For TRD, TPD, and IRD, if context sources are configured, the synthesizer
   will gather codebase context to ground technical decisions in reality.`,
 		Args: cobra.ExactArgs(1),
 		RunE: runSynthesize,
@@ -728,7 +729,7 @@ func runSynthesize(cmd *cobra.Command, args []string) error {
 	// Parse spec type
 	specType := types.SpecType(specTypeArg)
 	if !synth.CanSynthesize(specType) {
-		return fmt.Errorf("cannot synthesize %s (valid: press, faq, prd, trd, ird, narrative-1p, narrative-6p)", specTypeArg)
+		return fmt.Errorf("cannot synthesize %s (valid: press, faq, prd, trd, tpd, ird, narrative-1p, narrative-6p)", specTypeArg)
 	}
 
 	// Find project root
@@ -781,8 +782,8 @@ func runSynthesize(cmd *cobra.Command, args []string) error {
 	// Load constitution from repo-level or org-level
 	input.Constitution = config.LoadConstitution(projectPath)
 
-	// Gather context for TRD/IRD synthesis (grounding)
-	if !noContext && (specType == types.SpecTypeTRD || specType == types.SpecTypeIRD) {
+	// Gather context for TRD/TPD/IRD synthesis (grounding)
+	if !noContext && (specType == types.SpecTypeTRD || specType == types.SpecTypeTPD || specType == types.SpecTypeIRD) {
 		ctxCfg := getContextConfig(project, projectPath)
 		if ctxCfg.HasSources() {
 			fmt.Println("⋯ Gathering codebase context for grounding...")
