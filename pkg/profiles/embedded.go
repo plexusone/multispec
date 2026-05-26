@@ -8,6 +8,7 @@ import "embed"
 //go:embed default/startup/profile.yaml default/startup/templates/*.md default/startup/rubrics/*.rubric.yaml
 //go:embed default/growth/profile.yaml default/growth/templates/*.md default/growth/rubrics/*.rubric.yaml
 //go:embed default/enterprise/profile.yaml default/enterprise/templates/*.md default/enterprise/rubrics/*.rubric.yaml
+//go:embed default/aws/profile.yaml default/aws/templates/*.md default/aws/rubrics/*.rubric.yaml
 var defaultProfiles embed.FS
 
 // DefaultLoader returns a loader for built-in default profiles.
@@ -16,7 +17,9 @@ func DefaultLoader() Loader {
 }
 
 // DefaultProfileNames returns the names of all default profiles.
-var DefaultProfileNames = []string{"0-1", "startup", "growth", "enterprise"}
+// Stage-based profiles: 0-1, startup, growth, enterprise
+// Methodology profiles: aws (Amazon Working Backwards)
+var DefaultProfileNames = []string{"0-1", "startup", "growth", "enterprise", "aws"}
 
 // IsDefaultProfile returns true if the name is a default profile.
 func IsDefaultProfile(name string) bool {
