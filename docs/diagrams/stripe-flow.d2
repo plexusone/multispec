@@ -1,0 +1,101 @@
+# Stripe API-First Flow
+# Layout: ELK
+
+direction: down
+
+title: {
+  label: Stripe API-First Flow
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+# Strategy Phase
+platform: {
+  label: Platform Strategy\n(Developer Market)
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+}
+
+# Contract Phase
+api_spec: {
+  label: API Specification\n(Contract-First)
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  style.stroke: "#1565c0"
+  style.stroke-width: 3
+}
+
+api_review: {
+  label: API Review\n(Governance Team)
+  shape: diamond
+  style.fill: "#fff9c4"
+  style.stroke: "#f9a825"
+}
+
+# Requirements Phase
+api_prd: {
+  label: API Product Requirements\n(Developer Journeys)
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+}
+
+# DX Phase
+dx_spec: {
+  label: Developer Experience Spec\n(Onboarding, SDKs, Docs)
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+}
+
+# Outputs
+docs: {
+  label: Documentation\n(Docs as Product)
+  shape: rectangle
+  style.fill: "#fce4ec"
+  style.stroke: "#c2185b"
+}
+
+sdk: {
+  label: SDKs\n(Multi-language)
+  shape: rectangle
+  style.fill: "#fce4ec"
+  style.stroke: "#c2185b"
+}
+
+# Flow
+platform -> api_prd: "developer needs"
+api_prd -> api_spec: "contract design"
+api_spec -> api_review
+api_review -> api_spec: "revise" {style.stroke-dash: 3}
+api_review -> dx_spec: "approved"
+
+dx_spec -> docs
+dx_spec -> sdk
+
+# Key Principles
+principles: {
+  label: Key Principles
+  near: bottom-right
+  style.fill: "#fafafa"
+
+  p1: "Contract-first design"
+  p2: "Documentation as product"
+  p3: "Developer empathy"
+  p4: "Precision (no ambiguity)"
+}
+
+# VisionSpec Mapping
+mapping: {
+  label: VisionSpec Mapping
+  near: bottom-left
+  style.fill: "#fafafa"
+
+  mrd_map: "MRD → Platform Strategy"
+  prd_map: "PRD → API Product Requirements"
+  trd_map: "TRD → API Specification"
+  uxd_map: "UXD → Developer Experience Spec"
+}
