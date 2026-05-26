@@ -1,0 +1,98 @@
+# Google Design Docs + RFC Flow
+# Layout: ELK
+
+direction: down
+
+title: {
+  label: Google Design Docs + RFC Flow
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+# OKR Phase
+okr: {
+  label: OKR Document\n(Objectives & Key Results)
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+}
+
+# RFC Phase
+rfc: {
+  label: RFC\n(Request for Comments)
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+}
+
+review: {
+  label: Peer Review
+  shape: diamond
+  style.fill: "#fff9c4"
+  style.stroke: "#f9a825"
+}
+
+# Design Doc Phase
+design_doc: {
+  label: Design Doc\n(Technical Specification)
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  style.stroke: "#1565c0"
+}
+
+alternatives: {
+  label: Alternatives\nConsidered
+  shape: rectangle
+  style.fill: "#f3e5f5"
+  style.stroke: "#7b1fa2"
+}
+
+tradeoffs: {
+  label: Explicit\nTradeoffs
+  shape: rectangle
+  style.fill: "#f3e5f5"
+  style.stroke: "#7b1fa2"
+}
+
+# Experiment Phase
+experiment: {
+  label: Experiment Plan\n(A/B Test Design)
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+}
+
+metrics: {
+  label: Success Metrics\n& Guardrails
+  shape: rectangle
+  style.fill: "#ffebee"
+  style.stroke: "#c62828"
+}
+
+# Flow
+okr -> rfc: "strategic alignment"
+rfc -> review
+review -> design_doc: "approved"
+review -> rfc: "revise" {style.stroke-dash: 3}
+
+design_doc -> alternatives
+design_doc -> tradeoffs
+alternatives -> design_doc
+tradeoffs -> design_doc
+
+design_doc -> experiment: "implementation"
+experiment -> metrics
+
+# VisionSpec Mapping
+mapping: {
+  label: VisionSpec Mapping
+  near: bottom-left
+  style.fill: "#fafafa"
+
+  mrd_map: "MRD → OKR Document"
+  prd_map: "PRD → RFC"
+  trd_map: "TRD → Design Doc"
+  uxd_map: "UXD → Experiment Plan"
+}

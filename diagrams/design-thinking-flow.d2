@@ -1,0 +1,107 @@
+# Stanford d.school Design Thinking Flow
+# Layout: ELK
+
+direction: right
+
+title: {
+  label: Design Thinking (Stanford d.school)
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+# Five Stages
+empathize: {
+  label: EMPATHIZE\n\nObserve\nEngage\nImmerse
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+  style.stroke-width: 3
+}
+
+define: {
+  label: DEFINE\n\nSynthesize\nPOV Statement\nHMW Questions
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  style.stroke: "#1565c0"
+  style.stroke-width: 3
+}
+
+ideate: {
+  label: IDEATE\n\nBrainstorm\nDiverge\nWild Ideas
+  shape: rectangle
+  style.fill: "#fff3e0"
+  style.stroke: "#ef6c00"
+  style.stroke-width: 3
+}
+
+prototype: {
+  label: PROTOTYPE\n\nBuild\nMake Tangible\nFail Fast
+  shape: rectangle
+  style.fill: "#f3e5f5"
+  style.stroke: "#7b1fa2"
+  style.stroke-width: 3
+}
+
+test: {
+  label: TEST\n\nFeedback\nIterate\nLearn
+  shape: rectangle
+  style.fill: "#ffebee"
+  style.stroke: "#c62828"
+  style.stroke-width: 3
+}
+
+# Flow
+empathize -> define
+define -> ideate
+ideate -> prototype
+prototype -> test
+
+# Iteration arrows
+test -> prototype: "refine" {style.stroke-dash: 3}
+test -> define: "reframe" {style.stroke-dash: 3}
+test -> empathize: "deeper understanding" {style.stroke-dash: 3}
+
+# VisionSpec Mapping
+mapping: {
+  label: VisionSpec Mapping
+  near: bottom-center
+  style.fill: "#fafafa"
+
+  row1: {
+    direction: right
+
+    empathy_map: {
+      label: Empathy Map\n(MRD)
+      shape: rectangle
+      style.fill: "#e8f5e9"
+    }
+
+    hmw: {
+      label: HMW Questions\n(MRD)
+      shape: rectangle
+      style.fill: "#e3f2fd"
+    }
+
+    journey: {
+      label: Journey Map\n(UXD)
+      shape: rectangle
+      style.fill: "#fff3e0"
+    }
+
+    proto_spec: {
+      label: Prototype Spec\n(PRD)
+      shape: rectangle
+      style.fill: "#f3e5f5"
+    }
+
+    test_plan: {
+      label: Test Plan\n(UXD)
+      shape: rectangle
+      style.fill: "#ffebee"
+    }
+
+    empathy_map -> hmw -> journey -> proto_spec -> test_plan
+  }
+}

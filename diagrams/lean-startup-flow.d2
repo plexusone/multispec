@@ -1,0 +1,113 @@
+# Lean Startup Build-Measure-Learn Flow
+# Layout: ELK
+
+direction: right
+
+title: {
+  label: Lean Startup Build-Measure-Learn
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+# The Loop
+ideas: {
+  label: IDEAS
+  shape: rectangle
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+}
+
+build: {
+  label: BUILD\n(MVP)
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  style.stroke: "#1565c0"
+  style.stroke-width: 3
+}
+
+product: {
+  label: PRODUCT
+  shape: rectangle
+  style.fill: "#fff3e0"
+  style.stroke: "#ef6c00"
+}
+
+measure: {
+  label: MEASURE\n(Actionable Metrics)
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  style.stroke: "#1565c0"
+  style.stroke-width: 3
+}
+
+data: {
+  label: DATA
+  shape: rectangle
+  style.fill: "#fff3e0"
+  style.stroke: "#ef6c00"
+}
+
+learn: {
+  label: LEARN\n(Validated Learning)
+  shape: rectangle
+  style.fill: "#e3f2fd"
+  style.stroke: "#1565c0"
+  style.stroke-width: 3
+}
+
+# Decision
+decision: {
+  label: Pivot or\nPersevere?
+  shape: diamond
+  style.fill: "#ffebee"
+  style.stroke: "#c62828"
+}
+
+# Flow
+ideas -> build
+build -> product
+product -> measure
+measure -> data
+data -> learn
+learn -> decision
+
+decision -> ideas: "iterate" {
+  style.stroke: "#2e7d32"
+}
+
+# VisionSpec Documents
+visionspec: {
+  label: VisionSpec Documents
+  near: bottom-center
+  style.fill: "#fafafa"
+
+  hypothesis: {
+    label: Hypothesis Doc\n(MRD)
+    shape: rectangle
+    style.fill: "#e8f5e9"
+  }
+
+  mvp_prd: {
+    label: MVP PRD\n(PRD)
+    shape: rectangle
+    style.fill: "#e8f5e9"
+  }
+
+  experiment: {
+    label: Experiment Design\n(UXD)
+    shape: rectangle
+    style.fill: "#e8f5e9"
+  }
+
+  pivot: {
+    label: Pivot/Persevere\nDecision Doc
+    shape: rectangle
+    style.fill: "#fce4ec"
+  }
+
+  hypothesis -> mvp_prd
+  mvp_prd -> experiment
+  experiment -> pivot
+}

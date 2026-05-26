@@ -1,0 +1,120 @@
+# Jobs to be Done Flow
+# Layout: ELK
+
+direction: down
+
+title: {
+  label: Jobs to be Done (JTBD)
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+# Discovery Phase
+job_discovery: {
+  label: Job Discovery
+  style.fill: "#e8f5e9"
+  style.stroke: "#2e7d32"
+
+  executor: {
+    label: Who is the\njob executor?
+    shape: rectangle
+  }
+
+  job: {
+    label: What job are they\ntrying to get done?
+    shape: rectangle
+  }
+
+  context: {
+    label: In what\ncontext?
+    shape: rectangle
+  }
+
+  executor -> job -> context
+}
+
+# Outcome Discovery
+outcomes: {
+  label: Desired Outcomes
+  style.fill: "#e3f2fd"
+  style.stroke: "#1565c0"
+
+  functional: {
+    label: Functional\nOutcomes
+    shape: rectangle
+  }
+
+  emotional: {
+    label: Emotional\nOutcomes
+    shape: rectangle
+  }
+
+  social: {
+    label: Social\nOutcomes
+    shape: rectangle
+  }
+}
+
+# Quantification
+quantify: {
+  label: Quantify Needs
+  style.fill: "#fff3e0"
+  style.stroke: "#ef6c00"
+
+  importance: {
+    label: Importance\n(How important?)
+    shape: rectangle
+  }
+
+  satisfaction: {
+    label: Satisfaction\n(Current solutions?)
+    shape: rectangle
+  }
+
+  opportunity: {
+    label: Opportunity\nScore
+    shape: rectangle
+    style.fill: "#ffebee"
+    style.stroke: "#c62828"
+  }
+
+  importance -> opportunity
+  satisfaction -> opportunity
+}
+
+# Strategy
+strategy: {
+  label: Product Strategy
+  shape: rectangle
+  style.fill: "#f3e5f5"
+  style.stroke: "#7b1fa2"
+  style.stroke-width: 3
+}
+
+# Flow
+job_discovery -> outcomes
+outcomes -> quantify
+quantify -> strategy
+
+# Formula
+formula: {
+  label: "Opportunity = Importance + (Importance - Satisfaction)"
+  shape: text
+  near: bottom-center
+  style.font-size: 14
+  style.italic: true
+}
+
+# VisionSpec Mapping
+mapping: {
+  label: VisionSpec Mapping
+  near: bottom-left
+  style.fill: "#fafafa"
+
+  mrd_map: "MRD → Job Statement & Context"
+  prd_map: "PRD → Outcome-Driven Requirements"
+  uxd_map: "UXD → Job Map & Testing"
+  trd_map: "TRD → Solution Architecture"
+}
