@@ -8,9 +8,10 @@ import (
 	"path/filepath"
 	"strings"
 
+	"gopkg.in/yaml.v3"
+
 	"github.com/ProductBuildersHQ/visionspec/pkg/rubrics"
 	"github.com/ProductBuildersHQ/visionspec/pkg/templates"
-	"gopkg.in/yaml.v3"
 )
 
 // Loader loads profiles by name.
