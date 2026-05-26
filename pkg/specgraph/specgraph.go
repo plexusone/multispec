@@ -346,6 +346,8 @@ func (e *SpecExtractor) extractAcceptanceCriteria(section Section, specType type
 }
 
 // extractConstraints extracts constraint nodes.
+//
+//nolint:dupl // Similar structure to extractDecisions is intentional for clarity
 func (e *SpecExtractor) extractConstraints(section Section, specType types.SpecType) []*graph.Node {
 	var nodes []*graph.Node
 
